@@ -8,6 +8,13 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;  // Links rigidbody to script to allow for movement
     Vector2 movement;  // Stores x and y 
 
+    Character character;
+
+    private void Awake()
+    {
+        character = GetComponent<Character>();
+    }
+
     private void Update()
     {
         // Input
@@ -20,5 +27,16 @@ public class PlayerController : MonoBehaviour
     {
         // Movement
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        
+        //tells character script if unit is moving or not
+        if(movement != Vector2.zero)
+        {
+            character.Moving(movement);
+        }
+
+        else
+        {
+            character.StoppedMoving();
+        }
     }
 }
