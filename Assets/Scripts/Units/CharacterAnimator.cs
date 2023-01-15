@@ -17,8 +17,8 @@ public class CharacterAnimator : MonoBehaviour
 
     bool wasPreviouslyMoving_;
 
-    SpriteAnimator walkDownAnim_;
-    SpriteAnimator walkUpAnim_;
+    //SpriteAnimator walkDownAnim_;
+    //SpriteAnimator walkUpAnim_;
     SpriteAnimator walkLeftAnim_;
     SpriteAnimator walkRightAnim_;
 
@@ -30,8 +30,8 @@ public class CharacterAnimator : MonoBehaviour
     {
         //setting different animation loops depending on actions
         spriteRenderer_ = GetComponent<SpriteRenderer>();
-        walkDownAnim_ = new SpriteAnimator(walkDownSprites, spriteRenderer_);
-        walkUpAnim_ = new SpriteAnimator(walkUpSprites, spriteRenderer_);
+        //walkDownAnim_ = new SpriteAnimator(walkDownSprites, spriteRenderer_);
+        //walkUpAnim_ = new SpriteAnimator(walkUpSprites, spriteRenderer_);
         walkLeftAnim_ = new SpriteAnimator(walkLeftSprites, spriteRenderer_);
         walkRightAnim_ = new SpriteAnimator(walkRightSprites, spriteRenderer_);
 
