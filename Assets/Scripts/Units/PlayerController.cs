@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5.0f;
     public Rigidbody2D rb;  // Links rigidbody to script to allow for movement
     Vector2 movement;  // Stores x and y 
+    public GameManager gameManager;
 
     Character character;
 
@@ -26,7 +27,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Movement
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (gameManager.gameActive) //Only allow movement when game is active
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
         
         //tells character script if unit is moving or not
         if(movement != Vector2.zero)
