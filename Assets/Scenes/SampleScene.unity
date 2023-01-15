@@ -2493,15 +2493,17 @@ MonoBehaviour:
   - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
   - {fileID: 755194093, guid: 59116a8037605014a93709bccee69239, type: 3}
   walkLeftSprites:
-  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
-  - {fileID: 1041680066, guid: 59116a8037605014a93709bccee69239, type: 3}
-  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
   - {fileID: 755194093, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 1821494576, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 2098850134, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 741118958, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 182652041, guid: 59116a8037605014a93709bccee69239, type: 3}
   walkRightSprites:
   - {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
   - {fileID: -1793404578, guid: 59116a8037605014a93709bccee69239, type: 3}
-  - {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
   - {fileID: -642951553, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 1041680066, guid: 59116a8037605014a93709bccee69239, type: 3}
 --- !u!114 &1472452353
 MonoBehaviour:
   m_ObjectHideFlags: 0

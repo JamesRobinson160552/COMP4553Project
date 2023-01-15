@@ -109,7 +109,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 68
+        y: 168
         width: 32
         height: 32
       alignment: 0
@@ -130,7 +130,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 68
+        y: 168
         width: 32
         height: 32
       alignment: 0
@@ -151,7 +151,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 68
+        y: 168
         width: 32
         height: 32
       alignment: 0
@@ -171,8 +171,8 @@ TextureImporter:
       name: Plague_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 36
+        x: 96
+        y: 168
         width: 32
         height: 32
       alignment: 0
@@ -192,8 +192,8 @@ TextureImporter:
       name: Plague_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 36
+        x: 128
+        y: 168
         width: 32
         height: 32
       alignment: 0
@@ -213,8 +213,8 @@ TextureImporter:
       name: Plague_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 36
+        x: 0
+        y: 136
         width: 32
         height: 32
       alignment: 0
@@ -226,6 +226,90 @@ TextureImporter:
       bones: []
       spriteID: 8982d9cfd83ef16498bfd6d05bafeac3
       internalID: 755194093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plague_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d38ec58db22323e46814bbd6c231aa18
+      internalID: 1821494576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plague_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3f635ec2fc551843a1107a18708d303
+      internalID: 741118958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plague_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d1bc169c4e4e424892c362d27e47f22
+      internalID: 2098850134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plague_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 136
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3d1f67080a3d6f448a7203a73cd4972
+      internalID: 182652041
       vertices: []
       indices: 
       edges: []
@@ -245,8 +329,12 @@ TextureImporter:
       Plague_5: 755194093
       Plague_0: 679888694
       Plague_2: -642951553
+      Plague_8: 2098850134
+      Plague_6: 1821494576
+      Plague_9: 182652041
       Plague_4: 1041680066
       Plague_1: -1793404578
+      Plague_7: 741118958
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

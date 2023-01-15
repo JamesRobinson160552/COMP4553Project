@@ -31,7 +31,15 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
         timer += Time.deltaTime;
         if (timer > frameRate)
         {
-            currentFrame = (currentFrame + 1) % frames.Count; //resets animation loop when complete
+            currentFrame = (currentFrame + 1) % frames.Count; //resets animation loop when complete\
+
+
+            //frame 0 is idle, so we want to skip that
+            if(currentFrame == 0)
+            {
+                currentFrame++;
+            }
+
             spriteRenderer.sprite = frames[currentFrame]; //displays current frame
             timer -= frameRate;
         }
