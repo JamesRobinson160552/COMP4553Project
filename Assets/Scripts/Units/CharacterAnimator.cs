@@ -35,7 +35,7 @@ public class CharacterAnimator : MonoBehaviour
         walkLeftAnim_ = new SpriteAnimator(walkLeftSprites, spriteRenderer_);
         walkRightAnim_ = new SpriteAnimator(walkRightSprites, spriteRenderer_);
 
-        currentAnim_ = walkDownAnim_;
+        currentAnim_ = walkRightAnim_;
     }
 
     private void Update()
