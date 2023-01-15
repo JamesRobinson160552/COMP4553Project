@@ -2444,7 +2444,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1783566391, guid: 843d6e1802792684cb0fce53db578049, type: 3}
+  m_Sprite: {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2483,25 +2483,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkDownSprites:
-  - {fileID: -1783566391, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: -554699346, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 1928923933, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: -1552915418, guid: 843d6e1802792684cb0fce53db578049, type: 3}
+  - {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: -1793404578, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: -642951553, guid: 59116a8037605014a93709bccee69239, type: 3}
   walkUpSprites:
-  - {fileID: 1964166344, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: -674678235, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: -1385343143, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 67760559, guid: 843d6e1802792684cb0fce53db578049, type: 3}
+  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 1041680066, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 755194093, guid: 59116a8037605014a93709bccee69239, type: 3}
   walkLeftSprites:
-  - {fileID: -866288996, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 869119082, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 294843596, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 413426558, guid: 843d6e1802792684cb0fce53db578049, type: 3}
+  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 1041680066, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 441379754, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 755194093, guid: 59116a8037605014a93709bccee69239, type: 3}
   walkRightSprites:
-  - {fileID: -33760710, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 497099455, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: 962982110, guid: 843d6e1802792684cb0fce53db578049, type: 3}
-  - {fileID: -1230504277, guid: 843d6e1802792684cb0fce53db578049, type: 3}
+  - {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: -1793404578, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: 679888694, guid: 59116a8037605014a93709bccee69239, type: 3}
+  - {fileID: -642951553, guid: 59116a8037605014a93709bccee69239, type: 3}
 --- !u!114 &1472452353
 MonoBehaviour:
   m_ObjectHideFlags: 0

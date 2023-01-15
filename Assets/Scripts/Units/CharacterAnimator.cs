@@ -43,17 +43,7 @@ public class CharacterAnimator : MonoBehaviour
         var prevAnim_ = currentAnim_;
 
         //set current animation depending on which direction is input
-        if (moveY == 1)
-        {
-            currentAnim_ = walkUpAnim_;
-        }
-
-        else if (moveY == -1)
-        {
-            currentAnim_ = walkDownAnim_;
-        }
-
-        else if (moveX == 1)
+        if (moveX == 1)
         {
             currentAnim_ = walkRightAnim_;
         }
@@ -61,6 +51,16 @@ public class CharacterAnimator : MonoBehaviour
         else if (moveX == -1)
         {
             currentAnim_ = walkLeftAnim_;
+        }
+
+        else if (moveY == 1)
+        {
+            currentAnim_ = walkUpAnim_;
+        }
+
+        else if (moveY == -1)
+        {
+            currentAnim_ = walkDownAnim_;
         }
 
         //if running against wall no animations will be played
