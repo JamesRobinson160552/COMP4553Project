@@ -19,12 +19,7 @@ public class Character : MonoBehaviour
         animator.moveX = Mathf.Clamp(moveVector.x, -1f, 1f);
         animator.moveY = Mathf.Clamp(moveVector.y, -1f, 1f);
 
-        animator.isMoving = true;
-    }
-
-    public void StoppedMoving()
-    {
-        animator.isMoving = false;
+        animator.ChangeIsMoving(true);
     }
 
     //allows for reference of  animator through characters

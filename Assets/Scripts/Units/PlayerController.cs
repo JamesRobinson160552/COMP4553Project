@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameManager gameManager;
 
     Character character;
+    float timeRemaining_;
 
     private void Awake()
     {
@@ -21,6 +22,12 @@ public class PlayerController : MonoBehaviour
         // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if(Input.GetMouseButton(0))
+        {
+            character.Animator.AttackPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            timeRemaining_ = 0.5f;
+        }
     }
 
     // Use FixedUpdate as it is executed on a fixed timer (default = 50times/second)
@@ -30,6 +37,15 @@ public class PlayerController : MonoBehaviour
         if (gameManager.gameActive) //Only allow movement when game is active
         {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            
+            if(timeRemaining_ > 0)
+            {
+                timeRemaining_ -= Time.fixedDeltaTime;
+            }
+            else
+            {
+                character.Animator.ChangeIsAttacking(false);
+            }
         }
         
         //tells character script if unit is moving or not
@@ -40,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            character.StoppedMoving();
+            character.Animator.ChangeIsMoving(false);
         }
     }
 }

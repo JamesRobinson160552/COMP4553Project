@@ -6,76 +6,144 @@ using UnityEngine;
 public class CharacterAnimator : MonoBehaviour
 {
     //list of different sprites 
-    [SerializeField] List<Sprite> walkDownSprites;
-    [SerializeField] List<Sprite> walkUpSprites;
+    [SerializeField] List<Sprite> walkLeftArmSprites;
+    [SerializeField] List<Sprite> walkRightArmSprites;
+    [SerializeField] List<Sprite> attackLeftSprites;
+    [SerializeField] List<Sprite> attackRightSprites;
     [SerializeField] List<Sprite> walkLeftSprites;
     [SerializeField] List<Sprite> walkRightSprites;
 
     public float moveX { get; set; }
     public float moveY { get; set; }
-    public bool isMoving { get; set; }
+    bool isMoving { get; set; }
+    bool isAttacking {get; set; }
 
     bool wasPreviouslyMoving_;
+    bool wasAttacking_;
+    bool isAttackingLeft_;
 
-    //SpriteAnimator walkDownAnim_;
-    //SpriteAnimator walkUpAnim_;
+    Vector3 target;
+
+    SpriteAnimator walkLeftArmAnim_;
+    SpriteAnimator walkRightArmAnim_;
+
+    SpriteAnimator attackLeft_;
+    SpriteAnimator attackRight_;
+
     SpriteAnimator walkLeftAnim_;
     SpriteAnimator walkRightAnim_;
 
-    SpriteAnimator currentAnim_; //selected animation
+    SpriteAnimator currentAnimBody_; //selected animation
+    SpriteAnimator currentAnimArm_;
 
     SpriteRenderer spriteRenderer_;
+    SpriteRenderer spriteRendererArm_;
+
+    List<SpriteRenderer> SpriteRenderers_ = new List<SpriteRenderer>();
 
     private void Start()
     {
-        //setting different animation loops depending on actions
-        spriteRenderer_ = GetComponent<SpriteRenderer>();
-        //walkDownAnim_ = new SpriteAnimator(walkDownSprites, spriteRenderer_);
-        //walkUpAnim_ = new SpriteAnimator(walkUpSprites, spriteRenderer_);
-        walkLeftAnim_ = new SpriteAnimator(walkLeftSprites, spriteRenderer_);
-        walkRightAnim_ = new SpriteAnimator(walkRightSprites, spriteRenderer_);
 
-        currentAnim_ = walkRightAnim_;
+        GetComponentsInChildren(SpriteRenderers_);
+
+        walkLeftArmAnim_ = new SpriteAnimator(walkLeftArmSprites, SpriteRenderers_[1]);
+        walkRightArmAnim_ = new SpriteAnimator(walkRightArmSprites, SpriteRenderers_[1]);
+
+        attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[1]);
+        attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[1]);
+
+        walkLeftAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
+        walkRightAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+
+        currentAnimBody_ = walkRightAnim_;
+        currentAnimArm_ = walkRightArmAnim_;
+
+        isAttacking = false;
+        isMoving = false;
     }
 
     private void Update()
     {
-        var prevAnim_ = currentAnim_;
+        var prevAnim_ = currentAnimBody_;
 
         //set current animation depending on which direction is input
-        if (moveX == 1 || (moveY == 1 && moveX == 0))
+        if(isAttacking == false)
         {
-            currentAnim_ = walkRightAnim_;
+            if (moveX == 1 || (moveY == 1 && moveX == 0))
+            {
+                currentAnimBody_ = walkRightAnim_;
+                currentAnimArm_ = walkRightArmAnim_;
+            }
+
+            else
+            {
+                currentAnimBody_ = walkLeftAnim_;
+                currentAnimArm_ = walkLeftArmAnim_;
+            }
         }
 
         else
         {
-            currentAnim_ = walkLeftAnim_;
+            if (isAttackingLeft_ == false)
+            {
+                currentAnimBody_ = walkRightAnim_;
+                currentAnimArm_ = attackRight_;
+            }
+
+            else
+            {
+                currentAnimBody_ = walkLeftAnim_;
+                currentAnimArm_ = attackLeft_;
+            }
         }
 
-        //else if (moveY == 1)
-        //{
-        //    currentAnim_ = walkUpAnim_;
-        //}
-
-        //else if (moveY == -1)
-        //{
-        //    currentAnim_ = walkDownAnim_;
-        //}
-
         //if running against wall no animations will be played
-        if (currentAnim_ != prevAnim_ || isMoving != wasPreviouslyMoving_)
-            currentAnim_.Start();
+        if (currentAnimBody_ != prevAnim_ || isMoving != wasPreviouslyMoving_)
+        {
+            currentAnimBody_.Start();
+            currentAnimArm_.Start();
+        }
 
         //plays loop
         if (isMoving)
-            currentAnim_.HandleUpdate();
+        {
+            currentAnimBody_.HandleUpdate();
+            currentAnimArm_.HandleUpdate();
+        }
 
         else //resets animation loop when current loop is stopped
-            spriteRenderer_.sprite = currentAnim_.Frames[0];
+        {
+            SpriteRenderers_[0].sprite = currentAnimBody_.Frames[0];
+            SpriteRenderers_[1].sprite = currentAnimArm_.Frames[0];
+        }
 
         wasPreviouslyMoving_ = isMoving;
     }
+
+    public void ChangeIsMoving(bool state)
+    {
+        isMoving = state;
+    }
+
+    public void ChangeIsAttacking(bool state)
+    {
+        isAttacking = state;
+    }
+
+    public void AttackPos(Vector3 targetSpot)
+    {
+        isAttacking = true;
+
+        if(transform.position.x > targetSpot.x)
+        {
+            isAttackingLeft_ = true;
+        }
+        else
+        {
+            isAttackingLeft_ = false;
+        }
+    }
+    
 
 }
 
