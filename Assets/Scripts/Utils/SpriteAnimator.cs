@@ -9,8 +9,8 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
     List<Sprite> frames;
 
     float frameRate;
-    int currentFrame;
-    float timer;
+    public int currentFrame;
+    public float timer;
 
     public SpriteAnimator(List<Sprite> frames, SpriteRenderer spriteRenderer, float frameRate=0.16f)
     {
@@ -28,6 +28,7 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
 
     public void HandleUpdate()
     {
+
         timer += Time.deltaTime;
         if (timer > frameRate)
         {
@@ -39,6 +40,8 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
             {
                 currentFrame++;
             }
+
+            Debug.Log(currentFrame);
 
             spriteRenderer.sprite = frames[currentFrame]; //displays current frame
             timer -= frameRate;

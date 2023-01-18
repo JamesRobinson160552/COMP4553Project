@@ -19,7 +19,6 @@ public class CharacterAnimator : MonoBehaviour
     bool isAttacking {get; set; }
 
     bool wasPreviouslyMoving_;
-    bool wasAttacking_;
     bool isAttackingLeft_;
 
     Vector3 target;
@@ -81,7 +80,7 @@ public class CharacterAnimator : MonoBehaviour
                 currentAnimArm_ = walkLeftArmAnim_;
             }
         }
-
+        //have character face in direction of attack
         else
         {
             if (isAttackingLeft_ == false)
@@ -104,11 +103,14 @@ public class CharacterAnimator : MonoBehaviour
             currentAnimArm_.Start();
         }
 
-        //plays loop
+        //plays loop, first 2 lines keep animations synced
         if (isMoving)
         {
+            currentAnimArm_.currentFrame = currentAnimBody_.currentFrame;
+            currentAnimArm_.timer = currentAnimBody_.timer;
             currentAnimBody_.HandleUpdate();
             currentAnimArm_.HandleUpdate();
+
         }
 
         else //resets animation loop when current loop is stopped
