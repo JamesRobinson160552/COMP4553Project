@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour
 
     public int currentHP { get; set;} 
 
+    public UnitBase GetUnitBase { get { return unitBase_ ;} }
+
     void Start()
     {
         currentHP = unitBase_.MaxHP;
