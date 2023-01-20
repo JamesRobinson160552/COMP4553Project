@@ -48,10 +48,23 @@ public class Autoattack : MonoBehaviour
         }
 
     }
-    void Shoot()
+    public void Shoot()
     {
         // Instantiates bullet at location of aimer
         GameObject bullet = Instantiate(AABullet, aimer.position, aimer.rotation);
+
+        // Access the bullet's rigidbody and store it as rb
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+
+        // Add force to the newly instantiated rb
+        rb.AddForce(aimer.up * bulletForce, ForceMode2D.Impulse);
+    }
+
+    public void SpecialShoot()
+    {
+        // Instantiates bullet at location of aimer
+        GameObject bullet = Instantiate(AABullet, aimer.position, aimer.rotation);
+        bullet.GetComponent<SpriteRenderer>().material.color = new Color(256, 256, 256, 1);
 
         // Access the bullet's rigidbody and store it as rb
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
