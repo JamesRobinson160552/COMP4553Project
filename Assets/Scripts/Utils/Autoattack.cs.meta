@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 249cc13bb250d754495f85b6c176876e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - arm: {instanceID: 0}
+  - AABullet: {fileID: 3956289644360299948, guid: 87449a7395bc85e429e748966510644c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
