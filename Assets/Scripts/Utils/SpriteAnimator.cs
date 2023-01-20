@@ -41,8 +41,6 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
                 currentFrame++;
             }
 
-            Debug.Log(currentFrame);
-
             spriteRenderer.sprite = frames[currentFrame]; //displays current frame
             timer -= frameRate;
         }
