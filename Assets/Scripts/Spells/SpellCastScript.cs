@@ -19,7 +19,7 @@ public class SpellCastScript : MonoBehaviour
         
     }
 
-    void castWall()
+    public void castWall()
     {
         Vector3 position = Input.mousePosition;
         Instantiate(spellPrefabs[0], position, spellPrefabs[0].transform.rotation);

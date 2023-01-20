@@ -2735,6 +2735,7 @@ GameObject:
   - component: {fileID: 1472452354}
   - component: {fileID: 1472452355}
   - component: {fileID: 1472452356}
+  - component: {fileID: 1472452357}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2959,6 +2960,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellPrefabs:
   - {fileID: 3870324735010202040, guid: f805f12ce3961984295fbccedee7bb03, type: 3}
+--- !u!114 &1472452357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472452347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58eb2769ac2ffe547a1015156393d9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Spell1: 6400640064006400
+  Spell2: 
 --- !u!1 &1492890602
 GameObject:
   m_ObjectHideFlags: 3
@@ -3182,6 +3197,7 @@ MonoBehaviour:
   gameActive: 0
   titleScreen: {fileID: 1753064636}
   enemyPrefabs:
+  - {fileID: 7483008790758486128, guid: 2437a5390495a9b4e92e00669399b039, type: 3}
   - {fileID: 7483008790758486128, guid: 2437a5390495a9b4e92e00669399b039, type: 3}
   spawnStartDelay: 2
   spawnInterval: 5

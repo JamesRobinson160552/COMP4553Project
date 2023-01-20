@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject titleScreen;
     public GameObject[] enemyPrefabs;
     public float spawnStartDelay = 2.0f; //Seconds
-    public float spawnInterval = 12.0f; //Seconds
+    public float spawnInterval = 2.0f; //Seconds
 
 
     // Start is called before the first frame update
@@ -28,13 +28,23 @@ public class GameManager : MonoBehaviour
     {
         gameActive = true;
         titleScreen.gameObject.SetActive(false);
+        StartCoroutine(SpawnEnemies());
     }
 
-    void SpawnEnemy()
+    void SpawnEnemyPrefab()
     {
         float spawnPositionx = Random.Range(0.0f, 5.0f);
         float spawnPositiony = Random.Range(0.0f, 5.0f);
         Vector3 spawnPosition = new Vector3(spawnPositionx, spawnPositiony, 0.0f);
         Instantiate(enemyPrefabs[0], spawnPosition, enemyPrefabs[0].transform.rotation);
+    }
+
+    IEnumerator SpawnEnemies()
+    {
+        while(gameActive)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+            SpawnEnemyPrefab();
+        }
     }
 }
