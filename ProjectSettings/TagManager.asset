@@ -38,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BG
-    uniqueID: 2623234459
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -49,4 +46,7 @@ TagManager:
     locked: 0
   - name: PlayerArm
     uniqueID: 2855065421
+    locked: 0
+  - name: Wall
+    uniqueID: 1270126449
     locked: 0
