@@ -6,7 +6,7 @@ using UnityEngine;
 public class WallSpellScript : MonoBehaviour
 {
 
-    private int lifeSpanFrames = 360; //Note: 60fps
+    private int lifeSpanFrames = 3600; //Note: 60fps
     public int lifeRemaining;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class WallSpellScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lifeRemaining ==0)
+        if (lifeRemaining == 0)
         {
             Destroy(gameObject);
         }

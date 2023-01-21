@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpellController : MonoBehaviour
 {
     [SerializeField] Autoattack attack;
+    [SerializeField] SpellCastScript spellLists;
     [SerializeField] List<char> Spell1;
     [SerializeField] List<char> Spell2;
 
@@ -41,6 +42,7 @@ public class SpellController : MonoBehaviour
         }
         else if(ComparingList(Spell2))
         {
+            spellLists.castWall();
             Debug.Log("Special Spel2"); //call diff shooting scripts here
         }
         else

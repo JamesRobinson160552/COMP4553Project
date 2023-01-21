@@ -23,10 +23,10 @@ public class Autoattack : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    Shoot();
+        //}
     }
 
     private void FixedUpdate()
