@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9356f738cbb2748ab1a33a4d44696d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallSpell: {fileID: 0}
   lifeRemaining: 0
   spellActivate: 4100410041004100
   spellName: Wall
@@ -3047,7 +3046,6 @@ GameObject:
   - component: {fileID: 1472452353}
   - component: {fileID: 1472452354}
   - component: {fileID: 1472452355}
-  - component: {fileID: 1472452356}
   - component: {fileID: 1472452357}
   m_Layer: 0
   m_Name: Player
@@ -3263,20 +3261,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5217378, y: 2}
   m_EdgeRadius: 0
---- !u!114 &1472452356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472452347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea682143776e3fa48981c2db6d9aa3b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellPrefabs:
-  - {fileID: 3870324735010202040, guid: f805f12ce3961984295fbccedee7bb03, type: 3}
 --- !u!114 &1472452357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3290,7 +3274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: {fileID: 1201846800}
-  wallSpell: {fileID: 7676363984756647559, guid: f805f12ce3961984295fbccedee7bb03, type: 3}
+  allSpells: {fileID: 1639248070}
 --- !u!1 &1475397393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,6 +3530,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1635139359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1635139360}
+  - component: {fileID: 1635139361}
+  m_Layer: 0
+  m_Name: Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1635139360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635139359}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.189669, y: -7.0207443, z: 0.01160562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1639248071}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1635139361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635139359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9356f738cbb2748ab1a33a4d44696d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeRemaining: 3600
+  spellActivate: 4100410041004100
+  spellName: Wall
+  spellPrefabs:
+  - {fileID: 3870324735010202040, guid: f805f12ce3961984295fbccedee7bb03, type: 3}
 --- !u!1 &1639248069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3557,7 +3590,7 @@ GameObject:
   - component: {fileID: 1639248071}
   - component: {fileID: 1639248070}
   m_Layer: 0
-  m_Name: Spells
+  m_Name: ALL SPELLS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3588,7 +3621,8 @@ Transform:
   m_LocalPosition: {x: -2.0188196, y: 5.187339, z: -0.16355985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1635139360}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Destroys the wall created after a given length of time;
-public class WallSpellScript : SpellBase
+public class WallSpellScript : MonoBehaviour, SpellBase
 {
-
     private int lifeSpanFrames = 3600; //Note: 60fps
     public int lifeRemaining;
     public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
@@ -28,6 +27,14 @@ public class WallSpellScript : SpellBase
         }
         lifeRemaining--;
     }
+
+    public string getName()
+    { return spellName; }
+
+    public List<char> getSpellActivate()
+    { return spellActivate; }
+
+
     public void castSpell()
     {
         Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;

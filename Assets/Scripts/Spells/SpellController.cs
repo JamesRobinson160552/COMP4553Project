@@ -6,19 +6,20 @@ using UnityEngine;
 public class SpellController : MonoBehaviour
 {
     [SerializeField] Autoattack attack;
-    //[SerializeField] SpellCastScript spellLists;
+    [SerializeField] SpellCastScript allSpells;
     //[SerializeField] List<char> Spell1;
 
-    public WallSpellScript wallSpell;
+    //public WallSpellScript wallSpell;
 
     // Create an array that holds all "active" spell and have the CheckForSpells iterate this array
     // When a player picks up a spell, have that spell script be added to the array
     // Create game object for each spell and have it have the script, then you can just add GameObject to the array
 
-
+    List<SpellBase> spells = new List<SpellBase>();
 
     List<char> playerInputs_ { get;set; }
     int currentPosition = 0;
+    bool usedSpecial_;
 
     public void Awake()
     {
@@ -27,9 +28,16 @@ public class SpellController : MonoBehaviour
         {
             'Z', 'Z', 'Z', 'Z'
         };
+        usedSpecial_ = false;
     }
 
-    //changing values of list to maatch play inputs
+    public void Start()
+    {
+        //gets all children of ALL SPELLS game object, and puts them in a list
+        allSpells.GetComponentsInChildren(spells);
+    }
+
+    //changing values of list to match play inputs
     public void AddToSpellCommand(char c)
     {
         if(currentPosition < 4)
@@ -45,15 +53,17 @@ public class SpellController : MonoBehaviour
     {
 
         // for every item in array of spells
-           
-        if(ComparingList(wallSpell.spellActivate)) // change to i.spellActivate
+        for(int i = 0; i < spells.Count; i++)
         {
-            Debug.Log(wallSpell.spellName); //call diff shooting scripts here
-            wallSpell.castSpell();  // calls the castSpell script from the spell itself   // change to i.castSpell();
-            //spellLists.castWall();
-
+            if(ComparingList(spells[i].getSpellActivate())) 
+            {
+                usedSpecial_ = true;
+                Debug.Log(spells[i].getName());
+                spells[i].castSpell();  // calls the castSpell script from the spell itself  
+            }
         }
-        else
+        
+        if(usedSpecial_ == false)
         {
             attack.Shoot();
             Debug.Log("basic spell");
@@ -76,6 +86,7 @@ public class SpellController : MonoBehaviour
     //resets the player inputs back to the defaults
     public void resetPlayerInputs()
     {
+        usedSpecial_= false;
         for(int i = 0; i < 4; i++)
         {
             playerInputs_[i] = 'Z';
