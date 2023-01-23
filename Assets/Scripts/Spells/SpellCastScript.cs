@@ -19,6 +19,7 @@ public class SpellCastScript : MonoBehaviour
         
     }
 
+    /*
     public void castWall()
     {
         Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);//Input.mousePosition;
@@ -26,4 +27,5 @@ public class SpellCastScript : MonoBehaviour
         Debug.Log(position);
         Instantiate(spellPrefabs[0], position, spellPrefabs[0].transform.rotation);
     }
+    */
 }

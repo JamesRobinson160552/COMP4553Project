@@ -3,7 +3,10 @@ guid: 58eb2769ac2ffe547a1015156393d9c9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - attack: {instanceID: 0}
+  - spellLists: {instanceID: 0}
+  - wallSpell: {fileID: 7676363984756647559, guid: f805f12ce3961984295fbccedee7bb03, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

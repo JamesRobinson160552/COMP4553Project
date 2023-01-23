@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     Vector2 movement;  // Stores x and y 
     bool isLoadingSpell_;
     public GameManager gameManager;
+    public Unit playerStats;
 
     SpellController spellController_;
     Character character;

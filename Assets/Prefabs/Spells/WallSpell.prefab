@@ -147,3 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeRemaining: 0
+  spellActivate: 4100410041004100
+  spellName: Wall
+  spellPrefabs:
+  - {fileID: 3870324735010202040}

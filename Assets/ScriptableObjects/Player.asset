@@ -15,7 +15,7 @@ MonoBehaviour:
   name_: Plague
   level_: 0
   exp_: 0
-  maxHP_: 0
+  maxHP_: 100
   range_: 0
   baseDamage_: 0
   attackSpeed_: 0

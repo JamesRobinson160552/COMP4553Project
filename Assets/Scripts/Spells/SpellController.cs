@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpellController : MonoBehaviour
 {
     [SerializeField] Autoattack attack;
-    [SerializeField] SpellCastScript spellLists;
-    [SerializeField] List<char> Spell1;
-    [SerializeField] List<char> Spell2;
+    //[SerializeField] SpellCastScript spellLists;
+    //[SerializeField] List<char> Spell1;
+
+    public WallSpellScript wallSpell;
+
+    // Create an array that holds all "active" spell and have the CheckForSpells iterate this array
+    // When a player picks up a spell, have that spell script be added to the array
+    // Create game object for each spell and have it have the script, then you can just add GameObject to the array
+
+
 
     List<char> playerInputs_ { get;set; }
     int currentPosition = 0;
@@ -33,17 +41,17 @@ public class SpellController : MonoBehaviour
     }
 
     //check player list against list for spells
-    public void CheckForSpells()
+    public void CheckForSpells() //Should take in array of spells plr has access to
     {
-        if(ComparingList(Spell1))
+
+        // for every item in array of spells
+           
+        if(ComparingList(wallSpell.spellActivate)) // change to i.spellActivate
         {
-            attack.SpecialShoot();
-            Debug.Log("Special Spell"); //call diff shooting scripts here
-        }
-        else if(ComparingList(Spell2))
-        {
-            spellLists.castWall();
-            Debug.Log("Special Spel2"); //call diff shooting scripts here
+            Debug.Log(wallSpell.spellName); //call diff shooting scripts here
+            wallSpell.castSpell();  // calls the castSpell script from the spell itself   // change to i.castSpell();
+            //spellLists.castWall();
+
         }
         else
         {
