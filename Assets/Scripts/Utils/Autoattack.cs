@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Autoattack : MonoBehaviour
+public class Autoattack : MonoBehaviour, SpellBase
 {
     public Camera cam;
     public Transform aimer;
@@ -13,20 +13,28 @@ public class Autoattack : MonoBehaviour
     public float moveSpeed = 5.0f;
     public GameManager gameManager;
     public GameObject plr;
+    public int damage = 5;
 
     public float bulletForce = 20f;
 
     Vector2 mousePos;
+
+    public List<char> spellActivate = new List<char> {'Z', 'Z', 'Z', 'Z' };
+
+    public string getName()
+    { return "Auto Attack"; }
+
+    public List<char> getSpellActivate()
+    { return spellActivate; }
+
+    public int getDamage()
+    { return damage; }
 
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    Shoot();
-        //}
     }
 
     private void FixedUpdate()
@@ -48,7 +56,7 @@ public class Autoattack : MonoBehaviour
         }
 
     }
-    public void Shoot()
+    public void castSpell()
     {
         // Instantiates bullet at location of aimer
         GameObject bullet = Instantiate(AABullet, aimer.position, aimer.rotation);
@@ -56,18 +64,8 @@ public class Autoattack : MonoBehaviour
         // Access the bullet's rigidbody and store it as rb
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 
-        // Add force to the newly instantiated rb
-        rb.AddForce(aimer.up * bulletForce, ForceMode2D.Impulse);
-    }
-
-    public void SpecialShoot()
-    {
-        // Instantiates bullet at location of aimer
-        GameObject bullet = Instantiate(AABullet, aimer.position, aimer.rotation);
-        bullet.GetComponent<SpriteRenderer>().material.color = new Color(256, 256, 256, 1);
-
-        // Access the bullet's rigidbody and store it as rb
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        //give the projectile the stats from the sepll
+        bullet.GetComponent<ProjectileStats>().SetDamage(damage);
 
         // Add force to the newly instantiated rb
         rb.AddForce(aimer.up * bulletForce, ForceMode2D.Impulse);

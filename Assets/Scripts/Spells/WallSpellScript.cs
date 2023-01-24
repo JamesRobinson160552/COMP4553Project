@@ -34,6 +34,9 @@ public class WallSpellScript : MonoBehaviour, SpellBase
     public List<char> getSpellActivate()
     { return spellActivate; }
 
+    public int getDamage()
+    { return 0; }
+
 
     public void castSpell()
     {

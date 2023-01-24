@@ -923,7 +923,9 @@ MonoBehaviour:
   moveSpeed: 5
   gameManager: {fileID: 1801269028}
   plr: {fileID: 1472452347}
+  damage: 5
   bulletForce: 20
+  spellActivate: 5a005a005a005a00
 --- !u!50 &1201846801
 Rigidbody2D:
   serializedVersion: 4
@@ -3785,6 +3787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801269029}
   - component: {fileID: 1801269028}
+  - component: {fileID: 1801269030}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3826,6 +3829,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801269030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801269027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d418d211df6144a9213b11d6492c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpells:
+    serializedVersion: 2
+    m_Bits: 64
+  enemySpells:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1862779395
 GameObject:
   m_ObjectHideFlags: 0

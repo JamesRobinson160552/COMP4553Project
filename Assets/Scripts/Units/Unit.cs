@@ -16,14 +16,42 @@ public class Unit : MonoBehaviour
     {
         currentHP = unitBase_.MaxHP;
         Debug.Log(unitBase_.Name);
-        healthBar.SetMaxHealth(currentHP);  // In health bar, set at max to begin
+        if(healthBar != null)
+            healthBar.SetMaxHealth(currentHP);  // In health bar, set at max to begin
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(unitBase_.Name != "Plague")
         {
-            TakeDamage(20);
+            var collider = Physics2D.OverlapCircle(transform.position, 0.3f, GameLayers.i.PlayerSpellsLayer);
+            if(collider != null)
+            {
+                int damage = collider.GetComponent<ProjectileStats>().getDamage(); //get the damage num from projectile
+                TakeDamage(damage);
+                Destroy(collider.gameObject); //destroy projectile
+                CheckForDeath(); //check if unit died
+            }
+        }
+
+        else
+        {
+            var collider = Physics2D.OverlapCircle(transform.position, 0.3f, GameLayers.i.EnemySpellsLayer);
+            if(collider != null)
+            {
+                int damage = collider.GetComponent<ProjectileStats>().getDamage();
+                TakeDamage(damage);
+                Destroy(collider.gameObject);
+                CheckForDeath();
+            }
+        }
+    }
+
+    void CheckForDeath()
+    {
+        if(currentHP <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -31,6 +59,8 @@ public class Unit : MonoBehaviour
     {
         currentHP -= damage; // Unit to take damage
 
-        healthBar.setHealth(currentHP);
+        Debug.Log("Damage!");
+        if(healthBar != null)
+            healthBar.setHealth(currentHP);
     }
 }

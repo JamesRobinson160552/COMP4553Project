@@ -65,7 +65,7 @@ public class SpellController : MonoBehaviour
         
         if(usedSpecial_ == false)
         {
-            attack.Shoot();
+            attack.castSpell();
             Debug.Log("basic spell");
         }
         

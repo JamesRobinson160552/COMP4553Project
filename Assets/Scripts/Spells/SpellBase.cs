@@ -8,6 +8,8 @@ public interface SpellBase
     // All spells will have the following attributes:
     // - Name (string)
     string getName();
+
+    int getDamage();
     // - Activation sequence  = eg. public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
     List<char> getSpellActivate();
     // - Image (the icon to be loaded in the UI when spell is prepped
