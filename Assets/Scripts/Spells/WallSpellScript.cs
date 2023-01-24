@@ -5,8 +5,8 @@ using UnityEngine;
 //Destroys the wall created after a given length of time;
 public class WallSpellScript : MonoBehaviour, SpellBase
 {
-    private int lifeSpanFrames = 3600; //Note: 60fps
-    public int lifeRemaining;
+    private float lifeSpan = 5.0f; 
+    public float lifeRemaining;
     public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
     public string spellName = "Wall";
     public GameObject[] spellPrefabs;
@@ -15,17 +15,17 @@ public class WallSpellScript : MonoBehaviour, SpellBase
     // Start is called before the first frame update
     void Start()
     {
-        lifeRemaining = lifeSpanFrames;
+        lifeRemaining = lifeSpan;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lifeRemaining == 0)
+        if (lifeRemaining <= 0)
         {
             Destroy(gameObject);
         }
-        lifeRemaining--;
+        lifeRemaining-= Time.deltaTime;
     }
 
     public string getName()
