@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
 
     SpellController spellController_;
     Character character;
+    float timeBetweenClicks;
     float timeRemaining_;
+    int inputCounter;
 
     private void Awake()
     {
@@ -28,9 +30,11 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetMouseButton(1) && timeBetweenClicks <= 0)//(Input.GetKeyDown(KeyCode.R))
         {
+            timeBetweenClicks = 0.25f;
             isLoadingSpell_ = !(isLoadingSpell_);
+            Debug.Log(isLoadingSpell_);
             if(isLoadingSpell_)
                 spellController_.resetPlayerInputs();
         }
@@ -45,16 +49,33 @@ public class PlayerController : MonoBehaviour
         if(isLoadingSpell_)
         {
             if(Input.GetKeyDown(KeyCode.W))
-                spellController_.AddToSpellCommand('W');
+                {
+                    spellController_.AddToSpellCommand('W');
+                    inputCounter++;
+                }
 
             if(Input.GetKeyDown(KeyCode.A))
-                spellController_.AddToSpellCommand('A');
+                {
+                    spellController_.AddToSpellCommand('A');
+                    inputCounter++;
+                }
 
             if(Input.GetKeyDown(KeyCode.S))
-                spellController_.AddToSpellCommand('S');
+                {
+                    spellController_.AddToSpellCommand('S');
+                    inputCounter++;
+                }
 
             if(Input.GetKeyDown(KeyCode.D))
-                spellController_.AddToSpellCommand('D');
+                {
+                    spellController_.AddToSpellCommand('D');
+                    inputCounter++;
+                }
+            if(inputCounter == 4)
+            {
+                isLoadingSpell_ = false;
+                inputCounter = 0;
+            }
         }
     }
 
@@ -90,6 +111,11 @@ public class PlayerController : MonoBehaviour
             else
             {
                 character.Animator.ChangeIsAttacking(false);
+            }
+
+            if(timeBetweenClicks > 0)
+            {
+                timeBetweenClicks -= Time.fixedDeltaTime;
             }
         }
         
