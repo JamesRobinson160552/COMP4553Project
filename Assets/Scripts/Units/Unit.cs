@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour
     //public int maxHealth = 100; // Testing
     public UnitBase GetUnitBase { get { return unitBase_ ;} }
 
+    public float radius = 0.8f;
+
     void Start()
     {
         currentHP = unitBase_.MaxHP;
@@ -24,7 +26,7 @@ public class Unit : MonoBehaviour
     {
         if(unitBase_.Name != "Plague")
         {
-            var collider = Physics2D.OverlapCircle(transform.position, 0.3f, GameLayers.i.PlayerSpellsLayer);
+            var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.PlayerSpellsLayer);
             if(collider != null)
             {
                 int damage = collider.GetComponent<ProjectileStats>().getDamage(); //get the damage num from projectile
@@ -62,5 +64,10 @@ public class Unit : MonoBehaviour
         Debug.Log("Damage!");
         if(healthBar != null)
             healthBar.setHealth(currentHP);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

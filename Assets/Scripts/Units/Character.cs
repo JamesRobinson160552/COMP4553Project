@@ -19,6 +19,9 @@ public class Character : MonoBehaviour
         animator.moveX = Mathf.Clamp(moveVector.x, -1f, 1f);
         animator.moveY = Mathf.Clamp(moveVector.y, -1f, 1f);
 
+        animator.moveX = Mathf.Round(animator.moveX);
+        animator.moveY = Mathf.Round(animator.moveY);
+
         animator.ChangeIsMoving(true);
     }
 

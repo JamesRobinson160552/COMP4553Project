@@ -3253,6 +3253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: 5bd80b5015be0c540ba500c622bbf315, type: 2}
   healthBar: {fileID: 1708276220}
+  radius: 0.8
 --- !u!61 &1472452355
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -42,14 +42,28 @@ public class CharacterAnimator : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("cout");
 
         GetComponentsInChildren(SpriteRenderers_);
+        Debug.Log(SpriteRenderers_.Count);
 
-        walkLeftArmAnim_ = new SpriteAnimator(walkLeftArmSprites, SpriteRenderers_[1]);
-        walkRightArmAnim_ = new SpriteAnimator(walkRightArmSprites, SpriteRenderers_[1]);
+        if(SpriteRenderers_.Count > 1)
+        {
+            walkLeftArmAnim_ = new SpriteAnimator(walkLeftArmSprites, SpriteRenderers_[1]);
+            walkRightArmAnim_ = new SpriteAnimator(walkRightArmSprites, SpriteRenderers_[1]);
+        
+            attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[1]);
+            attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[1]);
+        }
 
-        attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[1]);
-        attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[1]);
+        else
+        {
+            walkLeftArmAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
+            walkRightArmAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+        
+            attackLeft_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
+            attackRight_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+        }
 
         walkLeftAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
         walkRightAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
@@ -116,7 +130,8 @@ public class CharacterAnimator : MonoBehaviour
         else //resets animation loop when current loop is stopped
         {
             SpriteRenderers_[0].sprite = currentAnimBody_.Frames[0];
-            SpriteRenderers_[1].sprite = currentAnimArm_.Frames[0];
+            if(SpriteRenderers_.Count > 1)
+                SpriteRenderers_[1].sprite = currentAnimArm_.Frames[0];
         }
 
         wasPreviouslyMoving_ = isMoving;

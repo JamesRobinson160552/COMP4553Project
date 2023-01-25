@@ -16,10 +16,12 @@ public class Enemy : MonoBehaviour
     Vector2 moveDirection_;
     Vector3 direction_; //Towards player
     Unit unit_;
+    Character character_;
 
     private void Awake()
     {
         unit_ = GetComponent<Unit>();
+        character_ = GetComponent<Character>();
     }
 
     private void Start()
@@ -44,6 +46,7 @@ public class Enemy : MonoBehaviour
         if(target_)
         {
             rb.velocity = new Vector2(moveDirection_.x, moveDirection_.y) * moveSpeed;
+            character_.Moving(moveDirection_);
         }
     }
 
