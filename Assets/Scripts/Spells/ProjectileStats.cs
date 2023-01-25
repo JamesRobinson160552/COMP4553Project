@@ -15,4 +15,17 @@ public class ProjectileStats : MonoBehaviour
     {
         return damage;
     }
+
+    private void Update() {
+        onCollisionEnter();
+    }
+
+    public void onCollisionEnter() 
+    {
+        var collider = Physics2D.OverlapCircle(transform.position, 0.1f, GameLayers.i.BorderLayer);
+        if (collider != null) //Destory on collision with border
+        {
+            Destroy(gameObject);
+        }
+    }
 }

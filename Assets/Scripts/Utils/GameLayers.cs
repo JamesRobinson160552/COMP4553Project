@@ -6,6 +6,7 @@ public class GameLayers : MonoBehaviour
 {
     [SerializeField] LayerMask playerSpells;
     [SerializeField] LayerMask enemySpells;
+    [SerializeField] LayerMask border;
 
     public static GameLayers i { get; set; }
 
@@ -20,5 +21,9 @@ public class GameLayers : MonoBehaviour
 
     public LayerMask EnemySpellsLayer {
         get => enemySpells;
+    }
+
+    public LayerMask BorderLayer {
+        get => border;
     }
 }
