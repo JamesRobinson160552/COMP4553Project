@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float moveSpeed; 
+    public float moveSpeed; 
     public float attackRange;
     public float attackSpeed = 0.75f;
+    public float shootDelay = 0.5f;
     public int damage = 1;
-    public float bulletForce = 10.0f;
+    public float bulletForce = 5.0f;
     public GameObject attackPrefab;
     Rigidbody2D rb;
     Transform target_;
@@ -26,7 +27,7 @@ public class Enemy : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         target_ = GameObject.Find("Player").transform;
         moveSpeed = unit_.GetUnitBase.MoveSpeed;
-        InvokeRepeating("Shoot", 0.0f, attackSpeed);
+        InvokeRepeating("Shoot", shootDelay, attackSpeed);
     }
 
     private void Update()
