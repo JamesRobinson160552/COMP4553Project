@@ -12,14 +12,19 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] List<Sprite> attackRightSprites;
     [SerializeField] List<Sprite> walkLeftSprites;
     [SerializeField] List<Sprite> walkRightSprites;
+    [SerializeField] List<Sprite> castLeftSprites;
+    [SerializeField] List<Sprite> castRightSprites;
 
     public float moveX { get; set; }
     public float moveY { get; set; }
     bool isMoving { get; set; }
-    bool isAttacking {get; set; }
+    bool isAttacking { get; set; }
+    bool isLoadingSpell{ get; set; }
 
     bool wasPreviouslyMoving_;
     bool isAttackingLeft_;
+
+    int playerInput = 0;
 
     Vector3 target;
 
@@ -31,6 +36,9 @@ public class CharacterAnimator : MonoBehaviour
 
     SpriteAnimator walkLeftAnim_;
     SpriteAnimator walkRightAnim_;
+
+    SpriteAnimator castLeftAnim_;
+    SpriteAnimator castRightAnim_;
 
     SpriteAnimator currentAnimBody_; //selected animation
     SpriteAnimator currentAnimArm_;
@@ -51,6 +59,9 @@ public class CharacterAnimator : MonoBehaviour
         {
             walkLeftArmAnim_ = new SpriteAnimator(walkLeftArmSprites, SpriteRenderers_[1]);
             walkRightArmAnim_ = new SpriteAnimator(walkRightArmSprites, SpriteRenderers_[1]);
+
+            castLeftAnim_ = new SpriteAnimator(castLeftSprites, SpriteRenderers_[1]);
+            castRightAnim_ = new SpriteAnimator(castRightSprites, SpriteRenderers_[1]);
         
             attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[1]);
             attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[1]);
@@ -60,6 +71,9 @@ public class CharacterAnimator : MonoBehaviour
         {
             walkLeftArmAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
             walkRightArmAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+
+            castLeftAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
+            castRightAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
         
             attackLeft_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
             attackRight_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
@@ -110,6 +124,21 @@ public class CharacterAnimator : MonoBehaviour
             }
         }
 
+        if(isLoadingSpell)
+        {
+            if(currentAnimBody_ == walkRightAnim_)
+            {    
+                currentAnimArm_ = castRightAnim_;
+                SpriteRenderers_[1].sprite = currentAnimArm_.Frames[playerInput];
+            }
+
+            else
+            {
+                currentAnimArm_ = castLeftAnim_;
+                SpriteRenderers_[1].sprite = currentAnimArm_.Frames[playerInput];
+            }
+        }
+
         //if running against wall no animations will be played
         if (currentAnimBody_ != prevAnim_ || isMoving != wasPreviouslyMoving_)
         {
@@ -130,7 +159,7 @@ public class CharacterAnimator : MonoBehaviour
         else //resets animation loop when current loop is stopped
         {
             SpriteRenderers_[0].sprite = currentAnimBody_.Frames[0];
-            if(SpriteRenderers_.Count > 1)
+            if(SpriteRenderers_.Count > 1 && !isLoadingSpell)
                 SpriteRenderers_[1].sprite = currentAnimArm_.Frames[0];
         }
 
@@ -140,6 +169,16 @@ public class CharacterAnimator : MonoBehaviour
     public void ChangeIsMoving(bool state)
     {
         isMoving = state;
+    }
+
+    public void ChangeIsLoadingSpell(bool state)
+    {
+        isLoadingSpell = state;
+    }
+
+    public void ChangePlayerInputs(int value)
+    {
+        playerInput = value;
     }
 
     public void ChangeIsAttacking(bool state)

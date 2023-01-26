@@ -34,9 +34,13 @@ public class PlayerController : MonoBehaviour
         {
             timeBetweenClicks = 0.25f;
             isLoadingSpell_ = !(isLoadingSpell_);
-            Debug.Log(isLoadingSpell_);
+            character.Animator.ChangeIsLoadingSpell(isLoadingSpell_);
             if(isLoadingSpell_)
-                spellController_.resetPlayerInputs();
+                {
+                    spellController_.resetPlayerInputs();
+                    inputCounter = 0;
+                    character.Animator.ChangePlayerInputs(0);
+                }
         }
 
         if(Input.GetMouseButton(0) && !isLoadingSpell_ && timeRemaining_ <= 0.25 && gameManager.gameActive) //cannot shoot if loading spell
@@ -48,33 +52,39 @@ public class PlayerController : MonoBehaviour
 
         if(isLoadingSpell_)
         {
-            if(Input.GetKeyDown(KeyCode.W))
+            if(Input.GetKeyDown(KeyCode.A))
                 {
-                    spellController_.AddToSpellCommand('W');
+                    character.Animator.ChangePlayerInputs(1);
+                    spellController_.AddToSpellCommand('A');
                     inputCounter++;
                 }
 
-            if(Input.GetKeyDown(KeyCode.A))
+            if(Input.GetKeyDown(KeyCode.W))
                 {
-                    spellController_.AddToSpellCommand('A');
+                    character.Animator.ChangePlayerInputs(2);
+                    spellController_.AddToSpellCommand('W');
                     inputCounter++;
                 }
 
             if(Input.GetKeyDown(KeyCode.S))
                 {
+                    character.Animator.ChangePlayerInputs(3);
                     spellController_.AddToSpellCommand('S');
                     inputCounter++;
                 }
 
             if(Input.GetKeyDown(KeyCode.D))
                 {
+                    character.Animator.ChangePlayerInputs(4);
                     spellController_.AddToSpellCommand('D');
                     inputCounter++;
                 }
             if(inputCounter == 4)
             {
                 isLoadingSpell_ = false;
+                character.Animator.ChangeIsLoadingSpell(isLoadingSpell_);
                 inputCounter = 0;
+                character.Animator.ChangePlayerInputs(0);
             }
         }
     }

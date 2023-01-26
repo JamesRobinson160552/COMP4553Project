@@ -3227,6 +3227,18 @@ MonoBehaviour:
   - {fileID: -795609240, guid: 3c1d4bd3d68e11548b692036d6960851, type: 3}
   - {fileID: 1252050374, guid: 3c1d4bd3d68e11548b692036d6960851, type: 3}
   - {fileID: 981744627, guid: 3c1d4bd3d68e11548b692036d6960851, type: 3}
+  castLeftSprites:
+  - {fileID: 164661428, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: -2112397768, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: 1198890994, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: 246686632, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: 329244067, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  castRightSprites:
+  - {fileID: -330677806, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: -1087364569, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: 1617816055, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: 1270694196, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
+  - {fileID: 1296339207, guid: fc8c376d94ea94a40b7e815e60beafad, type: 3}
 --- !u!114 &1472452353
 MonoBehaviour:
   m_ObjectHideFlags: 0
