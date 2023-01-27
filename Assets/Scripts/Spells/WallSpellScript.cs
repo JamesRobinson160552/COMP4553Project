@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 //Destroys the wall created after a given length of time;
@@ -10,7 +11,7 @@ public class WallSpellScript : MonoBehaviour, SpellBase
     public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
     public string spellName = "Wall";
     public GameObject[] spellPrefabs;
-
+    public GameObject plr;
 
     // Start is called before the first frame update
     void Start()
@@ -40,10 +41,18 @@ public class WallSpellScript : MonoBehaviour, SpellBase
 
     public void castSpell()
     {
-        Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
-        position = new Vector3(position.x, position.y, 0);
-        Debug.Log(position);
 
-        Instantiate(spellPrefabs[0], position, spellPrefabs[0].transform.rotation); // 
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
+        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+        // Need TAN to get angle, thereofre need Opposite / Adjecent of sides between plr and mouse
+        Vector3 plrPos = Camera.main.ScreenToWorldPoint(plr.transform.position);
+        float adjacent = mousePos.x - plr.transform.position.x;
+        float opposite = mousePos.y - plr.transform.position.y;
+        float angle = Mathf.Atan2(opposite, adjacent) * Mathf.Rad2Deg;
+        Vector3 angleVector = new Vector3(0, 0, angle);
+        Debug.Log("Angle: " + angle);
+        Debug.Log("Angle Vector: " + angleVector);
+        Instantiate(spellPrefabs[0], mousePos, Quaternion.Euler(angleVector));
+
     }
 }

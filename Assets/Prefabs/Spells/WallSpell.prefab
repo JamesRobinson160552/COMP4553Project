@@ -151,3 +151,4 @@ MonoBehaviour:
   spellName: Wall
   spellPrefabs:
   - {fileID: 3870324735010202040}
+  plr: {fileID: 0}

@@ -380,6 +380,7 @@ MonoBehaviour:
   spellActivate: 4100410041004100
   spellName: Wall
   spellPrefabs: []
+  plr: {fileID: 1472452347}
 --- !u!1 &568505088
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,6 +3611,7 @@ MonoBehaviour:
   spellName: Wall
   spellPrefabs:
   - {fileID: 3870324735010202040, guid: f805f12ce3961984295fbccedee7bb03, type: 3}
+  plr: {fileID: 1472452347}
 --- !u!1 &1639248069
 GameObject:
   m_ObjectHideFlags: 0
