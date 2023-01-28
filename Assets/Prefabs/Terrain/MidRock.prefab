@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4314646503563529433}
   - component: {fileID: 2027577431389034375}
   - component: {fileID: 1590884738684944745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MidRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

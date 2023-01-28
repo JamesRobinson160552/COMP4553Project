@@ -43,7 +43,12 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(target_)
+        if(GameManager.i.gameActive == false)
+        {
+            rb.velocity = new Vector2(0, 0) * 0;
+            character_.Animator.ChangeIsMoving(false);
+        }
+        else if (target_)
         {
             rb.velocity = new Vector2(moveDirection_.x, moveDirection_.y) * moveSpeed;
             character_.Moving(moveDirection_);
@@ -51,7 +56,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void Shoot() {
-        if ((direction_).magnitude <= attackRange) //Player is in range
+        if ((direction_).magnitude <= attackRange && GameManager.i.gameActive == true) //Player is in range
         {
             // Instantiates bullet at location of aimer
             GameObject bullet = Instantiate(attackPrefab, transform.position, attackPrefab.transform.rotation);

@@ -129,5 +129,10 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+        else
+        {
+            character.Animator.ChangeIsMoving(false);
+        }
+        
     }
 }

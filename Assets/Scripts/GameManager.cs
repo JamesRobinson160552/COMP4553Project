@@ -7,10 +7,17 @@ public class GameManager : MonoBehaviour
 
     public bool gameActive = false;
     public GameObject titleScreen;
+    public GameObject menu;
     public GameObject[] enemyPrefabs;
     public float spawnStartDelay = 2.0f; //Seconds
     public float spawnInterval = 2.0f; //Seconds
 
+    public static GameManager i { get; set; }
+
+    private void Awake()
+    {
+        i = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +44,13 @@ public class GameManager : MonoBehaviour
         float spawnPositiony = Random.Range(0.0f, 5.0f);
         Vector3 spawnPosition = new Vector3(spawnPositionx, spawnPositiony, 0.0f);
         Instantiate(enemyPrefabs[0], spawnPosition, enemyPrefabs[0].transform.rotation);
+    }
+
+    public void OpenMenu()
+    {
+        gameActive = !gameActive;
+        menu.gameObject.SetActive(!gameActive);
+        Debug.Log("menu open");
     }
 
     IEnumerator SpawnEnemies()
