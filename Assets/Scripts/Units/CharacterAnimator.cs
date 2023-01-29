@@ -43,17 +43,14 @@ public class CharacterAnimator : MonoBehaviour
     SpriteAnimator currentAnimBody_; //selected animation
     SpriteAnimator currentAnimArm_;
 
-    SpriteRenderer spriteRenderer_;
-    SpriteRenderer spriteRendererArm_;
+    //SpriteRenderer spriteRenderer_;
+    //SpriteRenderer spriteRendererArm_;
 
     List<SpriteRenderer> SpriteRenderers_ = new List<SpriteRenderer>();
 
     private void Start()
     {
-        Debug.Log("cout");
-
         GetComponentsInChildren(SpriteRenderers_);
-        Debug.Log(SpriteRenderers_.Count);
 
         if(SpriteRenderers_.Count > 1)
         {

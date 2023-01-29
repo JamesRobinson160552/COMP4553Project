@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4902083088762705201}
   - component: {fileID: 2088581316907580317}
   - component: {fileID: 6578363704632708286}
+  - component: {fileID: 3848747303189727397}
   m_Layer: 6
   m_Name: AABullet
   m_TagString: Untagged
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7830189, g: 0.16620687, b: 0.16620687, a: 1}
+  m_Sprite: {fileID: 1772669292, guid: 0088b85bd763b7e4f950cc7cd1ebd8e3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,9 +122,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00000037252903, y: -0.0045137107}
+  m_Offset: {x: 1.2636441, y: 2.0432172}
   serializedVersion: 2
-  m_Radius: 0.4864589
+  m_Radius: 1.4935881
 --- !u!114 &6578363704632708286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +137,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47042654b207e744eac4aa79e234ad08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3848747303189727397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956289644360299948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950501a2d95742a4381b4ca495bf8557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeFrames:
+  - {fileID: 711769751, guid: 0088b85bd763b7e4f950cc7cd1ebd8e3, type: 3}
+  - {fileID: 424140818, guid: 0088b85bd763b7e4f950cc7cd1ebd8e3, type: 3}
+  - {fileID: 1772669292, guid: 0088b85bd763b7e4f950cc7cd1ebd8e3, type: 3}
+  - {fileID: 711769751, guid: 0088b85bd763b7e4f950cc7cd1ebd8e3, type: 3}

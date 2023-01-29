@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
         
         else
         {
+            rb.MovePosition(rb.position + movement * 0 * Time.fixedDeltaTime);
             character.Animator.ChangeIsMoving(false);
         }
         
