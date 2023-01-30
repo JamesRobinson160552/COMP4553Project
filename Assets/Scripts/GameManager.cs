@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public bool gameActive = false;
     public GameObject titleScreen;
+    public GameObject UI;
     public GameObject menu;
     public GameObject[] enemyPrefabs;
     public float spawnStartDelay = 2.0f; //Seconds
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         gameActive = true;
         titleScreen.gameObject.SetActive(false);
+        UI.gameObject.SetActive(true);
         StartCoroutine(SpawnEnemies());
     }
 
