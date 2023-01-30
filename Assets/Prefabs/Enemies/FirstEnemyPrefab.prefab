@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d4f9b5507fbcd4caf893e5e73352ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitBase_: {fileID: 11400000, guid: 112717322ac5a4245936cc0bd69c49b1, type: 2}
+  unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
   healthBar: {fileID: 0}
+  radius: 0.8
 --- !u!114 &3110372200068662318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
-  attackRange: 3
+  attackRange: 8
+  visionRange: 12
   attackSpeed: 2
   shootDelay: 0.5
   damage: 1
@@ -198,6 +200,8 @@ MonoBehaviour:
   - {fileID: -259670706, guid: 9b68642f7c06bb644a6ce89d456a9e82, type: 3}
   - {fileID: 136653825, guid: 9b68642f7c06bb644a6ce89d456a9e82, type: 3}
   - {fileID: -1487082261, guid: 9b68642f7c06bb644a6ce89d456a9e82, type: 3}
+  castLeftSprites: []
+  castRightSprites: []
 --- !u!114 &-3113215654022478325
 MonoBehaviour:
   m_ObjectHideFlags: 0
