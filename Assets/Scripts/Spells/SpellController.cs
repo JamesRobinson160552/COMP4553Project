@@ -35,6 +35,7 @@ public class SpellController : MonoBehaviour
     {
         //gets all children of ALL SPELLS game object, and puts them in a list
         allSpells.GetComponentsInChildren(spells);
+        Debug.Log(spells.Count);
     }
 
     //changing values of list to match play inputs
@@ -58,7 +59,7 @@ public class SpellController : MonoBehaviour
             if(ComparingList(spells[i].getSpellActivate())) 
             {
                 usedSpecial_ = true;
-                Debug.Log(spells[i].getName());
+                //Debug.Log(spells[i].getName());
                 spells[i].castSpell();  // calls the castSpell script from the spell itself  
             }
         }

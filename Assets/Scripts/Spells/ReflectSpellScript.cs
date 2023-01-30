@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-//Destroys the wall created after a given length of time;
-public class WallSpellScript : MonoBehaviour, SpellBase
+public class ReflectSpellScript : MonoBehaviour, SpellBase
 {
-    private float lifeSpan = 5.0f; 
+    private float lifeSpan = 3f; 
     public float lifeRemaining;
-    public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
+    public List<char> spellActivate = new List<char> {'A', 'S', 'D', 'S' };
     public string spellName = "Wall";
     public GameObject[] spellPrefabs;
     public GameObject plr;
@@ -41,11 +39,14 @@ public class WallSpellScript : MonoBehaviour, SpellBase
         float angle = Mathf.Atan2(opposite, adjacent) * Mathf.Rad2Deg;
         Vector3 angleVector = new Vector3(0, 0, angle);
         //Debug.Log("Angle: " + angle);
-        //Debug.Log("Angle Vector: " + angleVector);
+        Debug.Log("Cast Angle Vector: " + angleVector);
+
 
         GameObject wall = Instantiate(spellPrefabs[0], mousePos, Quaternion.Euler(angleVector));
-        wall.GetComponent<WallAnimator>().breakingPoint = 2f;
         wall.GetComponent<DestroyMe>().SetLife(lifeSpan);
+        wall.gameObject.layer = LayerMask.NameToLayer("Reflect");
+        wall.GetComponent<WallAnimator>().breakingPoint = 1f; //when cracks form
+        wall.transform.localScale = new Vector3(0.5f, 2.5f, 1f);
 
     }
 }

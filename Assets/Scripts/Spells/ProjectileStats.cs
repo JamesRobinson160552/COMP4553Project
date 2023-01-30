@@ -16,7 +16,7 @@ public class ProjectileStats : MonoBehaviour
         return damage;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         onCollisionEnter();
     }
 
@@ -26,6 +26,24 @@ public class ProjectileStats : MonoBehaviour
         if (collider != null) //Destory on collision with border
         {
             Destroy(gameObject);
+        }
+
+        var collider2 = Physics2D.OverlapCircle(transform.position, 0.3f, GameLayers.i.ReflectLayer);
+        if(collider2 != null)
+        {
+            //on reflect enemy spells become player spells and vice cersa
+            if(gameObject.layer == LayerMask.NameToLayer("PlayerSpells"))
+            {
+                gameObject.layer = LayerMask.NameToLayer("EnemySpells");
+            }
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("PlayerSpells");
+            }
+
+            GetComponent<Rigidbody2D>().velocity =  GetComponent<Rigidbody2D>().velocity * -1;
+            GetComponent<SpriteRenderer>().flipY = true;
+
         }
     }
 }

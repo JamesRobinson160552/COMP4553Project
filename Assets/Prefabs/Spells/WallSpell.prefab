@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3870324735010202045}
   - component: {fileID: 3870324735010202046}
   - component: {fileID: 3870324735010202047}
-  - component: {fileID: 7676363984756647559}
   - component: {fileID: 1152646442677902136}
+  - component: {fileID: -4195215381506465763}
   m_Layer: 8
   m_Name: WallSpell
   m_TagString: Untagged
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13381307, y: 0}
+  m_Offset: {x: 0.13381308, y: -0.0130345225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8134726, y: 1}
+  m_Size: {x: 0.8134726, y: 1.273727}
   m_EdgeRadius: 0
 --- !u!50 &3870324735010202047
 Rigidbody2D:
@@ -135,24 +135,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &7676363984756647559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3870324735010202040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9356f738cbb2748ab1a33a4d44696d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeRemaining: 0
-  spellActivate: 4100410041004100
-  spellName: Wall
-  spellPrefabs:
-  - {fileID: 3870324735010202040}
-  plr: {fileID: 0}
 --- !u!114 &1152646442677902136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,4 +157,17 @@ MonoBehaviour:
   - {fileID: -555143530, guid: e3262f03d6fc27c4eb0ad9767b80102d, type: 3}
   - {fileID: -1839961994, guid: e3262f03d6fc27c4eb0ad9767b80102d, type: 3}
   - {fileID: 1935840214, guid: e3262f03d6fc27c4eb0ad9767b80102d, type: 3}
-  breakingPoint: 2
+  breakingPoint: 0
+--- !u!114 &-4195215381506465763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3870324735010202040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d0b967474b77440bb5516a7657f165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeSpan: 0

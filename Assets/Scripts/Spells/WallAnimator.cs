@@ -26,7 +26,7 @@ public class WallAnimator : MonoBehaviour
 
     private void Update()
     {
-        lifeRemaining = gameObject.GetComponent<WallSpellScript>().lifeRemaining;
+        lifeRemaining = gameObject.GetComponent<DestroyMe>().lifeSpan;
 
         if(lifeRemaining >= breakingPoint)
             activeAnim_.HandleUpdate();

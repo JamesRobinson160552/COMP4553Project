@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
     void Start()
     {
         currentHP = unitBase_.MaxHP;
-        Debug.Log(unitBase_.Name);
+        //Debug.Log(unitBase_.Name);
         if(healthBar != null)
             healthBar.SetMaxHealth(currentHP);  // In health bar, set at max to begin
     }
@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
 
         else
         {
-            var collider = Physics2D.OverlapCircle(transform.position, 0.3f, GameLayers.i.EnemySpellsLayer);
+            var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
             if(collider != null)
             {
                 int damage = collider.GetComponent<ProjectileStats>().getDamage();
@@ -61,7 +61,7 @@ public class Unit : MonoBehaviour
     {
         currentHP -= damage; // Unit to take damage
 
-        Debug.Log("Damage!");
+        //Debug.Log("Damage!");
         if(healthBar != null)
             healthBar.setHealth(currentHP);
     }
