@@ -11,7 +11,7 @@ public class DestroyMe : MonoBehaviour
         lifeSpan = life;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (lifeSpan <= 0)
         {
