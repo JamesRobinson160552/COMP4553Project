@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         gameActive = true;
         titleScreen.gameObject.SetActive(false);
         UI.gameObject.SetActive(true);
-        StartCoroutine(SpawnEnemies());
+        //StartCoroutine(SpawnEnemies());
     }
 
     void SpawnEnemyPrefab()

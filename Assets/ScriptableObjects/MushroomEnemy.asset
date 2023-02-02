@@ -20,4 +20,4 @@ MonoBehaviour:
   baseDamage_: 0
   attackSpeed_: 0
   projectileSpeed_: 0
-  moveSpeed_: 1
+  moveSpeed_: 3
