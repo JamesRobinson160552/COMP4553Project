@@ -38,7 +38,7 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
 
     public void LateUpdate()
     {
-        while (lightningCast == true)
+        if (lightningCast == true)
         {
             if (BaseTimeSet == false)
             {
