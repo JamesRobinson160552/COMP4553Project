@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.Space))
+            Interact();
+
         if(Input.GetMouseButton(1) && timeBetweenClicks <= 0)//(Input.GetKeyDown(KeyCode.R))
         {
             timeBetweenClicks = 0.25f;
@@ -93,7 +96,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Movement
-        if (gameManager.gameActive) //Only allow movement when game is active
+        if (gameManager.gameActive && gameManager.showingDialog == false) //Only allow movement when game is active
         {
             if(isLoadingSpell_ == false) //cannot walk if loading spell
             {
@@ -135,5 +138,19 @@ public class PlayerController : MonoBehaviour
             character.Animator.ChangeIsMoving(false);
         }
         
+    }
+
+    void Interact()
+    {
+        var facingDir = new Vector3(character.Animator.moveX, character.Animator.moveY);
+        var interactPos = transform.position + facingDir; //the adjacent tile the playing is facing
+
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
+        if(collider != null)
+        {
+            //Debug.Log("talking");
+            //collider.GetComponent<NPCController>(); //looks for this script in the object trying to be interacted with
+            collider.GetComponent<Interactible>()?.Interact(transform);
+        }
     }
 }

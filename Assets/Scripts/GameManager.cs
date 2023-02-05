@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public float spawnStartDelay = 2.0f; //Seconds
     public float spawnInterval = 2.0f; //Seconds
+    public bool showingDialog = false;
 
     public static GameManager i { get; set; }
 
