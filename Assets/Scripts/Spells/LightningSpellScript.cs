@@ -8,15 +8,17 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
 {
     public List<char> spellActivate = new List<char> { 'D', 'A', 'D', 'W' };
     public string spellName = "Lightning";
-    public int damage = 0;
+    public int damage;
     public GameObject[] spellPrefabs;
     public GameObject plr;
+    public GameManager gameManager;
     private float castLoop = 0.0f;
     private float castTime = 1.25f;
     private float BaseTime;
     private bool lightningCast = false;
     private bool BaseTimeSet = false;
     private GameObject lightning;
+
 
     public string getName()
     { return spellName; }
@@ -25,20 +27,25 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     { return spellActivate; }
 
     public int getDamage()
-    { return 0; }
+    { return damage; }
 
     public void castSpell()
     {
-        lightningCast = true;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
-        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
-        lightning = Instantiate(spellPrefabs[0], mousePos, spellPrefabs[0].transform.rotation);
+        if (gameManager.lightningSpawned == false)
+        {
+            lightningCast = true;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
+            mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+            lightning = Instantiate(spellPrefabs[0], mousePos, spellPrefabs[0].transform.rotation);
+            lightning.GetComponent<ProjectileStats>().SetDamage(0);
+        }
     }
 
     public void LateUpdate()
     {
         if (lightningCast == true)
         {
+            gameManager.lightningSpawned = true;
             if (BaseTimeSet == false)
             {
                 BaseTime = Time.realtimeSinceStartup; // Create spell cast start time
@@ -58,16 +65,34 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
             }
             if (Time.realtimeSinceStartup > (BaseTime + castTime))
             {
-                if (Time.realtimeSinceStartup > (BaseTime + castTime + .5f)) {
-                    damage = 10;
-                    Destroy(lightning);
+                if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f)) {
+                    //damage = 2;
+                    lightning.GetComponent<ProjectileStats>().SetDamage(damage);
+                    try
+                    {
+                        Destroy(lightning);
+                    }
+                    catch { }
                     lightningCast = false;
                     BaseTimeSet = false;
                     castLoop = 0.0f;
+                    gameManager.lightningSpawned = false;
                 } else {
                     lightning.GetComponent<Renderer>().material.color = Color.red;
+                    lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                    //damage = 2;
+                    lightning.GetComponent<ProjectileStats>().SetDamage(damage);
                 }
             }            
+        }
+    }
+
+    public void onCollisionEnter()
+    {
+        var collider = Physics2D.OverlapCircle(transform.position, 0.1f, GameLayers.i.BorderLayer);
+        if (collider != null) //Destory on collision with border
+        {
+            Debug.Log("COLLISION!");
         }
     }
 }

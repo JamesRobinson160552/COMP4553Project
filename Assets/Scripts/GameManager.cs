@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public float spawnStartDelay = 2.0f; //Seconds
     public float spawnInterval = 2.0f; //Seconds
     public bool showingDialog = false;
+    public bool lightningSpawned = false;
 
     public static GameManager i { get; set; }
 

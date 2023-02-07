@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
   healthBar: {fileID: 0}
+  lightningSpell: {fileID: 1482005814850497052, guid: 2ac7886345da91f48bf2e51ed35a0b88, type: 3}
   radius: 0.8
 --- !u!114 &3110372200068662318
 MonoBehaviour:

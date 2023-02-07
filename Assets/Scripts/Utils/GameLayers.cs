@@ -9,6 +9,7 @@ public class GameLayers : MonoBehaviour
     [SerializeField] LayerMask border;
     [SerializeField] LayerMask reflect;
     [SerializeField] LayerMask interactable;
+    [SerializeField] LayerMask lightning;
 
     public static GameLayers i { get; set; }
 
@@ -35,5 +36,10 @@ public class GameLayers : MonoBehaviour
 
     public LayerMask InteractableLayer {
         get => interactable;
+    }
+
+    public LayerMask LightningLayer
+    {
+        get => lightning;
     }
 }

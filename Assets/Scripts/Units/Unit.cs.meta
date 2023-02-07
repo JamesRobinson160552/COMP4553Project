@@ -3,7 +3,10 @@ guid: 58d4f9b5507fbcd4caf893e5e73352ac
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - unitBase_: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - lightningSpell: {fileID: 1482005814850497052, guid: 2ac7886345da91f48bf2e51ed35a0b88, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
