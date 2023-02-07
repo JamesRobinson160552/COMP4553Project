@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellActivate: 4400410044005700
   spellName: Lightning
-  damage: 0
+  damage: 2
   spellPrefabs: []
   plr: {fileID: 0}
   gameManager: {fileID: 0}

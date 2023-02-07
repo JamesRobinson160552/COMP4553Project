@@ -86,13 +86,4 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
             }            
         }
     }
-
-    public void onCollisionEnter()
-    {
-        var collider = Physics2D.OverlapCircle(transform.position, 0.1f, GameLayers.i.BorderLayer);
-        if (collider != null) //Destory on collision with border
-        {
-            Debug.Log("COLLISION!");
-        }
-    }
 }
