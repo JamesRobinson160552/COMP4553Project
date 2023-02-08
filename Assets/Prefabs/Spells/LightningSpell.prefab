@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 5777205587443151721}
   - component: {fileID: 7844306712849952297}
   - component: {fileID: -580595415726259816}
-  - component: {fileID: -6255896505453063238}
   - component: {fileID: -7098513389084927956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LightningSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,24 +112,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.71606445, y: 0.6773472}
   m_EdgeRadius: 0
---- !u!114 &-6255896505453063238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1482005814850497052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e66b4d56ec80de4abd1ef48702d3124, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spellActivate: 4400410044005700
-  spellName: Lightning
-  damage: 2
-  spellPrefabs: []
-  plr: {fileID: 0}
-  gameManager: {fileID: 0}
 --- !u!114 &-7098513389084927956
 MonoBehaviour:
   m_ObjectHideFlags: 0
