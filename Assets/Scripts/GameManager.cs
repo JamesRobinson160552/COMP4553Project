@@ -14,8 +14,14 @@ public class GameManager : MonoBehaviour
     public float spawnInterval = 2.0f; //Seconds
     public bool showingDialog = false;
     public bool lightningSpawned = false;
+    public SettingMenuText menuText;
 
     public static GameManager i { get; set; }
+
+    public SettingMenuText MenuText
+    {
+        get => menuText;
+    }
 
     private void Awake()
     {

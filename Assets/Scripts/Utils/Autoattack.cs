@@ -24,6 +24,12 @@ public class Autoattack : MonoBehaviour, SpellBase
     public string getName()
     { return "Auto Attack"; }
 
+    public bool playerHasAccess()
+    { return true; }
+
+    public void setPlayerAccess()
+    {}
+
     public List<char> getSpellActivate()
     { return spellActivate; }
 

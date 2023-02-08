@@ -9,6 +9,10 @@ public interface SpellBase
     // - Name (string)
     string getName();
 
+    bool playerHasAccess();
+
+    void setPlayerAccess();
+
     int getDamage();
     // - Activation sequence  = eg. public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
     List<char> getSpellActivate();

@@ -51,11 +51,20 @@ public class Unit : MonoBehaviour
         else
         {
             var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
-            if(collider != null)
+            var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
+            if((collider != null) || (collider2 != null))
             {
-                int damage = collider.GetComponent<ProjectileStats>().getDamage();
+                int damage;
+                damage = tryGetDamage();
                 TakeDamage(damage);
-                Destroy(collider.gameObject);
+                try
+                {
+                    Destroy(collider.gameObject); //destroy projectile  
+                }
+                catch
+                {
+
+                }
                 CheckForDeath();
             }
         }

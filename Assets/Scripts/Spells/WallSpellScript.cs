@@ -8,6 +8,7 @@ public class WallSpellScript : MonoBehaviour, SpellBase
 {
     private float lifeSpan = 5.0f; 
     public float lifeRemaining;
+    public bool playerAccess;
     public List<char> spellActivate = new List<char> {'A', 'A', 'A', 'A' };
     public string spellName = "Wall";
     public GameObject[] spellPrefabs;
@@ -21,6 +22,12 @@ public class WallSpellScript : MonoBehaviour, SpellBase
 
     public string getName()
     { return spellName; }
+
+    public bool playerHasAccess()
+    { return playerAccess; }
+
+    public void setPlayerAccess()
+    { playerAccess = !playerAccess; }
 
     public List<char> getSpellActivate()
     { return spellActivate; }

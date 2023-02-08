@@ -6,6 +6,7 @@ public class HealSpellScript : MonoBehaviour, SpellBase
 {
     public float duration = 0f;
     public float timeBetweenHeals = 0.5f;
+    public bool playerAccess;
     public List<char> spellActivate = new List<char> {'W', 'S', 'W', 'S' };
     public string spellName = "Heal";
     public HealthBar healthBar;
@@ -16,6 +17,12 @@ public class HealSpellScript : MonoBehaviour, SpellBase
 
     public string getName()
     { return spellName; }
+
+    public void setPlayerAccess()
+    { playerAccess = !playerAccess; }
+
+    public bool playerHasAccess()
+    { return playerAccess; }
 
     public List<char> getSpellActivate()
     { return spellActivate; }

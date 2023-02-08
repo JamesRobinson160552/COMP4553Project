@@ -9,6 +9,7 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     public List<char> spellActivate = new List<char> { 'D', 'A', 'D', 'W' };
     public string spellName = "Lightning";
     public int damage;
+    public bool playerAccess;
     public GameObject[] spellPrefabs;
     public GameObject plr;
     public GameManager gameManager;
@@ -22,6 +23,12 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
 
     public string getName()
     { return spellName; }
+
+    public bool playerHasAccess()
+    { return playerAccess; }
+
+    public void setPlayerAccess()
+    { playerAccess = !playerAccess; }
 
     public List<char> getSpellActivate()
     { return spellActivate; }

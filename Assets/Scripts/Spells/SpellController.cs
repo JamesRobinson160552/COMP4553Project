@@ -56,7 +56,7 @@ public class SpellController : MonoBehaviour
         // for every item in array of spells
         for(int i = 0; i < spells.Count; i++)
         {
-            if(ComparingList(spells[i].getSpellActivate())) 
+            if(ComparingList(spells[i].getSpellActivate()) && spells[i].playerHasAccess()) 
             {
                 usedSpecial_ = true;
                 //Debug.Log(spells[i].getName());
