@@ -136,10 +136,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.MovePosition(rb.position + movement * 0 * Time.fixedDeltaTime);
             character.Animator.ChangeIsMoving(false);
-        }
-
-        CheckTeleport();
-        
+        }     
     }
 
     void Interact()
@@ -153,15 +150,6 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("talking");
             //collider.GetComponent<NPCController>(); //looks for this script in the object trying to be interacted with
             collider.GetComponent<Interactible>()?.Interact(transform);
-        }
-    }
-
-    void CheckTeleport()
-    {
-        //Debug.Log("Checked for teleport");
-        if (transform.position.x > 8.0f && transform.position.x < 9.0f && transform.position.y > -43.0f && transform.position.y < -42.0f)
-        {
-            transform.position = new Vector3(-1.4f, -97.0f, 0.0f);
         }
     }
 }
