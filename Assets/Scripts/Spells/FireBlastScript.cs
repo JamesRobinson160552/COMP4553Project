@@ -17,6 +17,9 @@ public class FireBlastScript : MonoBehaviour, SpellBase
     public string getName()
     { return spellName; }
 
+    public string getDesc()
+    { return ""; }
+
     public bool playerHasAccess()
     { return playerAccess; }
 

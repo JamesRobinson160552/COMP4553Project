@@ -12,62 +12,97 @@ public class Unit : MonoBehaviour
     public HealthBar healthBar; // Link UI health bar
     //public int maxHealth = 100; // Testing
     public UnitBase GetUnitBase { get { return unitBase_ ;} }
-
+    float hitbox;
     public float radius = 0.8f;
+    public float hitcoolDown;
+    public float blinkSpeed;
+    float timer;
+    float timer2;
+
+    List<SpriteRenderer> SpriteRenderers_ = new List<SpriteRenderer>();
 
     void Start()
     {
         currentHP = unitBase_.MaxHP;
-        //Debug.Log(unitBase_.Name);
+        hitbox = unitBase_.HitBoxMultiplier;
+        GetComponentsInChildren(SpriteRenderers_);
+
         if(healthBar != null)
             healthBar.SetMaxHealth(currentHP);  // In health bar, set at max to begin
     }
 
     private void FixedUpdate()
     {
-        if(unitBase_.Name != "Plague")
+        if(timer <= 0)
         {
-            var collider = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.PlayerSpellsLayer));
-            var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
-            if ((collider != null) || (collider2 != null))
+            if(unitBase_.Name != "Plague")
             {
-                int damage;
-                damage = tryGetDamage();
-                Debug.Log("Damage is: ");
-                Debug.Log(damage);
-                TakeDamage(damage);
-                try
+                var collider = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.PlayerSpellsLayer));
+                var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
+                if ((collider != null) || (collider2 != null))
                 {
-                    Destroy(collider.gameObject); //destroy projectile  
-                }
-                catch
-                {
+                    int damage;
+                    damage = tryGetDamage();
+                    Debug.Log("Damage is: ");
+                    Debug.Log(damage);
+                    TakeDamage(damage);
+                    try
+                    {
+                        Destroy(collider.gameObject); //destroy projectile  
+                    }
+                    catch
+                    {
 
+                    }
+                    CheckForDeath(); //check if unit died
                 }
-                CheckForDeath(); //check if unit died
+            }
+
+            else
+            {
+                SpriteRenderers_[0].enabled = true;
+                SpriteRenderers_[1].enabled = true;
+                var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
+                var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
+                if((collider != null) || (collider2 != null))
+                {
+                    timer = hitcoolDown;
+                    int damage;
+                    damage = tryGetDamage();
+                    TakeDamage(damage);
+                    try
+                    {
+                        Destroy(collider.gameObject); //destroy projectile  
+                    }
+                    catch
+                    {
+
+                    }
+                    CheckForDeath();
+                }
+
+                //extended hitbox when checking for physical attack damage
+                var collider3 = Physics2D.OverlapCircle(transform.position, radius * hitbox, GameLayers.i.EnemyLayer);
+                if(collider3 != null)
+                {
+                    timer = hitcoolDown;
+                    Debug.Log(collider3.GetComponent<Unit>().GetUnitBase.BaseDamage);
+                    TakeDamage(collider3.GetComponent<Unit>().GetUnitBase.BaseDamage);
+                }
             }
         }
-
         else
         {
-            var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
-            var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
-            if((collider != null) || (collider2 != null))
+            if(timer2 <= 0)
             {
-                int damage;
-                damage = tryGetDamage();
-                TakeDamage(damage);
-                try
-                {
-                    Destroy(collider.gameObject); //destroy projectile  
-                }
-                catch
-                {
-
-                }
-                CheckForDeath();
+                SpriteRenderers_[0].enabled = !SpriteRenderers_[0].enabled;
+                SpriteRenderers_[1].enabled = !SpriteRenderers_[1].enabled;
+                timer2 = blinkSpeed;
             }
         }
+
+        timer -= Time.deltaTime;
+        timer2 -= Time.deltaTime;
     }
 
     void CheckForDeath()
@@ -85,11 +120,14 @@ public class Unit : MonoBehaviour
         //Debug.Log("Damage!");
         if(healthBar != null)
             healthBar.setHealth(currentHP);
+
+        
     }
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(transform.position, radius * hitbox);
     }
 
     int tryGetDamage()

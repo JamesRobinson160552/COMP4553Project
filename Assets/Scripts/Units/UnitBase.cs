@@ -16,6 +16,8 @@ public class UnitBase : ScriptableObject
     [SerializeField] int maxHP_;
     [SerializeField] int range_;
 
+    [SerializeField] float hitBoxMultiplier_;
+
     [SerializeField] int baseDamage_;
     [SerializeField] int attackSpeed_;
     [SerializeField] int projectileSpeed_;
@@ -23,6 +25,10 @@ public class UnitBase : ScriptableObject
 
     public string Name{
         get { return name_; }
+    }
+
+    public float HitBoxMultiplier{
+        get { return hitBoxMultiplier_; }
     }
 
     public int Level{

@@ -17,7 +17,8 @@ MonoBehaviour:
   exp_: 0
   maxHP_: 10
   range_: 0
-  baseDamage_: 0
+  hitBoxMultiplier_: 1
+  baseDamage_: 5
   attackSpeed_: 0
   projectileSpeed_: 0
   moveSpeed_: 3

@@ -18,6 +18,9 @@ public class HealSpellScript : MonoBehaviour, SpellBase
     public string getName()
     { return spellName; }
 
+    public string getDesc()
+    { return ""; }
+
     public void setPlayerAccess()
     { playerAccess = !playerAccess; }
 

@@ -13,6 +13,7 @@ public class WallSpellScript : MonoBehaviour, SpellBase
     public string spellName = "Wall";
     public GameObject[] spellPrefabs;
     public GameObject plr;
+    public string desc;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,11 @@ public class WallSpellScript : MonoBehaviour, SpellBase
 
     public string getName()
     { return spellName; }
+
+    public string getDesc()
+    {
+        return desc;
+    }
 
     public bool playerHasAccess()
     { return playerAccess; }

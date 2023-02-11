@@ -19,6 +19,7 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     private bool lightningCast = false;
     private bool BaseTimeSet = false;
     private GameObject lightning;
+    public string desc;
 
 
     public string getName()
@@ -26,6 +27,11 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
 
     public bool playerHasAccess()
     { return playerAccess; }
+
+    public string getDesc()
+    {
+        return desc;
+    }
 
     public void setPlayerAccess()
     { playerAccess = !playerAccess; }
