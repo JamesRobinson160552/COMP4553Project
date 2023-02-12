@@ -130,9 +130,17 @@ public class Unit : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius * hitbox);
     }
 
-    int tryGetDamage()
+    int tryGetDamage() //only gets run when contact is made with spell of opposite faction
     {
         var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.PlayerSpellsLayer);
+        try
+        {
+            int damage = collider.GetComponent<ProjectileStats>().getDamage(); //get the damage num from projectile
+            return damage;
+        }
+        catch { }
+
+        collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
         try
         {
             int damage = collider.GetComponent<ProjectileStats>().getDamage(); //get the damage num from projectile
