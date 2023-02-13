@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7844306712849952297}
   - component: {fileID: -580595415726259816}
   - component: {fileID: -7098513389084927956}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: LightningSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
