@@ -65,6 +65,8 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
                 BaseTimeSet = true;
             }
 
+            Debug.Log(BaseTime);
+
             if (Time.realtimeSinceStartup <= (BaseTime + castTime))
             // if actual time is <= Base + castTime (aka keep going through spell)
             {

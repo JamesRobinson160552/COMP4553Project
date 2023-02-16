@@ -152,7 +152,8 @@ MonoBehaviour:
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
   healthBar: {fileID: 0}
   radius: 0.8
-  hitcoolDown: 0
+  hitcoolDown: 0.2
+  blinkSpeed: 0
 --- !u!114 &3110372200068662318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,9 +171,15 @@ MonoBehaviour:
   visionRange: 20
   attackSpeed: 2
   shootDelay: 1
+  castLoop: 0
+  castTime: 1.25
   damage: 5
   bulletForce: 10
-  attackPrefab: {fileID: 3956289644360299948, guid: a023a4ded82add44b8b1b50cf790a2cf, type: 3}
+  attackPrefab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  castLightning: 0
 --- !u!114 &-3494942283736286872
 MonoBehaviour:
   m_ObjectHideFlags: 0

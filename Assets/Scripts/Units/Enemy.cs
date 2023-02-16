@@ -10,15 +10,18 @@ public class Enemy : MonoBehaviour
     private float distanceToPlayer;
     public float attackSpeed = 0.75f;
     public float shootDelay = 0.5f;
+    public float castLoop = 0.0f;
+    public float castTime = 1.25f;
     public int damage = 1;
     public float bulletForce = 5.0f;
-    public GameObject attackPrefab;
+    public GameObject[] attackPrefab;
     Rigidbody2D rb;
     Transform target_;
     Vector2 moveDirection_;
     Vector3 direction_; //Towards player
     Unit unit_;
     Character character_;
+    public bool castLightning;
 
     private void Awake()
     {
@@ -31,7 +34,10 @@ public class Enemy : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         target_ = GameObject.Find("Player").transform;
         moveSpeed = unit_.GetUnitBase.MoveSpeed;
-        InvokeRepeating("Shoot", shootDelay, attackSpeed);
+        if(castLightning)
+         InvokeRepeating("UseLightning", shootDelay, attackSpeed);
+        else
+            InvokeRepeating("Shoot", shootDelay, attackSpeed);
     }
 
     private void Update()
@@ -70,7 +76,7 @@ public class Enemy : MonoBehaviour
         if (distanceToPlayer <= attackRange && GameManager.i.gameActive == true) //Player is in range
         {
             // Instantiates bullet at location of aimer
-            GameObject bullet = Instantiate(attackPrefab, transform.position, attackPrefab.transform.rotation);
+            GameObject bullet = Instantiate(attackPrefab[0], transform.position, attackPrefab[0].transform.rotation);
 
             // Access the bullet's rigidbody and store it as rb
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -80,6 +86,15 @@ public class Enemy : MonoBehaviour
 
             // Add force to the newly instantiated rb
             rb.AddForce(direction_ * bulletForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private void UseLightning() {
+        if (distanceToPlayer <= attackRange && GameManager.i.gameActive == true)
+        {
+            GameObject lightning = Instantiate(attackPrefab[1], target_.position, attackPrefab[0].transform.rotation);
+            lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+            GetComponent<EnemyLightning>().SetData(true, damage, castLoop, castTime, lightning);
         }
     }
 

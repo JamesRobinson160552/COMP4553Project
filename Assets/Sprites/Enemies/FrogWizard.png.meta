@@ -171,8 +171,8 @@ TextureImporter:
       name: FrogWizard_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 144
+        x: 96
+        y: 192
         width: 32
         height: 48
       alignment: 0
@@ -192,8 +192,8 @@ TextureImporter:
       name: FrogWizard_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 144
+        x: 128
+        y: 192
         width: 32
         height: 48
       alignment: 0
@@ -213,7 +213,7 @@ TextureImporter:
       name: FrogWizard_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 144
         width: 32
         height: 48
@@ -230,6 +230,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: FrogWizard_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 144
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dbf64a92f2f1994f9e93ed7193b7eaf
+      internalID: -1275810968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrogWizard_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 144
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97487d3c072ba1e40b4a698919575aca
+      internalID: -98753924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrogWizard_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 144
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc43902e0ff4e864ab0efc80b3d28c0f
+      internalID: -1810489912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FrogWizard_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 144
+        width: 32
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab7736dd540e5f5459c35dd36c0701fd
+      internalID: 671965312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -241,9 +325,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      FrogWizard_8: -1810489912
       FrogWizard_4: -1687733909
       FrogWizard_5: 279245653
       FrogWizard_2: 1818191770
+      FrogWizard_9: 671965312
+      FrogWizard_6: -1275810968
+      FrogWizard_7: -98753924
       FrogWizard_3: -502335241
       FrogWizard_1: -1436029465
       FrogWizard_0: -666453694

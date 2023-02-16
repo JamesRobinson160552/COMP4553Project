@@ -5,6 +5,8 @@ using UnityEngine;
 public class ProjectileStats : MonoBehaviour
 {
     int damage;
+    bool usesTimer = false;
+    float destructTimer;
 
     public void SetDamage(int newDamage)
     {
@@ -16,8 +18,22 @@ public class ProjectileStats : MonoBehaviour
         return damage;
     }
 
+    public void SetDestructTimer(float time)
+    {
+        usesTimer = true;
+        destructTimer = time;
+    }
+
     private void FixedUpdate() {
         onCollisionEnter();
+        if(usesTimer)
+        {
+            if(destructTimer <= 0)
+            {
+                Destroy(gameObject);
+            }
+            destructTimer -= Time.deltaTime;
+        }
     }
 
     public void onCollisionEnter() 

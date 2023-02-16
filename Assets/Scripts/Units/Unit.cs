@@ -41,6 +41,7 @@ public class Unit : MonoBehaviour
                 var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
                 if ((collider != null) || (collider2 != null))
                 {
+                    timer = hitcoolDown;
                     int damage;
                     damage = tryGetDamage();
                     Debug.Log("Damage is: ");
@@ -86,14 +87,13 @@ public class Unit : MonoBehaviour
                 if(collider3 != null)
                 {
                     timer = hitcoolDown;
-                    Debug.Log(collider3.GetComponent<Unit>().GetUnitBase.BaseDamage);
                     TakeDamage(collider3.GetComponent<Unit>().GetUnitBase.BaseDamage);
                 }
             }
         }
         else
         {
-            if(timer2 <= 0)
+            if(timer2 <= 0 && unitBase_.Name == "Plague")
             {
                 SpriteRenderers_[0].enabled = !SpriteRenderers_[0].enabled;
                 SpriteRenderers_[1].enabled = !SpriteRenderers_[1].enabled;
