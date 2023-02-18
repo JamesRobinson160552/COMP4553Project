@@ -48,12 +48,6 @@ public class EnemyLightning : MonoBehaviour
                 if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f)) {
                     //damage = 2;
                     lightning.GetComponent<ProjectileStats>().SetDamage(damage);
-                    try
-                    {
-                        Destroy(lightning);
-                        lightningCast = false;
-                    }
-                    catch { }
                     lightningCast = false;
                     BaseTimeSet = false;
                     castLoop = 0.0f;

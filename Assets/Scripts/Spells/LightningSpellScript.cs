@@ -51,6 +51,8 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
             mousePos = new Vector3(mousePos.x, mousePos.y, 0);
             lightning = Instantiate(spellPrefabs[0], mousePos, spellPrefabs[0].transform.rotation);
             lightning.GetComponent<ProjectileStats>().SetDamage(0);
+            lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+            lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.01f);
         }
     }
 
@@ -83,11 +85,6 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
                 if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f)) {
                     //damage = 2;
                     lightning.GetComponent<ProjectileStats>().SetDamage(damage);
-                    try
-                    {
-                        Destroy(lightning);
-                    }
-                    catch { }
                     lightningCast = false;
                     BaseTimeSet = false;
                     castLoop = 0.0f;

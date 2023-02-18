@@ -49,6 +49,7 @@ public class Unit : MonoBehaviour
                     TakeDamage(damage);
                     try
                     {
+                        CameraShake.i.StopShake();
                         Destroy(collider.gameObject); //destroy projectile  
                     }
                     catch
@@ -73,6 +74,7 @@ public class Unit : MonoBehaviour
                     TakeDamage(damage);
                     try
                     {
+                        CameraShake.i.StopShake();
                         Destroy(collider.gameObject); //destroy projectile  
                     }
                     catch

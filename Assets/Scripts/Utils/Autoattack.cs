@@ -14,6 +14,7 @@ public class Autoattack : MonoBehaviour, SpellBase
     public GameManager gameManager;
     public GameObject plr;
     public int damage = 5;
+    float timer = 0;
 
     public float bulletForce = 20f;
 
@@ -62,6 +63,14 @@ public class Autoattack : MonoBehaviour, SpellBase
             Vector2 fireDir = mousePos - aimerRB.position;
             float angle = Mathf.Atan2(fireDir.y, fireDir.x) * Mathf.Rad2Deg - 90f; // angle between x axis, and 2D vector between 0,0 and x,y
             aimerRB.rotation = angle;
+
+            if(timer < 0)
+            {
+                Debug.Log(timer);
+                CameraShake.i.StopShake();
+            }
+
+            timer -= Time.deltaTime;
         }
 
     }
@@ -75,6 +84,8 @@ public class Autoattack : MonoBehaviour, SpellBase
 
         //give the projectile the stats from the sepll
         bullet.GetComponent<ProjectileStats>().SetDamage(damage);
+        CameraShake.i.Shake(0.3f);
+        timer = 0.1f;
 
         // Add force to the newly instantiated rb
         rb.AddForce(aimer.up * bulletForce, ForceMode2D.Impulse);

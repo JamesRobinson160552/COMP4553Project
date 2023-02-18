@@ -42,6 +42,8 @@ public class FireBlastScript : MonoBehaviour, SpellBase
 
         //give the projectile the stats from the sepll
         bullet.GetComponent<ProjectileStats>().SetDamage(damage);
+        bullet.GetComponent<ProjectileStats>().CauseCameraShake(true, false, 0.5f);
+        bullet.GetComponent<ProjectileStats>().SetDestructTimer(2f);
 
         // Add force to the newly instantiated rb
         rb.AddForce(aimer.up * bulletForce, ForceMode2D.Impulse);

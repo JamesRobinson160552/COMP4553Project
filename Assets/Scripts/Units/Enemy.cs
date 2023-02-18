@@ -94,6 +94,7 @@ public class Enemy : MonoBehaviour
         {
             GameObject lightning = Instantiate(attackPrefab[1], target_.position, attackPrefab[0].transform.rotation);
             lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+            lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.01f);
             GetComponent<EnemyLightning>().SetData(true, damage, castLoop, castTime, lightning);
         }
     }

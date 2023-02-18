@@ -7,6 +7,11 @@ public class ProjectileStats : MonoBehaviour
     int damage;
     bool usesTimer = false;
     float destructTimer;
+    bool causesCameraShake;
+    bool gradualShake;
+    float baseIntensity;
+    float currentIntensity;
+
 
     public void SetDamage(int newDamage)
     {
@@ -24,12 +29,35 @@ public class ProjectileStats : MonoBehaviour
         destructTimer = time;
     }
 
+    public void CauseCameraShake(bool shakes, bool gradual, float intensity)
+    {
+        causesCameraShake = shakes;
+        gradualShake = gradual;
+        baseIntensity = intensity;
+
+    }
+
     private void FixedUpdate() {
+
         onCollisionEnter();
+        if(causesCameraShake)
+        {
+            if(gradualShake)
+            {
+                currentIntensity += baseIntensity;
+                CameraShake.i.Shake(currentIntensity);
+            }
+            else
+            {
+                CameraShake.i.Shake(baseIntensity);
+            }
+        }
+
         if(usesTimer)
         {
             if(destructTimer <= 0)
             {
+                CameraShake.i.StopShake();
                 Destroy(gameObject);
             }
             destructTimer -= Time.deltaTime;
@@ -41,6 +69,7 @@ public class ProjectileStats : MonoBehaviour
         var collider = Physics2D.OverlapCircle(transform.position, 0.1f, GameLayers.i.BorderLayer);
         if (collider != null) //Destory on collision with border
         {
+            CameraShake.i.StopShake();
             Destroy(gameObject);
         }
 
