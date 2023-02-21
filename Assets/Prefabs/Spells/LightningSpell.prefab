@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7844306712849952297}
   - component: {fileID: -580595415726259816}
   - component: {fileID: -7098513389084927956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LightningSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1482005814850497052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -218.9345, y: -32.1305, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.9000006, y: 3.9000006, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -67,8 +67,6 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
                 BaseTimeSet = true;
             }
 
-            Debug.Log(BaseTime);
-
             if (Time.realtimeSinceStartup <= (BaseTime + castTime))
             // if actual time is <= Base + castTime (aka keep going through spell)
             {
@@ -84,16 +82,20 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
             {
                 if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f)) {
                     //damage = 2;
-                    lightning.GetComponent<ProjectileStats>().SetDamage(damage);
+                    if(lightning !=null )
+                        lightning.GetComponent<ProjectileStats>().SetDamage(damage);
                     lightningCast = false;
                     BaseTimeSet = false;
                     castLoop = 0.0f;
                     gameManager.lightningSpawned = false;
                 } else {
-                    lightning.GetComponent<Renderer>().material.color = Color.red;
-                    lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");
-                    //damage = 2;
-                    lightning.GetComponent<ProjectileStats>().SetDamage(damage);
+                    if (lightning != null )
+                    {
+                        lightning.GetComponent<Renderer>().material.color = Color.red;
+                        lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                        //damage = 2;
+                        lightning.GetComponent<ProjectileStats>().SetDamage(damage);
+                    }
                 }
             }            
         }

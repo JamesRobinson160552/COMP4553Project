@@ -69,6 +69,7 @@ public class ProjectileStats : MonoBehaviour
         var collider = Physics2D.OverlapCircle(transform.position, 0.1f, GameLayers.i.BorderLayer);
         if (collider != null) //Destory on collision with border
         {
+            usesTimer= false;
             CameraShake.i.StopShake();
             Destroy(gameObject);
         }

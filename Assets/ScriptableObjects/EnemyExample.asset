@@ -15,8 +15,9 @@ MonoBehaviour:
   name_: Example
   level_: 0
   exp_: 0
-  maxHP_: 10
+  maxHP_: 100
   range_: 0
+  hitBoxMultiplier_: 0
   baseDamage_: 0
   attackSpeed_: 0
   projectileSpeed_: 0

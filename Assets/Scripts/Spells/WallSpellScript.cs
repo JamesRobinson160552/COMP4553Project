@@ -53,8 +53,7 @@ public class WallSpellScript : MonoBehaviour, SpellBase
         float opposite = mousePos.y - plr.transform.position.y;
         float angle = Mathf.Atan2(opposite, adjacent) * Mathf.Rad2Deg;
         Vector3 angleVector = new Vector3(0, 0, angle);
-        //Debug.Log("Angle: " + angle);
-        //Debug.Log("Angle Vector: " + angleVector);
+
 
         GameObject wall = Instantiate(spellPrefabs[0], mousePos, Quaternion.Euler(angleVector));
         wall.GetComponent<WallAnimator>().breakingPoint = 2f;
