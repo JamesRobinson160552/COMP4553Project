@@ -66,7 +66,8 @@ public class EnemyLightning : MonoBehaviour
                         lightningSprite[1].transform.position = new Vector3(spawn.x, spawn.y + distanceAboveMouse/counter, 0);
                     if(counter == 4)
                         lightning.GetComponentInChildren<SpellAnimator>().playSetUp = false;
-                    
+                    if(counter == 8)
+                        lightning.GetComponentInChildren<SpellAnimator>().playEndFrames = true;
                     lightningSprite[1].material.color = Color.red;
                     lightning.GetComponent<Renderer>().enabled = false;
                     lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");

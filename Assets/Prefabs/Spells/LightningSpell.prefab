@@ -230,5 +230,11 @@ MonoBehaviour:
   - {fileID: -132192228, guid: cacf18e8c87b429428e8393e34cc4a66, type: 3}
   - {fileID: -132192228, guid: cacf18e8c87b429428e8393e34cc4a66, type: 3}
   - {fileID: 1863675736, guid: cacf18e8c87b429428e8393e34cc4a66, type: 3}
+  endFrames:
+  - {fileID: 1648937009, guid: cacf18e8c87b429428e8393e34cc4a66, type: 3}
+  - {fileID: 1648937009, guid: cacf18e8c87b429428e8393e34cc4a66, type: 3}
+  - {fileID: 1824654147, guid: cacf18e8c87b429428e8393e34cc4a66, type: 3}
   usesSetUp: 1
+  usesEndFrames: 1
   playSetUp: 0
+  playEndFrames: 0

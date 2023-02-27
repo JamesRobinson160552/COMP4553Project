@@ -6,12 +6,16 @@ public class SpellAnimator : MonoBehaviour
 {
     [SerializeField] List<Sprite> activeFrames;
     [SerializeField] List<Sprite> setUpFrames;
+    [SerializeField] List<Sprite> endFrames;
     [SerializeField] bool usesSetUp;
+    [SerializeField] bool usesEndFrames;
 
     public bool playSetUp = false;
+    public bool playEndFrames = false;
 
     SpriteAnimator activeAnim_;
     SpriteAnimator setupAnim_;
+    SpriteAnimator endAnim_;
     SpriteAnimator mainAnim_;
 
     SpriteRenderer renderer_;
@@ -21,6 +25,11 @@ public class SpellAnimator : MonoBehaviour
         renderer_ = gameObject.GetComponent<SpriteRenderer>();
 
         mainAnim_ = new SpriteAnimator(activeFrames, renderer_);
+        if(usesEndFrames)
+        {
+            endAnim_ = new SpriteAnimator(endFrames, renderer_);
+        }
+
         if(usesSetUp)
         {
             playSetUp = true;
@@ -39,6 +48,9 @@ public class SpellAnimator : MonoBehaviour
         
         if(!playSetUp)
             activeAnim_ = mainAnim_;
+
+        if(playEndFrames)
+            activeAnim_ = endAnim_;
     }
     
 }
