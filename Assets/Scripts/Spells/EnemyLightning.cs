@@ -11,14 +11,21 @@ public class EnemyLightning : MonoBehaviour
     float castLoop = 0.0f;
     float castTime = 1.25f;
     GameObject lightning;
+    SpriteRenderer[] lightningSprite;
+    float distanceAboveMouse = 12f;
+    int counter =0;
+    Vector3 spawn;
 
     public void SetData(bool cast, int setDamage, float loop, float time, GameObject lightningPrefab)
     {
+        spawn = transform.position;
         lightningCast = cast;
         damage = setDamage;
         castLoop = loop;
         castTime = time;
         lightning = lightningPrefab;
+        lightningSprite = lightning.GetComponentsInChildren<SpriteRenderer>();
+        lightningSprite[1].enabled = false;
     }
 
     public void LateUpdate()
@@ -53,7 +60,15 @@ public class EnemyLightning : MonoBehaviour
                     castLoop = 0.0f;
                     //GameManager.i.lightningSpawned = false;
                 } else {
-                    lightning.GetComponent<Renderer>().material.color = Color.red;
+                    counter++;
+                    lightningSprite[1].enabled = true;
+                    if(counter < 4)
+                        lightningSprite[1].transform.position = new Vector3(spawn.x, spawn.y + distanceAboveMouse/counter, 0);
+                    if(counter == 4)
+                        lightning.GetComponentInChildren<SpellAnimator>().playSetUp = false;
+                    
+                    lightningSprite[1].material.color = Color.red;
+                    lightning.GetComponent<Renderer>().enabled = false;
                     lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");
                     //damage = 2;
                     lightning.GetComponent<ProjectileStats>().SetDamage(damage);

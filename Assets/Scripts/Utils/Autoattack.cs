@@ -66,7 +66,7 @@ public class Autoattack : MonoBehaviour, SpellBase
 
             if(timer < 0)
             {
-                Debug.Log(timer);
+                //Debug.Log(timer);
                 CameraShake.i.StopShake();
             }
 

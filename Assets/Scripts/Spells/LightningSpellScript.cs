@@ -20,7 +20,10 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     private bool BaseTimeSet = false;
     private GameObject lightning;
     public string desc;
-
+    SpriteRenderer[] lightningSprite;
+    float distanceAboveMouse = 12f;
+    int counter =0;
+    Vector3 mousePos;
 
     public string getName()
     { return spellName; }
@@ -46,10 +49,15 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     {
         if (gameManager.lightningSpawned == false)
         {
+            counter = 0;
             lightningCast = true;
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
             mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+            //spritePostion = new Vector3(mousePos.x, mousePos.y + 10f, 0);
             lightning = Instantiate(spellPrefabs[0], mousePos, spellPrefabs[0].transform.rotation);
+            lightningSprite = lightning.GetComponentsInChildren<SpriteRenderer>();
+            lightningSprite[1].enabled = false; //0 is the circle, 1 is the lightning sprite
+            //lightningSprite[1].transform.position = new Vector3(mousePos.x, mousePos.y + distanceAboveMouse, 0);
             lightning.GetComponent<ProjectileStats>().SetDamage(0);
             lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
             lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.01f);
@@ -89,9 +97,17 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
                     castLoop = 0.0f;
                     gameManager.lightningSpawned = false;
                 } else {
-                    if (lightning != null )
+                    if (lightning != null ) //this gets run 9 times, go down for 2 frames and then do damage for the rest
                     {
-                        lightning.GetComponent<Renderer>().material.color = Color.red;
+                        counter++;
+                        //Debug.Log(counter);
+                        lightningSprite[1].enabled = true;
+                        if(counter < 4)
+                            lightningSprite[1].transform.position = new Vector3(mousePos.x, mousePos.y + distanceAboveMouse/counter, 0);
+                        if(counter == 4)
+                            lightning.GetComponentInChildren<SpellAnimator>().playSetUp = false;
+                        //lightningSprite[1].material.color = Color.red;
+                        lightning.GetComponent<Renderer>().enabled = false;
                         lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");
                         //damage = 2;
                         lightning.GetComponent<ProjectileStats>().SetDamage(damage);

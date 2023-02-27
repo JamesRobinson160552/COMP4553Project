@@ -5,8 +5,14 @@ using UnityEngine;
 public class SpellAnimator : MonoBehaviour
 {
     [SerializeField] List<Sprite> activeFrames;
+    [SerializeField] List<Sprite> setUpFrames;
+    [SerializeField] bool usesSetUp;
+
+    public bool playSetUp = false;
 
     SpriteAnimator activeAnim_;
+    SpriteAnimator setupAnim_;
+    SpriteAnimator mainAnim_;
 
     SpriteRenderer renderer_;
 
@@ -14,7 +20,15 @@ public class SpellAnimator : MonoBehaviour
     {
         renderer_ = gameObject.GetComponent<SpriteRenderer>();
 
-        activeAnim_ = new SpriteAnimator(activeFrames, renderer_);
+        mainAnim_ = new SpriteAnimator(activeFrames, renderer_);
+        if(usesSetUp)
+        {
+            playSetUp = true;
+            setupAnim_ = new SpriteAnimator(setUpFrames, renderer_);
+            activeAnim_ = setupAnim_;
+        }
+        else
+            activeAnim_ = mainAnim_;
 
         activeAnim_.Start();
     }
@@ -22,6 +36,9 @@ public class SpellAnimator : MonoBehaviour
     private void Update()
     {
         activeAnim_.HandleUpdate();
+        
+        if(!playSetUp)
+            activeAnim_ = mainAnim_;
     }
     
 }
