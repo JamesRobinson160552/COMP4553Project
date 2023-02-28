@@ -109,7 +109,7 @@ public class Unit : MonoBehaviour
 
     void CheckForDeath()
     {
-        if(currentHP <= 0)
+        if(currentHP <= 0 && unitBase_.Name != "Plague") //Player respawns rather than being destroyed 
         {
             Destroy(gameObject);
         }

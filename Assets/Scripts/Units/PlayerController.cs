@@ -16,11 +16,15 @@ public class PlayerController : MonoBehaviour
     float timeBetweenClicks;
     float timeRemaining_;
     int inputCounter;
+    public bool reachedBoss = false;
+    public Vector3 spawnPosition;
+    public HealthBar healthBar;
 
     private void Awake()
     {
         character = GetComponent<Character>();
         spellController_ = GetComponent<SpellController>();
+        playerStats = GetComponent<Unit>();
         isLoadingSpell_ = false;
     }
 
@@ -29,6 +33,11 @@ public class PlayerController : MonoBehaviour
         // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if (playerStats.currentHP <= 0)
+        {
+            Respawn();
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
             Interact();
@@ -151,5 +160,21 @@ public class PlayerController : MonoBehaviour
             //collider.GetComponent<NPCController>(); //looks for this script in the object trying to be interacted with
             collider.GetComponent<Interactible>()?.Interact(transform);
         }
+    }
+
+    //Resets enemies and sends player to spawn location with full health
+    void Respawn()
+    {
+        gameManager.gameActive = false;
+        spawnPosition = new Vector3(1.4f, -49.3f, 0);
+        if (reachedBoss)
+        {
+            spawnPosition = new Vector3(-60.0f, 12.0f, 0);
+        }
+        playerStats.currentHP = playerStats.GetUnitBase.MaxHP;
+        healthBar.setHealth(playerStats.currentHP);
+        gameManager.ResetEnemies();
+        transform.position = spawnPosition;
+        gameManager.gameActive = true;
     }
 }

@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     public GameObject UI;
     public GameObject menu;
     public GameObject[] enemyPrefabs;
-    public float spawnStartDelay = 2.0f; //Seconds
-    public float spawnInterval = 2.0f; //Seconds
     public bool showingDialog = false;
     public bool lightningSpawned = false;
     public SettingMenuText menuText;
@@ -31,7 +29,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResetEnemies();
     }
 
     // Update is called once per frame
@@ -45,15 +43,6 @@ public class GameManager : MonoBehaviour
         gameActive = true;
         titleScreen.gameObject.SetActive(false);
         UI.gameObject.SetActive(true);
-        //StartCoroutine(SpawnEnemies());
-    }
-
-    void SpawnEnemyPrefab()
-    {
-        float spawnPositionx = Random.Range(0.0f, 5.0f);
-        float spawnPositiony = Random.Range(0.0f, 5.0f);
-        Vector3 spawnPosition = new Vector3(spawnPositionx, spawnPositiony, 0.0f);
-        Instantiate(enemyPrefabs[0], spawnPosition, enemyPrefabs[0].transform.rotation);
     }
 
     public void OpenMenu()
@@ -63,12 +52,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("menu open");
     }
 
-    IEnumerator SpawnEnemies()
+    void DestroyAllEnemies()
     {
-        while(gameActive)
+        GameObject[] aliveEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in aliveEnemies) {
+            GameObject.Destroy(enemy);
+        }
+    }
+
+    public void ResetEnemies()
+    {
+        DestroyAllEnemies();
+        foreach (GameObject enemyGroup in enemyPrefabs)
         {
-            yield return new WaitForSeconds(spawnInterval);
-            SpawnEnemyPrefab();
+            Instantiate(enemyGroup, enemyGroup.transform.position, enemyGroup.transform.rotation);
         }
     }
 }
