@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeed; 
     public float attackRange;
     public float visionRange; //How close player gets to initiate tracking
+    public float minDistance=0;
     private float distanceToPlayer;
     public float attackSpeed = 0.75f;
     public float shootDelay = 0.5f;
@@ -59,7 +60,12 @@ public class Enemy : MonoBehaviour
         else if (target_)
         {
             distanceToPlayer = Vector3.Distance(target_.position, transform.position);
-            if (distanceToPlayer <= visionRange)
+            if(distanceToPlayer <= minDistance)
+            {
+                rb.velocity = new Vector2(moveDirection_.x, moveDirection_.y) * moveSpeed *-1;
+                character_.Moving(moveDirection_);
+            }
+            else if (distanceToPlayer <= visionRange)
             {
                 rb.velocity = new Vector2(moveDirection_.x, moveDirection_.y) * moveSpeed;
                 character_.Moving(moveDirection_);

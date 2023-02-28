@@ -169,6 +169,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -391,6 +392,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -613,6 +615,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -873,6 +876,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -1095,6 +1099,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -1318,6 +1323,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 10
   visionRange: 20
+  minDistance: 10
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -1551,6 +1557,7 @@ MonoBehaviour:
   moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
