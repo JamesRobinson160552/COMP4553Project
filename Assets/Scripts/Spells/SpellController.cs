@@ -35,7 +35,7 @@ public class SpellController : MonoBehaviour
     {
         //gets all children of ALL SPELLS game object, and puts them in a list
         allSpells.GetComponentsInChildren(spells);
-        Debug.Log(spells.Count);
+        //Debug.Log(spells.Count);
     }
 
     //changing values of list to match play inputs

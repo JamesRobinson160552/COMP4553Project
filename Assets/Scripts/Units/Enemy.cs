@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float moveSpeed; 
+    float moveSpeed; 
     public float attackRange;
     public float visionRange; //How close player gets to initiate tracking
     public float minDistance=0;
@@ -22,12 +22,16 @@ public class Enemy : MonoBehaviour
     Vector3 direction_; //Towards player
     Unit unit_;
     Character character_;
+    CharacterAnimator animator_;
     public bool castLightning;
+    public float maxTimer;
+    float timer; 
 
     private void Awake()
     {
         unit_ = GetComponent<Unit>();
         character_ = GetComponent<Character>();
+        animator_ = GetComponent<CharacterAnimator>();
     }
 
     private void Start()
@@ -48,10 +52,22 @@ public class Enemy : MonoBehaviour
             direction_ = (target_.position - transform.position).normalized;
             moveDirection_ = direction_;
         }
+
+        if(timer > 0)
+        {
+            animator_.ChangeIsAttacking(true);
+        }
+
+        else
+        {
+            animator_.ChangeIsAttacking(false);
+        }
     }
 
     private void FixedUpdate()
     {
+        timer -= Time.fixedDeltaTime;
+
         if(GameManager.i.gameActive == false)
         {
             rb.velocity = new Vector2(0, 0) * 0;
@@ -60,7 +76,7 @@ public class Enemy : MonoBehaviour
         else if (target_)
         {
             distanceToPlayer = Vector3.Distance(target_.position, transform.position);
-            if(distanceToPlayer <= minDistance)
+            if(distanceToPlayer <= minDistance) //causes enemy to back off if too close to player
             {
                 rb.velocity = new Vector2(moveDirection_.x, moveDirection_.y) * moveSpeed *-1;
                 character_.Moving(moveDirection_);
@@ -81,6 +97,8 @@ public class Enemy : MonoBehaviour
     private void Shoot() {
         if (distanceToPlayer <= attackRange && GameManager.i.gameActive == true) //Player is in range
         {
+            timer = maxTimer;
+
             // Instantiates bullet at location of aimer
             GameObject bullet = Instantiate(attackPrefab[0], transform.position, attackPrefab[0].transform.rotation);
 
@@ -98,6 +116,8 @@ public class Enemy : MonoBehaviour
     private void UseLightning() {
         if (distanceToPlayer <= attackRange && GameManager.i.gameActive == true)
         {
+            timer = maxTimer;
+            animator_.AttackPos(target_.position);
             GameObject lightning = Instantiate(attackPrefab[1], target_.position, attackPrefab[0].transform.rotation);
             lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
             lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.01f);

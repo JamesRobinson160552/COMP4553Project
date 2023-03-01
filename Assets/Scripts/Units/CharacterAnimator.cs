@@ -14,6 +14,7 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] List<Sprite> walkRightSprites;
     [SerializeField] List<Sprite> castLeftSprites;
     [SerializeField] List<Sprite> castRightSprites;
+    [SerializeField] bool hasAttackAnim_;
 
     public float moveX { get; set; }
     public float moveY { get; set; }
@@ -52,7 +53,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         GetComponentsInChildren(SpriteRenderers_);
 
-        if(SpriteRenderers_.Count > 1)
+        if(SpriteRenderers_.Count > 1) //used when arms are seperate from body
         {
             walkLeftArmAnim_ = new SpriteAnimator(walkLeftArmSprites, SpriteRenderers_[1]);
             walkRightArmAnim_ = new SpriteAnimator(walkRightArmSprites, SpriteRenderers_[1]);
@@ -62,6 +63,18 @@ public class CharacterAnimator : MonoBehaviour
         
             attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[1]);
             attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[1]);
+        }
+
+        else if(hasAttackAnim_) //when there is 1 sprite in both body and arm are included
+        {
+            walkLeftArmAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
+            walkRightArmAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+
+            castLeftAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
+            castRightAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+
+            attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[0]);
+            attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[0]);
         }
 
         else
@@ -108,16 +121,32 @@ public class CharacterAnimator : MonoBehaviour
         //have character face in direction of attack
         else
         {
-            if (isAttackingLeft_ == false)
+            if(SpriteRenderers_.Count > 1)
             {
-                currentAnimBody_ = walkRightAnim_;
-                currentAnimArm_ = attackRight_;
+                if (isAttackingLeft_ == false)
+                {
+                    currentAnimBody_ = walkRightAnim_;
+                    currentAnimArm_ = attackRight_;
+                }
+
+                else
+                {
+                    currentAnimBody_ = walkLeftAnim_;
+                    currentAnimArm_ = attackLeft_;
+                }
             }
 
             else
             {
-                currentAnimBody_ = walkLeftAnim_;
-                currentAnimArm_ = attackLeft_;
+                if (isAttackingLeft_ == false)
+                {
+                    currentAnimArm_ = attackRight_;
+                }
+
+                else
+                {
+                    currentAnimArm_ = attackLeft_;
+                }
             }
         }
 
