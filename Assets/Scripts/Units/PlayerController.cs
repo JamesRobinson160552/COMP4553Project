@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public bool reachedBoss = false;
     public Vector3 spawnPosition;
     public HealthBar healthBar;
+    public FadePanel fadeScreen;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerStats.currentHP <= 0)
         {
-            Respawn();
+            StartCoroutine(Respawn());
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -163,9 +164,11 @@ public class PlayerController : MonoBehaviour
     }
 
     //Resets enemies and sends player to spawn location with full health
-    void Respawn()
+    IEnumerator Respawn()
     {
         gameManager.gameActive = false;
+        fadeScreen.FadeIn(2f);
+        yield return new WaitForSeconds(3f);
         spawnPosition = new Vector3(1.4f, -49.3f, 0);
         if (reachedBoss)
         {
@@ -175,6 +178,8 @@ public class PlayerController : MonoBehaviour
         healthBar.setHealth(playerStats.currentHP);
         gameManager.ResetEnemies();
         transform.position = spawnPosition;
+        yield return new WaitForSeconds(2f);
+        fadeScreen.FadeOut(2f);
         gameManager.gameActive = true;
     }
 }
