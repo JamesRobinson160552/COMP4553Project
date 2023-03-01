@@ -19,6 +19,7 @@ public class SpellController : MonoBehaviour
 
     List<char> playerInputs_ { get;set; }
     int currentPosition = 0;
+    float timer =0;
     bool usedSpecial_;
 
     public void Awake()
@@ -66,11 +67,27 @@ public class SpellController : MonoBehaviour
         
         if(usedSpecial_ == false)
         {
+            timer = 0.25f;
             attack.castSpell();
             Debug.Log("basic spell");
         }
         
         resetPlayerInputs();
+    }
+
+    public void FixedUpdate()
+    {
+        if(timer > 0)
+        {
+            GetComponent<PlayerController>().currentMoveSpeed = GetComponent<PlayerController>().moveSpeed/2;
+        }
+
+        else
+        {
+            GetComponent<PlayerController>().currentMoveSpeed = GetComponent<PlayerController>().moveSpeed;
+        }
+
+        timer -= Time.fixedDeltaTime;
     }
 
     //we do a lot of comparing list so made a function to keep things clean

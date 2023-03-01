@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
     public Rigidbody2D rb;  // Links rigidbody to script to allow for movement
-    Vector2 movement;  // Stores x and y 
+    Vector2 movement;  // Stores x and y
     bool isLoadingSpell_;
     public GameManager gameManager;
     public Unit playerStats;
@@ -19,10 +19,12 @@ public class PlayerController : MonoBehaviour
     public bool reachedBoss = false;
     public Vector3 spawnPosition;
     public HealthBar healthBar;
+    public float currentMoveSpeed;
     public FadePanel fadeScreen;
 
     private void Awake()
     {
+        currentMoveSpeed = moveSpeed;
         character = GetComponent<Character>();
         spellController_ = GetComponent<SpellController>();
         playerStats = GetComponent<Unit>();
@@ -110,6 +112,19 @@ public class PlayerController : MonoBehaviour
         {
             if(isLoadingSpell_ == false) //cannot walk if loading spell
             {
+                if(movement.x == 1 && movement.y == 1) 
+                    movement = new Vector2(0.70f, 0.70f);
+
+                if(movement.x == -1 && movement.y == -1) 
+                    movement = new Vector2(-0.70f, -0.70f);
+
+                if(movement.x == -1 && movement.y == 1) 
+                    movement = new Vector2(-0.70f, 0.70f);
+
+                if(movement.x == 1 && movement.y == -1) 
+                    movement = new Vector2(0.70f, -0.70f);
+
+                rb.MovePosition(rb.position + movement * currentMoveSpeed * Time.fixedDeltaTime);
                 rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
                 //tells character script if unit is moving or not
                 if(movement != Vector2.zero)
@@ -126,7 +141,7 @@ public class PlayerController : MonoBehaviour
             {
                 character.Animator.ChangeIsMoving(false);
             }
-            
+
             if(timeRemaining_ > 0)// && !isLoadingSpell_)
             {
                 timeRemaining_ -= Time.fixedDeltaTime;
@@ -141,12 +156,12 @@ public class PlayerController : MonoBehaviour
                 timeBetweenClicks -= Time.fixedDeltaTime;
             }
         }
-        
+
         else
         {
             rb.MovePosition(rb.position + movement * 0 * Time.fixedDeltaTime);
             character.Animator.ChangeIsMoving(false);
-        }     
+        }
     }
 
     void Interact()

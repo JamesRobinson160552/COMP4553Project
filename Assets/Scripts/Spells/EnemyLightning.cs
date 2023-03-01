@@ -25,6 +25,7 @@ public class EnemyLightning : MonoBehaviour
         castTime = time;
         lightning = lightningPrefab;
         lightningSprite = lightning.GetComponentsInChildren<SpriteRenderer>();
+        lightning.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
         lightningSprite[1].enabled = false;
         lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.08f);
     }
