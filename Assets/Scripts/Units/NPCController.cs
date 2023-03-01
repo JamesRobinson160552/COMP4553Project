@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCController : MonoBehaviour, Interactible
 {
     [SerializeField] Dialog dialog;
+    [SerializeField] Sprite portrait;
     [SerializeField] List<Vector2> movementPattern;
     [SerializeField] float timeBetweenMovement; //how long npc waits before walking again
     [SerializeField] float timeToWalk; //how long npc will walk at one time
@@ -37,7 +39,7 @@ public class NPCController : MonoBehaviour, Interactible
 
             character.LookTowards(initator.position);
 
-            StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
+            StartCoroutine(DialogManager.Instance.ShowDialog(dialog, portrait));
         }
     }
 
@@ -85,29 +87,32 @@ public class NPCController : MonoBehaviour, Interactible
 
     void FixedUpdate()
     {   
-        Rigidbody2D rb = character.GetComponent<Rigidbody2D>();
-        if(walkingTimer > 0)
+        if(state != NPCState.Dialog)
         {
-            state = NPCState.Walking;
-            rb.velocity = new Vector2(distanceToTarget.x, distanceToTarget.y) * walkSpeed;
-            character.Moving(distanceToTarget);
-            justWalked = true;
-        }
+            Rigidbody2D rb = character.GetComponent<Rigidbody2D>();
+            if(walkingTimer > 0)
+            {
+                state = NPCState.Walking;
+                rb.velocity = new Vector2(distanceToTarget.x, distanceToTarget.y) * walkSpeed;
+                character.Moving(distanceToTarget);
+                justWalked = true;
+            }
 
-        else
-        {
-            rb.velocity = new Vector2(0, 0) * 0;
-            state = NPCState.Idle;
-        }
+            else
+            {
+                rb.velocity = new Vector2(0, 0) * 0;
+                state = NPCState.Idle;
+            }
 
-        if(walkingTimer <= 0 && justWalked) //only iterate pattern 1 time when timer is over
-        {
-            currentPattern = (currentPattern + 1) % movementPattern.Count; //pattern will repeat
-            justWalked = false;
-        }
+            if(walkingTimer <= 0 && justWalked) //only iterate pattern 1 time when timer is over
+            {
+                currentPattern = (currentPattern + 1) % movementPattern.Count; //pattern will repeat
+                justWalked = false;
+            }
 
-        
-        walkingTimer -= Time.deltaTime;
+            
+            walkingTimer -= Time.deltaTime;
+        }
     }
 }
 

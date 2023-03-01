@@ -26,6 +26,7 @@ public class EnemyLightning : MonoBehaviour
         lightning = lightningPrefab;
         lightningSprite = lightning.GetComponentsInChildren<SpriteRenderer>();
         lightningSprite[1].enabled = false;
+        lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.08f);
     }
 
     public void LateUpdate()

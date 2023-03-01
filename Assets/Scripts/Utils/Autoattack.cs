@@ -84,7 +84,7 @@ public class Autoattack : MonoBehaviour, SpellBase
 
         //give the projectile the stats from the sepll
         bullet.GetComponent<ProjectileStats>().SetDamage(damage);
-        CameraShake.i.Shake(0.3f);
+        CameraShake.i.Shake(1f);
         timer = 0.1f;
 
         // Add force to the newly instantiated rb

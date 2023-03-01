@@ -60,7 +60,7 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
             //lightningSprite[1].transform.position = new Vector3(mousePos.x, mousePos.y + distanceAboveMouse, 0);
             lightning.GetComponent<ProjectileStats>().SetDamage(0);
             lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
-            lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.01f);
+            lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.1f);
         }
     }
 

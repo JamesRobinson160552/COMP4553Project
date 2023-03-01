@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DialogManager : MonoBehaviour
 {
     [SerializeField] GameObject dialogBox;
+    [SerializeField] Image characterTalking;
     [SerializeField] Text dialogText;
     [SerializeField] int lettersPerSecond;
 
@@ -21,9 +22,11 @@ public class DialogManager : MonoBehaviour
         Instance = this;
     }
 
-    public IEnumerator ShowDialog(Dialog dialog) //shows dialog
+    public IEnumerator ShowDialog(Dialog dialog, Sprite sprite) //shows dialog
     {
         yield return new WaitForEndOfFrame();
+
+        characterTalking.sprite = sprite;
 
         GameManager.i.showingDialog = true;
 
