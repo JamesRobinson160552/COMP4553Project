@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public bool lightningSpawned = false;
     public SettingMenuText menuText;
 
+    public bool leftStartingZone;
+
     public bool playLightningDialog = false;
 
     public static GameManager i { get; set; }
@@ -37,7 +39,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if((GameObject.Find("Player").transform.position.y > -34) && !leftStartingZone)
+        {
+            GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow();
+            leftStartingZone = true;
+        }
     }
 
     public void StartGame()

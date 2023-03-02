@@ -7,6 +7,7 @@ public class Crow : MonoBehaviour
 {
     [SerializeField] Sprite portrait;
     [SerializeField] Dialog dialog;
+    [SerializeField] List<string> introDialog;
     [SerializeField] List<string> basicDialog;
     [SerializeField] List<string> afterLightningDialog;
 
@@ -38,7 +39,7 @@ public class Crow : MonoBehaviour
 
     void FixedUpdate()
     {
-        if((transform.position.x - 0.1f < target_.x && target_.x < transform.position.x + 0.1f) && (transform.position.y - 0.1f < target_.y && target_.y < transform.position.y + 0.1f))
+        if(((transform.position.x - 0.1f < target_.x && target_.x < transform.position.x + 0.1f) && (transform.position.y - 0.1f < target_.y && target_.y < transform.position.y + 0.1f)) || (!GameManager.i.leftStartingZone) || (GameManager.i.showingDialog))
         {
             character_.Animator.ChangeIsMoving(false);
             rb.velocity = new Vector2(0, 0) * 0;
@@ -59,6 +60,11 @@ public class Crow : MonoBehaviour
             {
                 GameManager.i.playLightningDialog = false;
                 dialog.lines = afterLightningDialog;
+            }
+
+            else if(!GameManager.i.leftStartingZone)
+            {
+                dialog.lines = introDialog;
             }
 
             else

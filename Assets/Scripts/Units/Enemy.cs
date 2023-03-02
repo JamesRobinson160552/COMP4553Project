@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public float visionRange; //How close player gets to initiate tracking
     public float minDistance=0;
-    private float distanceToPlayer;
+    private float distanceToPlayer = 1000000;
     public float attackSpeed = 0.75f;
     public float shootDelay = 0.5f;
     public float castLoop = 0.0f;
@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     Character character_;
     CharacterAnimator animator_;
     public bool castLightning;
+    public bool shootProjectile;
     public float maxTimer;
     float timer; 
 
@@ -40,8 +41,8 @@ public class Enemy : MonoBehaviour
         target_ = GameObject.Find("Player").transform;
         moveSpeed = unit_.GetUnitBase.MoveSpeed;
         if(castLightning)
-         InvokeRepeating("UseLightning", shootDelay, attackSpeed);
-        else
+            InvokeRepeating("UseLightning", shootDelay, attackSpeed);
+        if(shootProjectile)
             InvokeRepeating("Shoot", shootDelay, attackSpeed);
     }
 
@@ -68,7 +69,7 @@ public class Enemy : MonoBehaviour
     {
         timer -= Time.fixedDeltaTime;
 
-        if(GameManager.i.gameActive == false)
+        if(!GameManager.i.gameActive || !GameManager.i.leftStartingZone)
         {
             rb.velocity = new Vector2(0, 0) * 0;
             character_.Animator.ChangeIsMoving(false);

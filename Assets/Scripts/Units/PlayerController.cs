@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Respawn());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && GameManager.i.leftStartingZone)
             Interact();
 
         if(Input.GetMouseButton(1) && timeBetweenClicks <= 0)//(Input.GetKeyDown(KeyCode.R))

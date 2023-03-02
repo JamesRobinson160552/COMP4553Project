@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: 23b539617fb429843be6b0c1f6ecd8d3, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -180,6 +181,7 @@ MonoBehaviour:
   - {fileID: 3956289644360299948, guid: 87449a7395bc85e429e748966510644c, type: 3}
   - {fileID: 1482005814850497052, guid: 2ac7886345da91f48bf2e51ed35a0b88, type: 3}
   castLightning: 1
+  shootProjectile: 0
   maxTimer: 1
 --- !u!114 &3621068149253546248
 MonoBehaviour:
