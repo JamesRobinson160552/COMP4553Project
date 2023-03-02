@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
     [SerializeField] UnitBase unitBase_;
+    [SerializeField] string drop;
 
     public int currentHP { get; set;}
 
@@ -18,6 +20,7 @@ public class Unit : MonoBehaviour
     public float blinkSpeed;
     float timer;
     float timer2;
+    GameObject dropObject;
 
     List<SpriteRenderer> SpriteRenderers_ = new List<SpriteRenderer>();
 
@@ -26,6 +29,12 @@ public class Unit : MonoBehaviour
         currentHP = unitBase_.MaxHP;
         hitbox = unitBase_.HitBoxMultiplier;
         GetComponentsInChildren(SpriteRenderers_);
+
+        if(drop != "")
+        {
+            dropObject = GameObject.Find(drop);
+            dropObject.SetActive(false);
+        }
 
         if(healthBar != null)
             healthBar.SetMaxHealth(currentHP);  // In health bar, set at max to begin
@@ -111,6 +120,11 @@ public class Unit : MonoBehaviour
     {
         if(currentHP <= 0 && unitBase_.Name != "Plague") //Player respawns rather than being destroyed 
         {
+            if(drop != "")
+            {
+                dropObject.SetActive(true);
+                dropObject.transform.position = transform.position;
+            }
             Destroy(gameObject);
         }
     }

@@ -30,7 +30,6 @@ public class SpellAcquiredDisplayer : MonoBehaviour
 
     public void TurnOffDisplayMenu()
     {
-        Debug.Log("running");
         GameManager.i.gameActive = true;
         spellMenu.gameObject.SetActive(false);
     }

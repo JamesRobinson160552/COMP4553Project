@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -166,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
   minDistance: 0
@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -391,7 +392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
   minDistance: 0
@@ -600,6 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -616,7 +617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
   minDistance: 0
@@ -863,6 +863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -879,7 +880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
   minDistance: 0
@@ -1088,6 +1088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -1104,7 +1105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
   minDistance: 0
@@ -1313,6 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -1329,7 +1330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
   minDistance: 0
@@ -1398,6 +1398,10 @@ PrefabInstance:
     - target: {fileID: 1938546822046951440, guid: 006a4d4314673cc448e2793829237d20, type: 3}
       propertyPath: m_Name
       value: FrogEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442582929678570037, guid: 006a4d4314673cc448e2793829237d20, type: 3}
+      propertyPath: drop
+      value: Lightning
       objectReference: {fileID: 0}
     - target: {fileID: 7017624373907852478, guid: 006a4d4314673cc448e2793829237d20, type: 3}
       propertyPath: m_RootOrder

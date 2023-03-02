@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Crow : MonoBehaviour
 {
+    [SerializeField] Sprite portrait;
+    [SerializeField] Dialog dialog;
+    [SerializeField] List<string> basicDialog;
+    [SerializeField] List<string> afterLightningDialog;
+
     Transform playerPos_;
     Character character_;
     Vector2 direction_;
     Vector3 target_;
     Vector3 crowPositon;
     Rigidbody2D rb;
+    //Dialog dialog;
+    
 
     float moveSpeed;
 
@@ -18,6 +26,7 @@ public class Crow : MonoBehaviour
         playerPos_ = GameObject.Find("Player").transform;
         character_ = GetComponent<Character>();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        dialog.lines = basicDialog;
     }
 
     void Update()
@@ -39,6 +48,26 @@ public class Crow : MonoBehaviour
         {
             rb.velocity = new Vector2(direction_.x, direction_.y) * moveSpeed;
             character_.Moving(direction_);
+        }
+    }
+
+    public void TalkToCrow()
+    {
+        if(GameManager.i.showingDialog == false)
+        {
+            if(GameManager.i.playLightningDialog)
+            {
+                GameManager.i.playLightningDialog = false;
+                dialog.lines = afterLightningDialog;
+            }
+
+            else
+            {
+                dialog.lines = basicDialog;
+            }
+
+            GameManager.i.showingDialog = true;
+            StartCoroutine(DialogManager.Instance.ShowDialog(dialog, portrait, dialog.lines.Count));
         }
     }
 }

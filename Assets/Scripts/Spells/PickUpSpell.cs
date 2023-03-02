@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PickUpSpell : MonoBehaviour
 {
+    public bool lightning;
+    public bool reflect;
+    public bool wall;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.name == "Player")
@@ -13,6 +17,9 @@ public class PickUpSpell : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
             ShowTutorialDisplay();
+
+            if(lightning)
+                GameManager.i.playLightningDialog = true;
         }
     }
 

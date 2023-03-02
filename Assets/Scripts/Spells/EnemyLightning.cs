@@ -27,7 +27,7 @@ public class EnemyLightning : MonoBehaviour
         lightningSprite = lightning.GetComponentsInChildren<SpriteRenderer>();
         lightning.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
         lightningSprite[1].enabled = false;
-        lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.08f);
+        lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.03f);
     }
 
     public void LateUpdate()

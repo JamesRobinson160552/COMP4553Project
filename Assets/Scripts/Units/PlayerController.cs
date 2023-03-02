@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour
                     movement = new Vector2(0.70f, -0.70f);
 
                 rb.MovePosition(rb.position + movement * currentMoveSpeed * Time.fixedDeltaTime);
-                rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
                 //tells character script if unit is moving or not
                 if(movement != Vector2.zero)
                 {
@@ -175,6 +174,12 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("talking");
             //collider.GetComponent<NPCController>(); //looks for this script in the object trying to be interacted with
             collider.GetComponent<Interactible>()?.Interact(transform);
+        }
+
+        else
+        {
+            Crow crow = GameObject.Find("Crow").GetComponent<Crow>();
+            crow.TalkToCrow();
         }
     }
 

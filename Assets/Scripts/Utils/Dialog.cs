@@ -7,7 +7,7 @@ using UnityEngine;
 public class Dialog 
 {
     //stores the dialog and returns it
-    [SerializeField] List<string> lines;
+    public List<string> lines;
 
     public List<string> Lines{
         get { return lines; }

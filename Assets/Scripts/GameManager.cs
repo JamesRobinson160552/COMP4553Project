@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public bool lightningSpawned = false;
     public SettingMenuText menuText;
 
+    public bool playLightningDialog = false;
+
     public static GameManager i { get; set; }
 
     public SettingMenuText MenuText
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartGame()
