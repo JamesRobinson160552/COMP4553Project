@@ -8,19 +8,21 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;  // Links rigidbody to script to allow for movement
     Vector2 movement;  // Stores x and y
     bool isLoadingSpell_;
-    public GameManager gameManager;
-    public Unit playerStats;
-
     SpellController spellController_;
     Character character;
+    public HealthBar healthBar;
+    public float currentMoveSpeed;
+    public Unit playerStats;
+    
     float timeBetweenClicks;
     float timeRemaining_;
     int inputCounter;
+
+    public GameManager gameManager;
     public bool reachedBoss = false;
     public Vector3 spawnPosition;
-    public HealthBar healthBar;
-    public float currentMoveSpeed;
     public FadePanel fadeScreen;
+    public GameObject crow;
 
     private void Awake()
     {
@@ -197,6 +199,7 @@ public class PlayerController : MonoBehaviour
         playerStats.currentHP = playerStats.GetUnitBase.MaxHP;
         healthBar.setHealth(playerStats.currentHP);
         gameManager.ResetEnemies();
+        crow.transform.position = spawnPosition;
         transform.position = spawnPosition;
         yield return new WaitForSeconds(2f);
         fadeScreen.FadeOut(2f);
