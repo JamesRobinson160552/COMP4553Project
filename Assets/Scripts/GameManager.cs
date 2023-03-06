@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public bool showingDialog = false;
     public bool lightningSpawned = false;
     public SettingMenuText menuText;
+    public AudioSource mainAudio;
+    public AudioSource bossAudio;
 
     public bool leftStartingZone;
 
@@ -75,5 +77,17 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(enemyGroup, enemyGroup.transform.position, enemyGroup.transform.rotation);
         }
+    }
+
+    public void StartBossMusic()
+    {
+        mainAudio.Stop();
+        bossAudio.Play();
+    }
+
+    public void EndBossMusic()
+    {
+        bossAudio.Stop();
+        mainAudio.Play();
     }
 }

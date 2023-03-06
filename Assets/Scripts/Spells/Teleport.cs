@@ -19,6 +19,7 @@ public class Teleport : MonoBehaviour
             fadeScreen.FadeIn(2f);
             yield return new WaitForSeconds(3f);
             collision.gameObject.transform.position = bossRoomSpawn;
+            gameManager.StartBossMusic();
             crow.transform.position = bossRoomSpawn;
             yield return new WaitForSeconds(2f);
             fadeScreen.FadeOut(2f);

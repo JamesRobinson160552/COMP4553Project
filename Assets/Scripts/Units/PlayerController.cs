@@ -194,6 +194,7 @@ public class PlayerController : MonoBehaviour
         spawnPosition = new Vector3(1.4f, -49.3f, 0);
         if (reachedBoss)
         {
+            gameManager.EndBossMusic();
             spawnPosition = new Vector3(-60.0f, 12.0f, 0);
         }
         playerStats.currentHP = playerStats.GetUnitBase.MaxHP;
