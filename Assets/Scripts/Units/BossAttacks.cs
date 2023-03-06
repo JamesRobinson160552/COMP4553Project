@@ -1,6 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/*Current Instructions:
+ * To teleport to boss, first go up to talk to bird, then walk back to start location and press "L"
+ * To activate boss abilities, press "K"
+ * For first 50% of health boss will walk towards you and cast walls to block your projectiles
+ *  ToDO: Update wall so it moves with boss, is destructable
+ * For last 50% of health, boss will spawn 3 mushrooms in a semi-random pattern once
+ *  Boss will cast lightning every 6.5 seconds
+ *  ToDO:
+ *   Fix boss wall spell which seems to cast from bottom left of his animation
+ *   Burn() currently does not do dmg but outputs to Debug.Log. Fix this somehow
+ *   Make boss 1.2x as fast on the lower 50% of health
+ *   There is a bug where sometimes the lightning stops mid cast and doesn't finish. Sort this out.
+ */
 
 public class BossAttacks : MonoBehaviour
 {
@@ -11,7 +26,7 @@ public class BossAttacks : MonoBehaviour
     public GameObject wallPrefab;
     private float lifeSpan = 5.0f;
     public float lifeRemaining;
-    private float bossWallBuffer = 2.5f;
+    private float bossWallBuffer = 3.0f;
     private bool oneWall = false;
 
     // Lighting Vars
@@ -27,12 +42,26 @@ public class BossAttacks : MonoBehaviour
     private GameObject lightning2;
     private GameObject lightning3;
 
+    public GameObject mushroomPrefab;
+
     // for plrCheatToBoss
     bool onlyOnce = false;
+
+    // Boss Attributes
+    int maxHP;
+    int currentHP;
+
+    // Boss Logic
+    bool enterOnce = true; // Only invoke repeating once
+    bool fightTest = false; // Press K to activate the test
+    int reset = 1; // amount of times you can reset and go back into the loop
+
 
     private void Start()
     {
         lifeRemaining = lifeSpan;
+        boss.GetComponent<Unit>().currentHP = 50;
+        maxHP = boss.GetComponent<Unit>().currentHP;
     }
 
     public void LateUpdate()
@@ -44,11 +73,39 @@ public class BossAttacks : MonoBehaviour
                 onlyOnce= true;
             }
 
-            if ((oneWall == false) && (Input.GetKeyDown(KeyCode.K))) // K is for testing
+            burn(); // Burn attack, always active
+            currentHP = boss.GetComponent<Unit>().currentHP;
+            //Debug.Log(maxHP.ToString());
+            //Debug.Log(currentHP.ToString());
+            //Debug.Log(reset.ToString());
+            if (reset > 0)
             {
-                randomLightning();
-                oneWall = true;
-                shieldUp();
+                if (currentHP < (maxHP / 2))
+                {
+                    enterOnce = true;  // When drops below 50% will again enter action loop
+                    //Debug.Log("EnterOnce True"); // Testing only
+                    reset--;
+                }
+            }
+            //Debug.Log(currentHP.ToString());  
+
+            if (Input.GetKeyDown(KeyCode.K)) fightTest = true; // K is for testing
+
+            if ((fightTest==true) && (enterOnce==true))  
+            {           
+                if (currentHP >= (maxHP / 2)) // Change to > 50% Max Health
+                {
+                    InvokeRepeating("shieldUp", 1f, 9f);
+                    enterOnce = false;
+                }
+
+                if (currentHP < (maxHP / 2))
+                {
+                    spawnEnemies();
+                    InvokeRepeating("randomLightning", 1.5f, 6.5f);
+                    // Increase speed to make boss faster
+                    enterOnce = false;
+                }        
             }
 
             // Lightning spell specific
@@ -71,16 +128,16 @@ public class BossAttacks : MonoBehaviour
                         // Make loop bigger and increase size of spell
                         castLoop += .1f;
                         lightning0.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        float rnd = Random.Range(.1f, .4f);
+                        float rnd = UnityEngine.Random.Range(.1f, .4f);
                         lightning0.transform.position += new Vector3(-rnd, +rnd, 0);
                         lightning1.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        rnd = Random.Range(.1f, .4f);
+                        rnd = UnityEngine.Random.Range(.1f, .4f);
                         lightning1.transform.position += new Vector3(+rnd, +rnd, 0);
                         lightning2.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        rnd = Random.Range(.1f, .4f);
+                        rnd = UnityEngine.Random.Range(.1f, .4f);
                         lightning2.transform.position += new Vector3(-rnd, -rnd, 0);
                         lightning3.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        rnd = Random.Range(.1f, .4f);
+                        rnd = UnityEngine.Random.Range(.1f, .4f);
                         lightning3.transform.position += new Vector3(+rnd, -rnd, 0);
                     }
                 }
@@ -127,9 +184,29 @@ public class BossAttacks : MonoBehaviour
         }
     }
 
+    void spawnEnemies()
+    {   
+        Vector3 plrPos = new Vector3(plr.transform.position.x, plr.transform.position.y, plr.transform.position.z);
+        Vector3 bossPos = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
+        Vector3 halfDif = new Vector3(((bossPos.x + plrPos.x) / 2), ((bossPos.y + plrPos.y) / 2), ((bossPos.z + plrPos.z) / 2));
+        
+        // Create mushroom 1 at std pos
+        GameObject mushroom1 = Instantiate(mushroomPrefab, halfDif, mushroomPrefab.transform.rotation);
+
+        // Create mushroom 2 at rnd offset
+        float rnd = UnityEngine.Random.Range(.1f, 1.4f); 
+        Vector3 offset = new Vector3(rnd, rnd, 0);
+        GameObject mushroom2 = Instantiate(mushroomPrefab, (halfDif + offset), mushroomPrefab.transform.rotation);
+
+        // Create mushroom 3 at -rnd offset
+        rnd = UnityEngine.Random.Range(.1f, 1.4f);
+        offset = new Vector3(rnd, rnd, 0);
+        GameObject mushroom3 = Instantiate(mushroomPrefab, (halfDif - offset), mushroomPrefab.transform.rotation);
+    }
+
     void randomLightning()
     {
-        int rnd = Random.Range(3, 6);
+        int rnd = UnityEngine.Random.Range(3, 6);
         Vector3 bossPos = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
         Vector3 lightningBaseLoc0 = new Vector3(bossPos.x + rnd, bossPos.y + rnd, bossPos.z); // (+,+)
         Vector3 lightningBaseLoc1 = new Vector3(bossPos.x + rnd, bossPos.y - rnd, bossPos.z); // (+,-)
@@ -144,6 +221,17 @@ public class BossAttacks : MonoBehaviour
 
         // Go through proper lighting spell cast
         lightningCast = true;
+    }
+
+    void burn()
+    {
+        Vector3 plrPos = new Vector3(plr.transform.position.x, plr.transform.position.y, plr.transform.position.z);
+        Vector3 bossPos = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
+        Vector3 distance = new Vector3(plrPos.x - bossPos.x, plrPos.y - bossPos.y, plrPos.z - bossPos.z);
+        if (distance.magnitude < 4)
+        {
+            Debug.Log("Fire"); // change to cause damage
+        } else { }
     }
 
     void shieldUp()

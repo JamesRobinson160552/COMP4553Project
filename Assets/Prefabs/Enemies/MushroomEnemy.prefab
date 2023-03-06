@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -3494942283736286872}
   - component: {fileID: -3113215654022478325}
   m_Layer: 10
-  m_Name: FirstEnemyPrefab
+  m_Name: MushroomEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
