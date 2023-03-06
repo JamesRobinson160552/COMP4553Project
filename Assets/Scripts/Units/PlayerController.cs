@@ -167,21 +167,24 @@ public class PlayerController : MonoBehaviour
 
     void Interact()
     {
-        var facingDir = new Vector3(character.Animator.moveX, character.Animator.moveY);
-        var interactPos = transform.position + facingDir; //the adjacent tile the playing is facing
-
-        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
-        if(collider != null)
+        if(GameManager.i.gameActive)
         {
-            //Debug.Log("talking");
-            //collider.GetComponent<NPCController>(); //looks for this script in the object trying to be interacted with
-            collider.GetComponent<Interactible>()?.Interact(transform);
-        }
+            var facingDir = new Vector3(character.Animator.moveX, character.Animator.moveY);
+            var interactPos = transform.position + facingDir; //the adjacent tile the playing is facing
 
-        else
-        {
-            Crow crow = GameObject.Find("Crow").GetComponent<Crow>();
-            crow.TalkToCrow();
+            var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
+            if(collider != null)
+            {
+                //Debug.Log("talking");
+                //collider.GetComponent<NPCController>(); //looks for this script in the object trying to be interacted with
+                collider.GetComponent<Interactible>()?.Interact(transform);
+            }
+
+            else
+            {
+                Crow crow = GameObject.Find("Crow").GetComponent<Crow>();
+                crow.TalkToCrow();
+            }
         }
     }
 

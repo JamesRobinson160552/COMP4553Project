@@ -7,6 +7,8 @@ public class Crow : MonoBehaviour
 {
     [SerializeField] Sprite portrait;
     [SerializeField] Dialog dialog;
+    [SerializeField] List<Sprite> spaceFrames;
+    [SerializeField] SpriteRenderer spaceRenderer;
     [SerializeField] List<string> introDialog;
     [SerializeField] List<string> basicDialog;
     [SerializeField] List<string> afterLightningDialog;
@@ -17,6 +19,9 @@ public class Crow : MonoBehaviour
     Vector3 target_;
     Vector3 crowPositon;
     Rigidbody2D rb;
+    bool newDialog;
+    float timer;
+    bool talkable;
     //Dialog dialog;
     
 
@@ -35,26 +40,63 @@ public class Crow : MonoBehaviour
         target_ = new Vector3(playerPos_.position.x, playerPos_.position.y + 1.7f, playerPos_.position.z);
         moveSpeed = GameObject.Find("Player").GetComponent<PlayerController>().currentMoveSpeed - 0.2f;
         direction_ = (target_ - transform.position).normalized;
+
+        if(GameManager.i.playLightningDialog)
+        {
+            newDialog = true;
+        }
+
+        timer -= Time.deltaTime;
+
+        if(newDialog)
+        {
+            spaceRenderer.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+
+            if(timer <= 0 && ( spaceRenderer.sprite == spaceFrames[1] || (spaceRenderer.enabled == false)))
+            {
+                spaceRenderer.enabled = true;
+                spaceRenderer.sprite = spaceFrames[0];
+                timer = 0.5f;
+            }
+            if(timer <= 0 && spaceRenderer.sprite == spaceFrames[0])
+            {
+                spaceRenderer.sprite = spaceFrames[1];
+                timer = 0.5f;
+            }
+        }
+
+        else
+        {
+            spaceRenderer.enabled = false;
+        }
     }
 
     void FixedUpdate()
     {
-        if(((transform.position.x - 0.1f < target_.x && target_.x < transform.position.x + 0.1f) && (transform.position.y - 0.1f < target_.y && target_.y < transform.position.y + 0.1f)) || (!GameManager.i.leftStartingZone) || (GameManager.i.showingDialog))
+        if(!GameManager.i.gameActive)
+        {
+            rb.velocity = new Vector2 (0,0) * 0;
+            talkable = false;
+        }
+
+        else if(((transform.position.x - 0.1f < target_.x && target_.x < transform.position.x + 0.1f) && (transform.position.y - 0.1f < target_.y && target_.y < transform.position.y + 0.1f)) || (!GameManager.i.leftStartingZone) || (GameManager.i.showingDialog))
         {
             character_.Animator.ChangeIsMoving(false);
             rb.velocity = new Vector2(0, 0) * 0;
+            talkable = true;
         }
 
         else
         {
             rb.velocity = new Vector2(direction_.x, direction_.y) * moveSpeed;
             character_.Moving(direction_);
+            talkable = false;
         }
     }
 
     public void TalkToCrow()
     {
-        if(GameManager.i.showingDialog == false)
+        if(GameManager.i.showingDialog == false && talkable == true)
         {
             if(GameManager.i.playLightningDialog)
             {
@@ -74,6 +116,7 @@ public class Crow : MonoBehaviour
 
             GameManager.i.showingDialog = true;
             StartCoroutine(DialogManager.Instance.ShowDialog(dialog, portrait, dialog.lines.Count));
+            newDialog = false;
         }
     }
 }
