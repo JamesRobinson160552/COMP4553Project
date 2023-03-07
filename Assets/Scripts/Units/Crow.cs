@@ -9,9 +9,13 @@ public class Crow : MonoBehaviour
     [SerializeField] Dialog dialog;
     [SerializeField] List<Sprite> spaceFrames;
     [SerializeField] SpriteRenderer spaceRenderer;
-    [SerializeField] List<string> introDialog;
+    [SerializeField] List<string> helpDialog;
     [SerializeField] List<string> basicDialog;
     [SerializeField] List<string> afterLightningDialog;
+    [SerializeField] List<string> afterReflectDialog;
+    [SerializeField] List<string> afterWallDialog;
+    [SerializeField] List<string> introDialog;
+
 
     Transform playerPos_;
     Character character_;
@@ -41,7 +45,7 @@ public class Crow : MonoBehaviour
         moveSpeed = GameObject.Find("Player").GetComponent<PlayerController>().currentMoveSpeed - 0.2f;
         direction_ = (target_ - transform.position).normalized;
 
-        if(GameManager.i.playLightningDialog)
+        if(GameManager.i.playLightningDialog || GameManager.i.playReflectDialog || GameManager.i.playWallDialog)
         {
             newDialog = true;
         }
@@ -94,7 +98,7 @@ public class Crow : MonoBehaviour
         }
     }
 
-    public void TalkToCrow()
+    public IEnumerator TalkToCrow()
     {
         if(GameManager.i.showingDialog == false && talkable == true)
         {
@@ -104,9 +108,28 @@ public class Crow : MonoBehaviour
                 dialog.lines = afterLightningDialog;
             }
 
+            else if(GameManager.i.playWallDialog)
+            {
+                GameManager.i.playWallDialog = false;
+                dialog.lines = afterWallDialog;
+            }
+
+            else if(GameManager.i.playReflectDialog)
+            {
+                GameManager.i.playReflectDialog = false;
+                dialog.lines = afterReflectDialog;
+            }
+
+            else if(GameManager.i.playIntroductionDialog)
+            {
+                GameManager.i.playIntroductionDialog = false;
+                dialog.lines = introDialog;
+                GameManager.i.enemiesKilled++;
+            }
+
             else if(!GameManager.i.leftStartingZone)
             {
-                dialog.lines = introDialog;
+                dialog.lines = helpDialog;
             }
 
             else
@@ -115,7 +138,7 @@ public class Crow : MonoBehaviour
             }
 
             GameManager.i.showingDialog = true;
-            StartCoroutine(DialogManager.Instance.ShowDialog(dialog, portrait, dialog.lines.Count));
+            yield return DialogManager.Instance.ShowDialog(dialog, portrait, dialog.lines.Count);
             newDialog = false;
         }
     }

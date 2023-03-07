@@ -20,6 +20,10 @@ public class PickUpSpell : MonoBehaviour
 
             if(lightning)
                 GameManager.i.playLightningDialog = true;
+            if(reflect)
+                GameManager.i.playReflectDialog = true;
+            if(wall)
+                GameManager.i.playWallDialog = true;
         }
     }
 

@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
     public bool leftStartingZone;
 
     public bool playLightningDialog = false;
+    public bool playReflectDialog = false;
+    public bool playWallDialog = false;
+    public bool playKeyDialog = false;
+    public bool playIntroductionDialog = false;
+
+    public int enemiesKilled;
 
     public static GameManager i { get; set; }
 
@@ -43,8 +49,14 @@ public class GameManager : MonoBehaviour
     {
         if((GameObject.Find("Player").transform.position.y > -34) && !leftStartingZone)
         {
-            GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow();
+            StartCoroutine(GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow());
             leftStartingZone = true;
+        }
+
+        if(enemiesKilled == 2)
+        {
+            playIntroductionDialog = true; 
+            StartCoroutine(GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow());
         }
     }
 
@@ -58,6 +70,7 @@ public class GameManager : MonoBehaviour
     public void OpenMenu()
     {
         gameActive = !gameActive;
+        CameraShake.i.StopShake();
         menu.gameObject.SetActive(!gameActive);
         Debug.Log("menu open");
     }

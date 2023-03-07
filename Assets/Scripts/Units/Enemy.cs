@@ -108,6 +108,8 @@ public class Enemy : MonoBehaviour
 
             //give the projectile the stats from the sepll
             bullet.GetComponent<ProjectileStats>().SetDamage(damage);
+            //bullet.gameObject.layer = LayerMask.NameToLayer("EnemySpells");
+            //bullet.GetComponent<SpriteRenderer>().material.color = new Color(0.2f, 0.3f, 0.4f);
 
             // Add force to the newly instantiated rb
             rb.AddForce(direction_ * bulletForce, ForceMode2D.Impulse);

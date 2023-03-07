@@ -126,6 +126,7 @@ public class Unit : MonoBehaviour
                 dropObject.transform.position = transform.position;
             }
             Destroy(gameObject);
+            GameManager.i.enemiesKilled++;
         }
     }
 

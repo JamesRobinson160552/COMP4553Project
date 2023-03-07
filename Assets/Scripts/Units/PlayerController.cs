@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 Crow crow = GameObject.Find("Crow").GetComponent<Crow>();
-                crow.TalkToCrow();
+                StartCoroutine(crow.TalkToCrow());
             }
         }
     }
