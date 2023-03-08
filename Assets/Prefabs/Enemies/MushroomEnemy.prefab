@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1974969364, guid: 9b68642f7c06bb644a6ce89d456a9e82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
@@ -166,9 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee909363dc2631246939354b7d6f8e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   attackRange: 0
   visionRange: 20
+  minDistance: 0
   attackSpeed: 2
   shootDelay: 1
   castLoop: 0
@@ -180,6 +181,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   castLightning: 0
+  shootProjectile: 0
+  maxTimer: 0
 --- !u!114 &-3494942283736286872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +213,7 @@ MonoBehaviour:
   - {fileID: -1487082261, guid: 9b68642f7c06bb644a6ce89d456a9e82, type: 3}
   castLeftSprites: []
   castRightSprites: []
+  hasAttackAnim_: 0
 --- !u!114 &-3113215654022478325
 MonoBehaviour:
   m_ObjectHideFlags: 0
