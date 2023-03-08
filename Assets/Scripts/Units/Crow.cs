@@ -15,6 +15,8 @@ public class Crow : MonoBehaviour
     [SerializeField] List<string> afterReflectDialog;
     [SerializeField] List<string> afterWallDialog;
     [SerializeField] List<string> introDialog;
+    [SerializeField] List<string> firstTimeSeeingCave;
+    [SerializeField] List<string> afterKeyPickup;
 
 
     Transform playerPos_;
@@ -45,7 +47,7 @@ public class Crow : MonoBehaviour
         moveSpeed = GameObject.Find("Player").GetComponent<PlayerController>().currentMoveSpeed - 0.2f;
         direction_ = (target_ - transform.position).normalized;
 
-        if(GameManager.i.playLightningDialog || GameManager.i.playReflectDialog || GameManager.i.playWallDialog)
+        if(GameManager.i.playLightningDialog || GameManager.i.playReflectDialog || GameManager.i.playWallDialog || GameManager.i.playKeyDialog)
         {
             newDialog = true;
         }
@@ -98,9 +100,9 @@ public class Crow : MonoBehaviour
         }
     }
 
-    public IEnumerator TalkToCrow()
+    public IEnumerator TalkToCrow(bool forceTalkable = false)
     {
-        if(GameManager.i.showingDialog == false && talkable == true)
+        if(GameManager.i.showingDialog == false && (talkable == true) || (forceTalkable == true)) 
         {
             if(GameManager.i.playLightningDialog)
             {
@@ -125,6 +127,18 @@ public class Crow : MonoBehaviour
                 GameManager.i.playIntroductionDialog = false;
                 dialog.lines = introDialog;
                 GameManager.i.enemiesKilled++;
+            }
+
+            else if(GameManager.i.playKeyDialog)
+            {
+                GameManager.i.playKeyDialog = false;
+                dialog.lines = afterKeyPickup;
+            }
+
+            else if(GameManager.i.playCaveIntroDialog)
+            {
+                GameManager.i.playCaveIntroDialog = false;
+                dialog.lines = firstTimeSeeingCave;
             }
 
             else if(!GameManager.i.leftStartingZone)

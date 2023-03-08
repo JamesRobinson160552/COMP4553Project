@@ -72,7 +72,6 @@ public class DialogManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && !isTyping && GameManager.i.showingDialog)
         {
             ++currentLine;
-            Debug.Log(lines);
             if(lines == -1)
             {
                 if(currentLine < dialog.Lines.Count)

@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public AudioSource mainAudio;
     public AudioSource bossAudio;
 
+    //these tell the crow npc what to say.
+
     public bool leftStartingZone;
 
     public bool playLightningDialog = false;
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool playWallDialog = false;
     public bool playKeyDialog = false;
     public bool playIntroductionDialog = false;
+    public bool playCaveIntroDialog = false;
+    public bool firstTimeSeeingCave = true;
 
     public int enemiesKilled;
 
@@ -53,10 +57,20 @@ public class GameManager : MonoBehaviour
             leftStartingZone = true;
         }
 
+        if((GameObject.Find("Player").transform.position.x <= -55) && firstTimeSeeingCave)
+        {
+            playCaveIntroDialog = true;
+            firstTimeSeeingCave = false;
+        }
+
         if(enemiesKilled == 2)
         {
             playIntroductionDialog = true; 
-            StartCoroutine(GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow());
+        }
+
+        if(playIntroductionDialog == true || playCaveIntroDialog == true)
+        {
+            StartCoroutine(GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow(true));
         }
     }
 

@@ -13,6 +13,8 @@ public class OpenBossDoor : MonoBehaviour
     {
         if(collision.gameObject.name == "Player")
         {
+            GameManager.i.playKeyDialog = true;
+            GameManager.i.firstTimeSeeingCave = false;
             Destroy(door);
             Destroy(gameObject);
         }
