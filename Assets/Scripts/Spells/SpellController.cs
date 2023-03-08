@@ -22,6 +22,9 @@ public class SpellController : MonoBehaviour
     float timer =0;
     bool usedSpecial_;
 
+    public AudioSource spellAudio;
+    public AudioClip[] spellCastSounds;
+
     public void Awake()
     {
         //intilize list
@@ -61,6 +64,7 @@ public class SpellController : MonoBehaviour
             {
                 usedSpecial_ = true;
                 //Debug.Log(spells[i].getName());
+                spellAudio.PlayOneShot(spellCastSounds[i], 1.0f);
                 spells[i].castSpell();  // calls the castSpell script from the spell itself  
             }
         }

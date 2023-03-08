@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public HealthBar healthBar;
     public float currentMoveSpeed;
     public Unit playerStats;
+    public AudioSource playerAudio;
+    public AudioClip[] playerSounds; //step, auto, hit, death
     
     float timeBetweenClicks;
     float timeRemaining_;
