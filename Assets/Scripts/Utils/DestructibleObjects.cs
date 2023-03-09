@@ -6,7 +6,8 @@ public class DestructibleObjects : MonoBehaviour
 {
     [SerializeField] int MaxHP;
     [SerializeField] float radius;
-    [SerializeField]
+ 
+    
     
     int damage_;
     int currentHP_;

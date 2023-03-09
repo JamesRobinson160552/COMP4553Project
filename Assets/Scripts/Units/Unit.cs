@@ -17,9 +17,11 @@ public class Unit : MonoBehaviour
     float hitbox;
     public float radius = 0.8f;
     public float hitcoolDown;
-    public float blinkSpeed;
+    public float blinkSpeed = 0.05f;
     float timer;
     float timer2;
+    bool dying;
+    int frames = 0;
     GameObject dropObject;
     [SerializeField] AudioSource playerHitAudio;
 
@@ -43,8 +45,23 @@ public class Unit : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(dying == true)
+        {
+            gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x/1.3f, gameObject.transform.localScale.y/1.3f, 0);
+            frames++;
+            if(frames == 25)
+            {
+                Destroy(gameObject);
+                frames = 0;
+            }
+        }
         if(timer <= 0)
         {
+            for(int i = 0; i < SpriteRenderers_.Count; i++)
+            {
+                SpriteRenderers_[i].enabled = true; //turn on sprite renderers
+            }
+
             if(unitBase_.Name != "Plague")
             {
                 var collider = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.PlayerSpellsLayer));
@@ -61,6 +78,10 @@ public class Unit : MonoBehaviour
                     {
                         CameraShake.i.StopShake();
                         Destroy(collider.gameObject); //destroy projectile  
+                        for(int i = 0; i < SpriteRenderers_.Count; i++)
+                        {
+                            SpriteRenderers_[i].enabled = false;
+                        }
                     }
                     catch
                     {
@@ -72,8 +93,6 @@ public class Unit : MonoBehaviour
 
             else
             {
-                SpriteRenderers_[0].enabled = true;
-                SpriteRenderers_[1].enabled = true;
                 var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
                 var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
                 if((collider != null) || (collider2 != null))
@@ -107,10 +126,12 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            if(timer2 <= 0 && unitBase_.Name == "Plague")
+            if(timer2 <= 0)
             {
-                SpriteRenderers_[0].enabled = !SpriteRenderers_[0].enabled;
-                SpriteRenderers_[1].enabled = !SpriteRenderers_[1].enabled;
+                for(int i = 0; i < SpriteRenderers_.Count; i++)
+                {
+                    SpriteRenderers_[i].enabled = !SpriteRenderers_[i].enabled;
+                }
                 timer2 = blinkSpeed;
             }
         }
@@ -128,7 +149,8 @@ public class Unit : MonoBehaviour
                 dropObject.SetActive(true);
                 dropObject.transform.position = transform.position;
             }
-            Destroy(gameObject);
+            dying = true;
+            //Destroy(gameObject);
             GameManager.i.enemiesKilled++;
         }
     }
@@ -179,5 +201,7 @@ public class Unit : MonoBehaviour
         catch {
             Debug.Log("Lightning spell damage failed");
             return 0; }
+
+        
     }
 }
