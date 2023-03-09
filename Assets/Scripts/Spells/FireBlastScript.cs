@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireBlastScript : MonoBehaviour, SpellBase
 {
+    [SerializeField] Sprite spellIcon;
     public Transform aimer;
     public GameObject[] spellPrefabs;
     public bool playerAccess;
@@ -14,6 +16,11 @@ public class FireBlastScript : MonoBehaviour, SpellBase
     public float bulletForce = 5f;
 
     public List<char> spellActivate = new List<char> {'S', 'S', 'S', 'W' };
+
+    public Sprite getIcon()
+    {
+        return spellIcon;
+    }
 
     public string getName()
     { return spellName; }

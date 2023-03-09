@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealSpellScript : MonoBehaviour, SpellBase
 {
+    [SerializeField] Sprite spellIcon;
     public float duration = 0f;
     public float timeBetweenHeals = 0.5f;
     public bool playerAccess;
@@ -15,6 +16,11 @@ public class HealSpellScript : MonoBehaviour, SpellBase
 
     float timeRemaining_ = 0f;
     float currentTimeBetweenHeals_ = 0f;
+
+    public Sprite getIcon()
+    {
+        return spellIcon;
+    }
 
     public string getName()
     { return spellName; }

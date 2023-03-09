@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ReflectSpellScript : MonoBehaviour, SpellBase
 {
+    [SerializeField] Sprite spellIcon;
     private float lifeSpan = 3f; 
     public float lifeRemaining;
     public bool playerAccess;
@@ -13,6 +14,11 @@ public class ReflectSpellScript : MonoBehaviour, SpellBase
     public GameObject plr;
     public string desc;
     public AudioSource reflectAudio;
+
+    public Sprite getIcon()
+    {
+        return spellIcon;
+    }
 
     // Start is called before the first frame update
     void Start()

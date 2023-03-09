@@ -22,6 +22,8 @@ public interface SpellBase
     //Sprite image { get;set; }
     // - Script component for specific spell
     void castSpell();
+
+    Sprite getIcon();
     // - Cooldown
     //int cooldown { get;set; }
     // - More to come

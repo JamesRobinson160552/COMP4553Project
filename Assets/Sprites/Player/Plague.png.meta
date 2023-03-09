@@ -314,6 +314,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Plague_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 104
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6466221c263f3544aaa50d1c47605e48
+      internalID: 1531558698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -332,6 +353,7 @@ TextureImporter:
       Plague_8: 2098850134
       Plague_6: 1821494576
       Plague_9: 182652041
+      Plague_10: 1531558698
       Plague_4: 1041680066
       Plague_1: -1793404578
       Plague_7: 741118958

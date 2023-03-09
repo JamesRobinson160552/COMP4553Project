@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpellController : MonoBehaviour
 {
     [SerializeField] Autoattack attack;
     [SerializeField] SpellCastScript allSpells;
+    [SerializeField] Image icon;
     //[SerializeField] List<char> Spell1;
 
     //public WallSpellScript wallSpell;
@@ -47,6 +49,25 @@ public class SpellController : MonoBehaviour
             playerInputs_[currentPosition] = c;
             currentPosition++;
             Debug.Log(c); 
+            CheckForSpellsIcons();
+        }
+    }
+
+    public void CheckForSpellsIcons()
+    {
+        for(int i = 0; i < spells.Count; i++)
+        {
+            if(ComparingList(spells[i].getSpellActivate()) && spells[i].playerHasAccess()) 
+            {
+                usedSpecial_ = true;
+                Debug.Log(spells[i].getName());
+                icon.sprite = spells[i].getIcon();  // calls the castSpell script from the spell itself  
+            }
+
+            else
+            {
+                icon.sprite = attack.getIcon();
+            }
         }
     }
 
@@ -70,6 +91,7 @@ public class SpellController : MonoBehaviour
             timer = 0.25f;
             attack.castSpell();
             Debug.Log("basic spell");
+            icon.sprite = attack.getIcon();
         }
         
         resetPlayerInputs();

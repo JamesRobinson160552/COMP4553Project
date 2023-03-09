@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Autoattack : MonoBehaviour, SpellBase
 {
+    [SerializeField] Sprite spellIcon;
     public Camera cam;
     public Transform aimer;
     public GameObject AABullet;
@@ -22,6 +23,11 @@ public class Autoattack : MonoBehaviour, SpellBase
     Vector2 mousePos;
 
     public List<char> spellActivate = new List<char> {'Z', 'Z', 'Z', 'Z' };
+
+    public Sprite getIcon()
+    {
+        return spellIcon;
+    }
 
     public string getName()
     { return "Auto Attack"; }

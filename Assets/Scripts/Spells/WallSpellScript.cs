@@ -6,6 +6,7 @@ using UnityEngine;
 //Destroys the wall created after a given length of time;
 public class WallSpellScript : MonoBehaviour, SpellBase
 {
+    [SerializeField] Sprite spellIcon;
     private float lifeSpan = 5.0f; 
     public float lifeRemaining;
     public bool playerAccess;
@@ -15,6 +16,11 @@ public class WallSpellScript : MonoBehaviour, SpellBase
     public GameObject plr;
     public string desc;
     public AudioSource wallAudio;
+
+    public Sprite getIcon()
+    {
+        return spellIcon;
+    }
 
     // Start is called before the first frame update
     void Start()

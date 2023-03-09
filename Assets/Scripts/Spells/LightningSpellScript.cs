@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class LightningSpellScript : MonoBehaviour, SpellBase
 {
+    [SerializeField] Sprite spellIcon;
     public List<char> spellActivate = new List<char> { 'D', 'A', 'D', 'W' };
     public string spellName = "Lightning";
     public int damage;
@@ -26,6 +27,11 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     Vector3 mousePos;
     public AudioSource chargeAudio;
     public AudioSource boltAudio;
+
+    public Sprite getIcon()
+    {
+        return spellIcon;
+    }
 
     public string getName()
     { return spellName; }
