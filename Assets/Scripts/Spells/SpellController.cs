@@ -49,7 +49,7 @@ public class SpellController : MonoBehaviour
             playerInputs_[currentPosition] = c;
             currentPosition++;
             Debug.Log(c); 
-            CheckForSpellsIcons();
+           // CheckForSpellsIcons();
         }
     }
 
@@ -61,13 +61,13 @@ public class SpellController : MonoBehaviour
             {
                 usedSpecial_ = true;
                 Debug.Log(spells[i].getName());
-                icon.sprite = spells[i].getIcon();  // calls the castSpell script from the spell itself  
+                icon.sprite = spells[i].getIcon();
             }
 
-            else
-            {
-                icon.sprite = attack.getIcon();
-            }
+            //else
+            //{
+            //    icon.sprite = attack.getIcon();
+            //}
         }
     }
 
@@ -91,10 +91,10 @@ public class SpellController : MonoBehaviour
             timer = 0.25f;
             attack.castSpell();
             Debug.Log("basic spell");
-            icon.sprite = attack.getIcon();
         }
         
         resetPlayerInputs();
+        icon.sprite = attack.getIcon();
     }
 
     public void FixedUpdate()

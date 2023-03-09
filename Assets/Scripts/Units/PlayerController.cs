@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
                 character.Animator.ChangeIsLoadingSpell(isLoadingSpell_);
                 inputCounter = 0;
                 character.Animator.ChangePlayerInputs(0);
+                spellController_.CheckForSpellsIcons();
             }
         }
     }
