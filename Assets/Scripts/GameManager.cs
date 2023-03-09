@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     public SettingMenuText menuText;
     public AudioSource mainAudio;
     public AudioSource bossAudio;
-    public AudioSource buttonAudio;
-    public AudioClip[] buttonSounds;
+    public AudioSource menuAudio;
+    public AudioClip openMenuSound;
+    public AudioClip closeMenuSound;
+    public AudioClip confirmSound;
+    public AudioClip startGameSound;
     public float volume = 0.5f;
 
     //these tell the crow npc what to say.
@@ -80,6 +83,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        menuAudio.PlayOneShot(startGameSound, 1.0f);
         gameActive = true;
         titleScreen.gameObject.SetActive(false);
         UI.gameObject.SetActive(true);
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void OpenMenu()
     {
+        menuAudio.PlayOneShot(openMenuSound, 1.0f);
         gameActive = !gameActive;
         CameraShake.i.StopShake();
         menu.gameObject.SetActive(!gameActive);
@@ -126,5 +131,10 @@ public class GameManager : MonoBehaviour
     {
         bossAudio.Stop();
         mainAudio.Play();
+    }
+
+    public void playMenuButtonSound()
+    {
+        menuAudio.PlayOneShot(confirmSound);
     }
 }
