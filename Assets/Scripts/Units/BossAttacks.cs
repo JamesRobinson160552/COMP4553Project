@@ -26,7 +26,7 @@ public class BossAttacks : MonoBehaviour
     public GameObject wallPrefab;
     private float lifeSpan = 5.0f;
     public float lifeRemaining;
-    private float bossWallBuffer = 3.0f;
+    private float bossWallBuffer = 6.0f;
     private bool oneWall = false;
 
     // Lighting Vars
@@ -69,6 +69,7 @@ public class BossAttacks : MonoBehaviour
         if (GameManager.i.gameActive == true) {
             // For testing so there is one wall
             if ((Input.GetKey(KeyCode.L)) && (onlyOnce == false)) {
+                GameManager.i.insideBossRoom = true;
                 plr.transform.position += new Vector3(0, -42, 0); 
                 onlyOnce= true;
             }
@@ -126,19 +127,35 @@ public class BossAttacks : MonoBehaviour
                     if (Time.realtimeSinceStartup > (BaseTime + castLoop))
                     {
                         // Make loop bigger and increase size of spell
+                        float rnd;
                         castLoop += .1f;
-                        lightning0.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        float rnd = UnityEngine.Random.Range(.1f, .4f);
-                        lightning0.transform.position += new Vector3(-rnd, +rnd, 0);
-                        lightning1.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        rnd = UnityEngine.Random.Range(.1f, .4f);
-                        lightning1.transform.position += new Vector3(+rnd, +rnd, 0);
-                        lightning2.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        rnd = UnityEngine.Random.Range(.1f, .4f);
-                        lightning2.transform.position += new Vector3(-rnd, -rnd, 0);
-                        lightning3.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
-                        rnd = UnityEngine.Random.Range(.1f, .4f);
-                        lightning3.transform.position += new Vector3(+rnd, -rnd, 0);
+                        if(lightning0 != null)
+                        {
+                            lightning0.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            rnd = UnityEngine.Random.Range(.1f, .4f);
+                            lightning0.transform.position += new Vector3(-rnd, +rnd, 0);
+                        }
+
+                        if(lightning1 != null)
+                        {
+                            lightning1.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            rnd = UnityEngine.Random.Range(.1f, .4f);
+                            lightning1.transform.position += new Vector3(+rnd, +rnd, 0);
+                        }
+
+                        if(lightning2 != null)
+                        {
+                            lightning2.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            rnd = UnityEngine.Random.Range(.1f, .4f);
+                            lightning2.transform.position += new Vector3(-rnd, -rnd, 0);
+                        }
+
+                        if(lightning3 != null)
+                        {
+                            lightning3.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            rnd = UnityEngine.Random.Range(.1f, .4f);
+                            lightning3.transform.position += new Vector3(+rnd, -rnd, 0);
+                        }
                     }
                 }
 
@@ -154,8 +171,29 @@ public class BossAttacks : MonoBehaviour
                             BaseTimeSet = false;
                             castLoop = 0.0f;
                             Destroy(lightning0, 0.0f);
+                        }
+
+                        if (lightning1 != null)
+                        {
+                            lightningCast = false;
+                            BaseTimeSet = false;
+                            castLoop = 0.0f;
                             Destroy(lightning1, 0.0f);
+                        }
+
+                        if (lightning2 != null)
+                        {
+                            lightningCast = false;
+                            BaseTimeSet = false;
+                            castLoop = 0.0f;
                             Destroy(lightning2, 0.0f);
+                        }
+
+                        if (lightning3 != null)
+                        {
+                            lightningCast = false;
+                            BaseTimeSet = false;
+                            castLoop = 0.0f;
                             Destroy(lightning3, 0.0f);
                         }
                             //damage = 2;
@@ -167,13 +205,24 @@ public class BossAttacks : MonoBehaviour
                         if (lightning0!= null)
                         {
                             lightning0.GetComponent<Renderer>().material.color = Color.blue;
-                            lightning1.GetComponent<Renderer>().material.color = Color.blue;
-                            lightning2.GetComponent<Renderer>().material.color = Color.blue;
-                            lightning3.GetComponent<Renderer>().material.color = Color.blue;
-
                             lightning0.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                        }
+
+                        if (lightning1!= null)
+                        {
+                            lightning1.GetComponent<Renderer>().material.color = Color.blue;
                             lightning1.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                        }
+
+                        if (lightning2!= null)
+                        {
+                            lightning2.GetComponent<Renderer>().material.color = Color.blue;
                             lightning2.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                        }
+
+                        if (lightning3!= null)
+                        {
+                            lightning3.GetComponent<Renderer>().material.color = Color.blue;
                             lightning3.gameObject.layer = LayerMask.NameToLayer("Lightning");
                         }
                         //damage = 2;
@@ -230,7 +279,7 @@ public class BossAttacks : MonoBehaviour
         Vector3 distance = new Vector3(plrPos.x - bossPos.x, plrPos.y - bossPos.y, plrPos.z - bossPos.z);
         if (distance.magnitude < 4)
         {
-            Debug.Log("Fire"); // change to cause damage
+            plr.GetComponent<Unit>().bossDamage(5);
         } else { }
     }
 
@@ -258,6 +307,8 @@ public class BossAttacks : MonoBehaviour
 
         // Spawn Wall
         GameObject wall = Instantiate(wallPrefab, wallDif, Quaternion.Euler(angleVector));
+        wall.GetComponent<Renderer>().material.color = Color.red;
+        wall.transform.localScale = new Vector3(wall.transform.localScale.x*2.5f, wall.transform.localScale.y*1.5f, wall.transform.localScale.z);
 
         wall.GetComponent<DestroyMe>().SetLife(lifeSpan);
     }

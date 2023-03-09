@@ -53,6 +53,7 @@ public class Unit : MonoBehaviour
             {
                 Destroy(gameObject);
                 frames = 0;
+                GameManager.i.enemiesKilled++;
             }
         }
         if(timer <= 0)
@@ -140,6 +141,16 @@ public class Unit : MonoBehaviour
         timer2 -= Time.deltaTime;
     }
 
+    public void bossDamage(int damage)
+    {
+        if(timer <= 0)
+        {
+            timer = hitcoolDown;
+            TakeDamage(damage);
+            playerHitAudio.Play();
+        }
+    }
+
     void CheckForDeath()
     {
         if(currentHP <= 0 && unitBase_.Name != "Plague") //Player respawns rather than being destroyed 
@@ -149,9 +160,8 @@ public class Unit : MonoBehaviour
                 dropObject.SetActive(true);
                 dropObject.transform.position = transform.position;
             }
+            GetComponent<BoxCollider2D>().enabled = false;
             dying = true;
-            //Destroy(gameObject);
-            GameManager.i.enemiesKilled++;
         }
     }
 

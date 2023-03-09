@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     public bool playCaveIntroDialog = false;
     public bool firstTimeSeeingCave = true;
 
+    public bool insideBossRoom = false;
+
     public int enemiesKilled;
 
     public static GameManager i { get; set; }

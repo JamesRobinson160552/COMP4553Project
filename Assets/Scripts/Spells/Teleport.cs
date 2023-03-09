@@ -23,6 +23,7 @@ public class Teleport : MonoBehaviour
             crow.transform.position = bossRoomSpawn;
             yield return new WaitForSeconds(2f);
             fadeScreen.FadeOut(2f);
+            gameManager.insideBossRoom = true;
             gameManager.gameActive = true;
         }
     }
