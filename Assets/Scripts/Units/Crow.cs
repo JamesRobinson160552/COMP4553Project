@@ -18,6 +18,7 @@ public class Crow : MonoBehaviour
     [SerializeField] List<string> firstTimeSeeingCave;
     [SerializeField] List<string> afterKeyPickup;
 
+    [SerializeField] AudioSource voice;
 
     Transform playerPos_;
     Character character_;
@@ -29,7 +30,6 @@ public class Crow : MonoBehaviour
     float timer;
     bool talkable;
     //Dialog dialog;
-    
 
     float moveSpeed;
 
@@ -104,6 +104,8 @@ public class Crow : MonoBehaviour
     {
         if(GameManager.i.showingDialog == false && (talkable == true) || (forceTalkable == true)) 
         {
+            voice.Play();
+
             if(GameManager.i.playLightningDialog)
             {
                 GameManager.i.playLightningDialog = false;

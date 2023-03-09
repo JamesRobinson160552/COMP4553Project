@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     float timer;
     float timer2;
     GameObject dropObject;
+    [SerializeField] AudioSource playerHitAudio;
 
     List<SpriteRenderer> SpriteRenderers_ = new List<SpriteRenderer>();
 
@@ -81,6 +82,7 @@ public class Unit : MonoBehaviour
                     int damage;
                     damage = tryGetDamage();
                     TakeDamage(damage);
+                    playerHitAudio.Play();
                     try
                     {
                         CameraShake.i.StopShake();
@@ -99,6 +101,7 @@ public class Unit : MonoBehaviour
                 {
                     timer = hitcoolDown;
                     TakeDamage(collider3.GetComponent<Unit>().GetUnitBase.BaseDamage);
+                    playerHitAudio.Play();
                 }
             }
         }

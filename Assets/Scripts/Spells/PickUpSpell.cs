@@ -7,11 +7,13 @@ public class PickUpSpell : MonoBehaviour
     public bool lightning;
     public bool reflect;
     public bool wall;
+    public AudioSource pickupAudio;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.name == "Player")
         {
+            pickupAudio.Play();
             GetComponent<SpellBase>().setPlayerAccess();
             GameManager.i.MenuText.SetMenu();
             GetComponent<SpriteRenderer>().enabled = false;

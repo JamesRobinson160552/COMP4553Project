@@ -12,6 +12,7 @@ public class ReflectSpellScript : MonoBehaviour, SpellBase
     public GameObject[] spellPrefabs;
     public GameObject plr;
     public string desc;
+    public AudioSource reflectAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,7 @@ public class ReflectSpellScript : MonoBehaviour, SpellBase
 
     public void castSpell()
     {
-
+        reflectAudio.Play();
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
         mousePos = new Vector3(mousePos.x, mousePos.y, 0);
         // Need TAN to get angle, thereofre need Opposite / Adjecent of sides between plr and mouse

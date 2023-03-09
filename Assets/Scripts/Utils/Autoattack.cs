@@ -15,6 +15,7 @@ public class Autoattack : MonoBehaviour, SpellBase
     public GameObject plr;
     public int damage = 5;
     float timer = 0;
+    public AudioSource aAAudio;
 
     public float bulletForce = 20f;
 
@@ -76,6 +77,7 @@ public class Autoattack : MonoBehaviour, SpellBase
     }
     public void castSpell()
     {
+        aAAudio.Play();
         // Instantiates bullet at location of aimer
         GameObject bullet = Instantiate(AABullet, aimer.position, aimer.rotation);
 

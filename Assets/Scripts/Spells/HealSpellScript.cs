@@ -11,6 +11,7 @@ public class HealSpellScript : MonoBehaviour, SpellBase
     public string spellName = "Heal";
     public HealthBar healthBar;
     public Unit unit;
+    public AudioSource healAudio;
 
     float timeRemaining_ = 0f;
     float currentTimeBetweenHeals_ = 0f;
@@ -39,6 +40,7 @@ public class HealSpellScript : MonoBehaviour, SpellBase
             timeRemaining_ = duration;
         GetComponent<SpellAnimator>().enabled = true;
         GetComponent<SpriteRenderer>().enabled = true;
+        healAudio.Play();
     }
 
     void FixedUpdate()

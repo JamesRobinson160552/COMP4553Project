@@ -9,6 +9,7 @@ public class FireBlastScript : MonoBehaviour, SpellBase
     public bool playerAccess;
     public int damage = 15;
     public string spellName = "Blast";
+    public AudioSource blastSound;
 
     public float bulletForce = 5f;
 
@@ -35,6 +36,7 @@ public class FireBlastScript : MonoBehaviour, SpellBase
     public void castSpell()
     {
         // Instantiates bullet at location of aimer
+        blastSound.Play();
         GameObject bullet = Instantiate(spellPrefabs[0], aimer.position, aimer.rotation);
 
         // Access the bullet's rigidbody and store it as rb

@@ -24,6 +24,8 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     float distanceAboveMouse = 12f;
     int counter =0;
     Vector3 mousePos;
+    public AudioSource chargeAudio;
+    public AudioSource boltAudio;
 
     public string getName()
     { return spellName; }
@@ -49,6 +51,7 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
     {
         if (gameManager.lightningSpawned == false)
         {
+            chargeAudio.Play();
             counter = 0;
             lightningCast = true;
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); //Input.mousePosition;
@@ -108,6 +111,7 @@ public class LightningSpellScript : MonoBehaviour, SpellBase
                             lightning.GetComponentInChildren<SpellAnimator>().playSetUp = false;
                         if(counter == 8)
                             lightning.GetComponentInChildren<SpellAnimator>().playEndFrames = true;
+                            boltAudio.Play();
                         //lightningSprite[1].material.color = Color.red;
                         lightning.GetComponent<Renderer>().enabled = false;
                         lightning.gameObject.layer = LayerMask.NameToLayer("Lightning");

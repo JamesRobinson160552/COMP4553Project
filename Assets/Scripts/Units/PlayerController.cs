@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
     public HealthBar healthBar;
     public float currentMoveSpeed;
     public Unit playerStats;
-    public AudioSource playerAudio;
-    public AudioClip[] playerSounds; //step, auto, hit, death
     
     float timeBetweenClicks;
     float timeRemaining_;
@@ -25,6 +23,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 spawnPosition;
     public FadePanel fadeScreen;
     public GameObject crow;
+
+    public AudioSource confirmInteractAudio;
+    public AudioSource deathSound;
 
     private void Awake()
     {
@@ -47,7 +48,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && GameManager.i.leftStartingZone)
+        {
             Interact();
+            confirmInteractAudio.Play();
+        }
 
         if(Input.GetMouseButton(1) && timeBetweenClicks <= 0)//(Input.GetKeyDown(KeyCode.R))
         {
@@ -193,6 +197,7 @@ public class PlayerController : MonoBehaviour
     //Resets enemies and sends player to spawn location with full health
     IEnumerator Respawn()
     {
+        deathSound.Play();
         gameManager.gameActive = false;
         fadeScreen.FadeIn(2f);
         yield return new WaitForSeconds(3f);

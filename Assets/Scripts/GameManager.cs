@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public SettingMenuText menuText;
     public AudioSource mainAudio;
     public AudioSource bossAudio;
+    public AudioSource buttonAudio;
+    public AudioClip[] buttonSounds;
+    public float volume = 0.5f;
 
     //these tell the crow npc what to say.
 
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow(true));
         }
+
     }
 
     public void StartGame()
@@ -104,6 +108,12 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(enemyGroup, enemyGroup.transform.position, enemyGroup.transform.rotation);
         }
+    }
+    
+    public void SetVolume()
+    {
+        mainAudio.volume = volume;
+        bossAudio.volume = volume;
     }
 
     public void StartBossMusic()
