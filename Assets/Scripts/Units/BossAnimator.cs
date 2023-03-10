@@ -28,6 +28,7 @@ public class BossAnimator : MonoBehaviour
     bool isLoadingSpell{ get; set; }
 
     bool wasPreviouslyMoving_;
+    bool wasPreviouslyAttacking_;
     bool isAttackingLeft_;
 
     SpriteAnimator walkLeftAnim_;
@@ -93,6 +94,7 @@ public class BossAnimator : MonoBehaviour
                 currentAnimLeftArm_ = standingRightLeftArmAnim_;
                 currentAnimRightArm_ = standingRightRightArmAnim_;
                 currentAnimHead_ =  headRightAnim1_;
+                isAttackingLeft_ = false;
             }
 
             else
@@ -101,6 +103,25 @@ public class BossAnimator : MonoBehaviour
                 currentAnimLeftArm_ = standingLeftLeftArmAnim_;
                 currentAnimRightArm_ = standingLeftRightArmAnim_;
                 currentAnimHead_ =  headLeftAnim1_;
+                isAttackingLeft_ = true;
+            }
+        }
+
+        else
+        {
+            if(!wasPreviouslyAttacking_)
+            {
+                if(isAttackingLeft_)
+                {
+                    currentAnimLeftArm_ = attackLeftLeftArmAnim_;
+                    SpriteRenderers_[2].sprite = currentAnimLeftArm_.Frames[1];
+                }
+
+                else
+                {
+                    currentAnimRightArm_ = attackRightRightArmAnim_;
+                    SpriteRenderers_[3].sprite = currentAnimRightArm_.Frames[1];
+                }
             }
         }
 
@@ -116,14 +137,23 @@ public class BossAnimator : MonoBehaviour
         //plays loop, first 2 lines keep animations synced
         if (isMoving)
         {
-            currentAnimLeftArm_.currentFrame = currentAnimBody_.currentFrame;
-            currentAnimLeftArm_.timer = currentAnimBody_.timer;
+            if(!isAttacking)
+            {
+                currentAnimLeftArm_.currentFrame = currentAnimBody_.currentFrame;
+                currentAnimLeftArm_.timer = currentAnimBody_.timer;
 
-            currentAnimRightArm_.currentFrame = currentAnimBody_.currentFrame;
-            currentAnimRightArm_.timer = currentAnimBody_.timer;
+                currentAnimRightArm_.currentFrame = currentAnimBody_.currentFrame;
+                currentAnimRightArm_.timer = currentAnimBody_.timer;
 
-            currentAnimHead_.currentFrame = currentAnimBody_.currentFrame;
-            currentAnimHead_.timer = currentAnimBody_.timer;
+                currentAnimHead_.currentFrame = currentAnimBody_.currentFrame;
+                currentAnimHead_.timer = currentAnimBody_.timer;
+            }
+
+            else
+            {
+                //Debug.Log("----------------------------------");
+                //Debug.Log(currentAnimRightArm_.currentFrame);
+            }
 
             currentAnimBody_.HandleUpdate();
             currentAnimLeftArm_.HandleUpdate();
@@ -141,6 +171,7 @@ public class BossAnimator : MonoBehaviour
         }
 
         wasPreviouslyMoving_ = isMoving;
+        wasPreviouslyAttacking_ = isAttacking;
     }
 
     public void ChangeIsMoving(bool state)
@@ -151,19 +182,5 @@ public class BossAnimator : MonoBehaviour
     public void ChangeIsAttacking(bool state)
     {
         isAttacking = state;
-    }
-
-    public void AttackPos(Vector3 targetSpot)
-    {
-        isAttacking = true;
-
-        if(transform.position.x > targetSpot.x)
-        {
-            isAttackingLeft_ = true;
-        }
-        else
-        {
-            isAttackingLeft_ = false;
-        }
     }
 }

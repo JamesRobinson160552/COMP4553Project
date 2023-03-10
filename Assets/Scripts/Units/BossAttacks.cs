@@ -42,7 +42,21 @@ public class BossAttacks : MonoBehaviour
     private GameObject lightning2;
     private GameObject lightning3;
 
+    SpriteRenderer[] lightningSprite0;
+    SpriteRenderer[] lightningSprite1;
+    SpriteRenderer[] lightningSprite2;
+    SpriteRenderer[] lightningSprite3;
+
+    Vector3 spawn0;
+    Vector3 spawn1;
+    Vector3 spawn2;
+    Vector3 spawn3;
+
     public GameObject mushroomPrefab;
+    BossAnimator animator_;
+
+    float distanceAboveTarget = 12f;
+    int counter;
 
     // for plrCheatToBoss
     bool onlyOnce = false;
@@ -59,12 +73,13 @@ public class BossAttacks : MonoBehaviour
 
     private void Start()
     {
+        animator_ = GetComponent<BossAnimator>();
         lifeRemaining = lifeSpan;
         boss.GetComponent<Unit>().currentHP = 50;
         maxHP = boss.GetComponent<Unit>().currentHP;
     }
 
-    public void LateUpdate()
+    public void Update()
     {
         if (GameManager.i.gameActive == true) {
             // For testing so there is one wall
@@ -112,6 +127,7 @@ public class BossAttacks : MonoBehaviour
             // Lightning spell specific
             if (lightningCast == true)
             {
+                animator_.ChangeIsAttacking(true);
                 //gameManager.lightningSpawned = true;
                 if (BaseTimeSet == false)
                 {
@@ -165,6 +181,8 @@ public class BossAttacks : MonoBehaviour
                     // Last part of code
                     if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f))
                     {
+                        animator_.ChangeIsAttacking(false);
+
                         if (lightning0 != null)
                         {
                             lightningCast = false;
@@ -202,28 +220,71 @@ public class BossAttacks : MonoBehaviour
                         
                         //gameManager.lightningSpawned = false;
                     } else { // Change colour to red
+
+                        counter++;
+
                         if (lightning0!= null)
                         {
-                            lightning0.GetComponent<Renderer>().material.color = Color.blue;
+                            lightningSprite0[1].material.color = Color.red;
+                            lightningSprite0[1].enabled = true;
+                            if(counter < 4)
+                                lightningSprite0[1].transform.position = new Vector3(lightning0.transform.position.x, lightning0.transform.position.y + distanceAboveTarget/counter, 0);
+
+                            if(counter == 4)
+                                lightning0.GetComponentInChildren<SpellAnimator>().playSetUp = false;
+                            if(counter == 8)
+                                lightning0.GetComponentInChildren<SpellAnimator>().playEndFrames = true;
+                            //lightning0.GetComponent<Renderer>().material.color = Color.blue;
+                            lightning0.GetComponent<Renderer>().enabled = false;
                             lightning0.gameObject.layer = LayerMask.NameToLayer("Lightning");
                         }
 
                         if (lightning1!= null)
                         {
-                            lightning1.GetComponent<Renderer>().material.color = Color.blue;
+                            lightningSprite1[1].material.color = Color.red;
+                            lightningSprite1[1].enabled = true;
+                            if(counter < 4)
+                                lightningSprite1[1].transform.position = new Vector3(lightning1.transform.position.x, lightning1.transform.position.y + distanceAboveTarget/counter, 0);
+
+                            if(counter == 4)
+                                lightning1.GetComponentInChildren<SpellAnimator>().playSetUp = false;
+                            if(counter == 8)
+                                lightning1.GetComponentInChildren<SpellAnimator>().playEndFrames = true;
+                            //lightning1.GetComponent<Renderer>().material.color = Color.blue;
                             lightning1.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                            lightning1.GetComponent<Renderer>().enabled = false;
                         }
 
                         if (lightning2!= null)
                         {
-                            lightning2.GetComponent<Renderer>().material.color = Color.blue;
+                            lightningSprite2[1].material.color = Color.red;
+                            lightningSprite2[1].enabled = true;
+                            if(counter < 4)
+                                lightningSprite2[1].transform.position = new Vector3(lightning2.transform.position.x, lightning2.transform.position.y + distanceAboveTarget/counter, 0);
+
+                            if(counter == 4)
+                                lightning2.GetComponentInChildren<SpellAnimator>().playSetUp = false;
+                            if(counter == 8)
+                                lightning2.GetComponentInChildren<SpellAnimator>().playEndFrames = true;
+                            //lightning2.GetComponent<Renderer>().material.color = Color.blue;
                             lightning2.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                            lightning2.GetComponent<Renderer>().enabled = false;
                         }
 
                         if (lightning3!= null)
                         {
-                            lightning3.GetComponent<Renderer>().material.color = Color.blue;
+                            lightningSprite3[1].material.color = Color.red;
+                            lightningSprite3[1].enabled = true;
+                            if(counter < 4)
+                                lightningSprite3[1].transform.position = new Vector3(lightning3.transform.position.x, lightning3.transform.position.y + distanceAboveTarget/counter, 0);
+
+                            if(counter == 4)
+                                lightning3.GetComponentInChildren<SpellAnimator>().playSetUp = false;
+                            if(counter == 8)
+                                lightning3.GetComponentInChildren<SpellAnimator>().playEndFrames = true;
+                            //lightning3.GetComponent<Renderer>().material.color = Color.blue;
                             lightning3.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                            lightning3.GetComponent<Renderer>().enabled = false;
                         }
                         //damage = 2;
                         //lightning.GetComponent<ProjectileStats>().SetDamage(damage);
@@ -267,6 +328,23 @@ public class BossAttacks : MonoBehaviour
         lightning1 = Instantiate(lightningPrefab, lightningBaseLoc1, lightningPrefab.transform.rotation);
         lightning2 = Instantiate(lightningPrefab, lightningBaseLoc2, lightningPrefab.transform.rotation);
         lightning3 = Instantiate(lightningPrefab, lightningBaseLoc3, lightningPrefab.transform.rotation);
+
+        lightningSprite0 = lightning0.GetComponentsInChildren<SpriteRenderer>();
+        lightningSprite1 = lightning1.GetComponentsInChildren<SpriteRenderer>();
+        lightningSprite2 = lightning2.GetComponentsInChildren<SpriteRenderer>();
+        lightningSprite3 = lightning3.GetComponentsInChildren<SpriteRenderer>();
+
+        lightningSprite0[1].enabled = false;
+        lightningSprite1[1].enabled = false;
+        lightningSprite2[1].enabled = false;
+        lightningSprite3[1].enabled = false;
+
+        spawn0 = lightning0.transform.position;
+        spawn1 = lightning1.transform.position;
+        spawn2 = lightning2.transform.position;
+        spawn3 = lightning3.transform.position;
+
+        counter = 0;
 
         // Go through proper lighting spell cast
         lightningCast = true;

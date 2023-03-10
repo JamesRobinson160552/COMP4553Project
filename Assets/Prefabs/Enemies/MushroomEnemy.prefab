@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -1974969364, guid: 9b68642f7c06bb644a6ce89d456a9e82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   radius: 0.8
   hitcoolDown: 0.2
   blinkSpeed: 0
+  playerHitAudio: {fileID: 0}
 --- !u!114 &3110372200068662318
 MonoBehaviour:
   m_ObjectHideFlags: 0

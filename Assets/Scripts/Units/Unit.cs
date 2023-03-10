@@ -63,7 +63,7 @@ public class Unit : MonoBehaviour
                 SpriteRenderers_[i].enabled = true; //turn on sprite renderers
             }
 
-            if(unitBase_.Name != "Plague")
+            if(unitBase_.Name != "Plague" && !dying)
             {
                 var collider = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.PlayerSpellsLayer));
                 var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
@@ -92,7 +92,7 @@ public class Unit : MonoBehaviour
                 }
             }
 
-            else
+            if(unitBase_.Name == "Plague")
             {
                 var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
                 var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
@@ -160,7 +160,6 @@ public class Unit : MonoBehaviour
                 dropObject.SetActive(true);
                 dropObject.transform.position = transform.position;
             }
-            GetComponent<BoxCollider2D>().enabled = false;
             dying = true;
         }
     }
