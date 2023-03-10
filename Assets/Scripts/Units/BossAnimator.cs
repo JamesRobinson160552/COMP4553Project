@@ -111,6 +111,7 @@ public class BossAnimator : MonoBehaviour
         {
             if(!wasPreviouslyAttacking_)
             {
+                Debug.Log("running");
                 if(isAttackingLeft_)
                 {
                     currentAnimLeftArm_ = attackLeftLeftArmAnim_;
@@ -125,17 +126,8 @@ public class BossAnimator : MonoBehaviour
             }
         }
 
-        //if running against wall no animations will be played
-        if (currentAnimBody_ != prevAnim_ || isMoving != wasPreviouslyMoving_)
-        {
-            currentAnimBody_.Start();
-            currentAnimLeftArm_.Start();
-            currentAnimRightArm_.Start();
-            currentAnimHead_.Start();
-        }
-
         //plays loop, first 2 lines keep animations synced
-        if (isMoving)
+        if (isMoving || isAttacking)
         {
             if(!isAttacking)
             {
@@ -149,16 +141,44 @@ public class BossAnimator : MonoBehaviour
                 currentAnimHead_.timer = currentAnimBody_.timer;
             }
 
-            else
+            if(isAttacking && isAttackingLeft_)
             {
-                //Debug.Log("----------------------------------");
-                //Debug.Log(currentAnimRightArm_.currentFrame);
+                currentAnimLeftArm_.HandleUpdate();
             }
 
-            currentAnimBody_.HandleUpdate();
-            currentAnimLeftArm_.HandleUpdate();
-            currentAnimRightArm_.HandleUpdate();
-            currentAnimHead_.HandleUpdate();
+            if(isAttacking && !isAttackingLeft_)
+            {
+                currentAnimRightArm_.HandleUpdate();
+            }
+
+            if(isMoving && isAttackingLeft_)
+            {
+                currentAnimBody_.HandleUpdate();
+                currentAnimHead_.HandleUpdate();
+                currentAnimRightArm_.HandleUpdate();
+            }
+
+            if(!isMoving && isAttackingLeft_)
+            {
+                currentAnimBody_.Start();
+                currentAnimHead_.Start();
+                currentAnimRightArm_.Start();
+            }
+
+             if(isMoving && !isAttackingLeft_)
+            {
+                currentAnimBody_.HandleUpdate();
+                currentAnimHead_.HandleUpdate();
+                currentAnimLeftArm_.HandleUpdate();
+            }
+
+            if(!isMoving && !isAttackingLeft_)
+            {
+                currentAnimBody_.Start();
+                currentAnimHead_.Start();
+                currentAnimLeftArm_.Start();
+            }
+
 
         }
 

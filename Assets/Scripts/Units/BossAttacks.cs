@@ -223,6 +223,7 @@ public class BossAttacks : MonoBehaviour
 
                         counter++;
 
+                        //need to tell the lighning to do damage in this function
                         if (lightning0!= null)
                         {
                             lightningSprite0[1].material.color = Color.red;
