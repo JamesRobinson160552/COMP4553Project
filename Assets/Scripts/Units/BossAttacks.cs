@@ -76,7 +76,7 @@ public class BossAttacks : MonoBehaviour
     {
         animator_ = GetComponent<BossAnimator>();
         lifeRemaining = lifeSpan;
-        boss.GetComponent<Unit>().currentHP = 50;
+        boss.GetComponent<Unit>().currentHP = 100;
         maxHP = boss.GetComponent<Unit>().currentHP;
     }
 
@@ -119,8 +119,8 @@ public class BossAttacks : MonoBehaviour
 
                 if (currentHP < (maxHP / 2))
                 {
-                    spawnEnemies();
-                    InvokeRepeating("randomLightning", 1.5f, 6.5f);
+                    InvokeRepeating("callSpawnEnemies", 0.0f, 10f);
+                    InvokeRepeating("callLightning", 1.5f, 6.5f);
                     // Increase speed to make boss faster
                     enterOnce = false;
                 }        
@@ -433,6 +433,17 @@ public class BossAttacks : MonoBehaviour
 
     private void callShoot()
     {
-        StartCoroutine(Shoot());
+        if (GameManager.i.gameActive == true)
+            StartCoroutine(Shoot());
+    }
+    private void callLightning()
+    {
+        if (GameManager.i.gameActive == true)
+            randomLightning();
+    }
+    private void callSpawnEnemies()
+    {
+        if (GameManager.i.gameActive == true)
+            spawnEnemies();
     }
 }

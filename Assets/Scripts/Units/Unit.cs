@@ -92,7 +92,7 @@ public class Unit : MonoBehaviour
                 }
             }
 
-            if(unitBase_.Name == "Plague")
+            if((unitBase_.Name == "Plague") && (GameManager.i.gameActive == true))
             {
                 var collider = Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer);
                 var collider2 = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
