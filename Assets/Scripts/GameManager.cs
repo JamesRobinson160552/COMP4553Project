@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject titleScreen;
     public GameObject UI;
     public GameObject menu;
+    public GameObject endScreen;
     public GameObject[] enemyPrefabs;
     public bool showingDialog = false;
     public bool lightningSpawned = false;
@@ -16,11 +18,16 @@ public class GameManager : MonoBehaviour
     public AudioSource mainAudio;
     public AudioSource bossAudio;
     public AudioSource menuAudio;
+    public AudioSource endMusic;
     public AudioClip openMenuSound;
     public AudioClip closeMenuSound;
     public AudioClip confirmSound;
     public AudioClip startGameSound;
-    public float volume = 0.5f;
+    public List<AudioSource> audios;
+    public Slider volumeSlider;
+    public float volume = 1.0f;
+    public float oldVolume;
+    
 
     //these tell the crow npc what to say.
 
@@ -54,6 +61,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ResetEnemies();
+        GameObject[] temp = GameObject.FindGameObjectsWithTag("Noisy");
+        audios.Add(GameObject.Find("Main Camera").GetComponent<AudioSource>());
+        foreach (GameObject obj in temp)
+        {
+            foreach (AudioSource source in (obj.GetComponents<AudioSource>()))
+            {
+                audios.Add(source);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -119,8 +135,22 @@ public class GameManager : MonoBehaviour
     
     public void SetVolume()
     {
-        mainAudio.volume = volume;
-        bossAudio.volume = volume;
+        oldVolume = volume;
+        if (volumeSlider.value == 0)
+        {
+            volume = 0.0001f; //Avoid 0 division
+        }
+        else 
+        {
+            volume = volumeSlider.value;
+        }
+        
+        foreach (AudioSource source in audios)
+        {
+            //resets to original value and scales by new value
+            source.volume /= oldVolume;
+            source.volume *= volume; 
+        }
     }
 
     public void StartBossMusic()
@@ -135,8 +165,16 @@ public class GameManager : MonoBehaviour
         mainAudio.Play();
     }
 
-    public void playMenuButtonSound()
+    public void PlayMenuButtonSound()
     {
         menuAudio.PlayOneShot(confirmSound);
+    }
+
+    public void endGame()
+    {
+        endScreen.SetActive(true);
+        gameActive = false;
+        bossAudio.Stop();
+        endMusic.Play();
     }
 }
