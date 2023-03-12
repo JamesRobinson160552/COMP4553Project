@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             confirmInteractAudio.Play();
         }
 
-        if(Input.GetMouseButton(1) && timeBetweenClicks <= 0)//(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetMouseButton(1) && timeBetweenClicks <= 0 && GameManager.i.leftStartingZone)//(Input.GetKeyDown(KeyCode.R))
         {
             timeBetweenClicks = 0.25f;
             isLoadingSpell_ = !(isLoadingSpell_);

@@ -359,6 +359,11 @@ public class BossAttacks : MonoBehaviour
         lightningSprite2 = lightning2.GetComponentsInChildren<SpriteRenderer>();
         lightningSprite3 = lightning3.GetComponentsInChildren<SpriteRenderer>();
 
+        lightning0.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning1.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning2.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning3.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+
         lightningSprite0[1].enabled = false;
         lightningSprite1[1].enabled = false;
         lightningSprite2[1].enabled = false;
