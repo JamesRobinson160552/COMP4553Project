@@ -27,7 +27,6 @@ public class BossAttacks : MonoBehaviour
     private float lifeSpan = 5.0f;
     public float lifeRemaining;
     private float bossWallBuffer = 6.0f;
-    private bool oneWall = false;
 
     // Lighting Vars
     public GameObject lightningPrefab;
@@ -36,6 +35,7 @@ public class BossAttacks : MonoBehaviour
     private float BaseTime;
     private float castTime = 1.25f;
     private float castLoop = 0.0f;
+    private int lightningDmg = 20;
 
     private GameObject lightning0;
     private GameObject lightning1;
@@ -47,10 +47,10 @@ public class BossAttacks : MonoBehaviour
     SpriteRenderer[] lightningSprite2;
     SpriteRenderer[] lightningSprite3;
 
-    Vector3 spawn0;
-    Vector3 spawn1;
-    Vector3 spawn2;
-    Vector3 spawn3;
+    // Bullet
+    public GameObject attackPrefab;
+    private int bulletDamage = 10;
+    private float bulletForce = 15.0f;
 
     public GameObject mushroomPrefab;
     BossAnimator animator_;
@@ -73,9 +73,10 @@ public class BossAttacks : MonoBehaviour
 
     private void Start()
     {
+        plr = GameObject.Find("Player");
         animator_ = GetComponent<BossAnimator>();
         lifeRemaining = lifeSpan;
-        boss.GetComponent<Unit>().currentHP = 50;
+        boss.GetComponent<Unit>().currentHP = 100;
         maxHP = boss.GetComponent<Unit>().currentHP;
     }
 
@@ -83,14 +84,23 @@ public class BossAttacks : MonoBehaviour
     {
         if (GameManager.i.gameActive == true) {
             // For testing so there is one wall
-            if ((Input.GetKey(KeyCode.L)) && (onlyOnce == false)) {
-                GameManager.i.insideBossRoom = true;
-                plr.transform.position += new Vector3(0, -42, 0); 
+            //if ((Input.GetKey(KeyCode.L)) && (onlyOnce == false)) {
+            if((GameManager.i.insideBossRoom == true) && (onlyOnce == false)){
+                //GameManager.i.insideBossRoom = true;
+                fightTest = true;
                 onlyOnce= true;
             }
 
+            if(GameManager.i.insideBossRoom == false)
+            {
+                fightTest = false;
+            }   
+        
+
             burn(); // Burn attack, always active
             currentHP = boss.GetComponent<Unit>().currentHP;
+            if(currentHP <= 0)
+                GameManager.i.playerWon = true;
             //Debug.Log(maxHP.ToString());
             //Debug.Log(currentHP.ToString());
             //Debug.Log(reset.ToString());
@@ -98,6 +108,7 @@ public class BossAttacks : MonoBehaviour
             {
                 if (currentHP < (maxHP / 2))
                 {
+                    fightTest = true;
                     enterOnce = true;  // When drops below 50% will again enter action loop
                     //Debug.Log("EnterOnce True"); // Testing only
                     reset--;
@@ -105,20 +116,21 @@ public class BossAttacks : MonoBehaviour
             }
             //Debug.Log(currentHP.ToString());  
 
-            if (Input.GetKeyDown(KeyCode.K)) fightTest = true; // K is for testing
+            //if (Input.GetKeyDown(KeyCode.K)) fightTest = true; // K is for testing
 
             if ((fightTest==true) && (enterOnce==true))  
             {           
                 if (currentHP >= (maxHP / 2)) // Change to > 50% Max Health
                 {
-                    InvokeRepeating("shieldUp", 1f, 9f);
+                    InvokeRepeating("callShoot", 1.5f, 4f);
+                    //InvokeRepeating("shieldUp", 1f, 9f);
                     enterOnce = false;
                 }
 
                 if (currentHP < (maxHP / 2))
                 {
-                    spawnEnemies();
-                    InvokeRepeating("randomLightning", 1.5f, 6.5f);
+                    InvokeRepeating("callSpawnEnemies", 0.0f, 15f);
+                    InvokeRepeating("callLightning", 1.5f, 6.5f);
                     // Increase speed to make boss faster
                     enterOnce = false;
                 }        
@@ -147,28 +159,28 @@ public class BossAttacks : MonoBehaviour
                         castLoop += .1f;
                         if(lightning0 != null)
                         {
-                            lightning0.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            lightning0.transform.localScale = new Vector3(castLoop * 5, castLoop * 5, 1);
                             rnd = UnityEngine.Random.Range(.1f, .4f);
                             lightning0.transform.position += new Vector3(-rnd, +rnd, 0);
                         }
 
                         if(lightning1 != null)
                         {
-                            lightning1.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            lightning1.transform.localScale = new Vector3(castLoop * 5, castLoop * 5, 1);
                             rnd = UnityEngine.Random.Range(.1f, .4f);
                             lightning1.transform.position += new Vector3(+rnd, +rnd, 0);
                         }
 
                         if(lightning2 != null)
                         {
-                            lightning2.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            lightning2.transform.localScale = new Vector3(castLoop * 5, castLoop * 5, 1);
                             rnd = UnityEngine.Random.Range(.1f, .4f);
                             lightning2.transform.position += new Vector3(-rnd, -rnd, 0);
                         }
 
                         if(lightning3 != null)
                         {
-                            lightning3.transform.localScale = new Vector3(castLoop * 3, castLoop * 3, 1);
+                            lightning3.transform.localScale = new Vector3(castLoop * 5, castLoop * 5, 1);
                             rnd = UnityEngine.Random.Range(.1f, .4f);
                             lightning3.transform.position += new Vector3(+rnd, -rnd, 0);
                         }
@@ -185,38 +197,39 @@ public class BossAttacks : MonoBehaviour
 
                         if (lightning0 != null)
                         {
+                            lightning0.GetComponent<ProjectileStats>().SetDamage(lightningDmg);                            
                             lightningCast = false;
                             BaseTimeSet = false;
-                            castLoop = 0.0f;
+                            castLoop = 0.0f;                            
                             Destroy(lightning0, 0.0f);
                         }
 
                         if (lightning1 != null)
                         {
+                            lightning1.GetComponent<ProjectileStats>().SetDamage(lightningDmg);                            
                             lightningCast = false;
                             BaseTimeSet = false;
-                            castLoop = 0.0f;
+                            castLoop = 0.0f;                            
                             Destroy(lightning1, 0.0f);
                         }
 
                         if (lightning2 != null)
                         {
+                            lightning2.GetComponent<ProjectileStats>().SetDamage(lightningDmg);                            
                             lightningCast = false;
                             BaseTimeSet = false;
-                            castLoop = 0.0f;
+                            castLoop = 0.0f;                            
                             Destroy(lightning2, 0.0f);
                         }
 
                         if (lightning3 != null)
                         {
+                            lightning3.GetComponent<ProjectileStats>().SetDamage(lightningDmg);                            
                             lightningCast = false;
                             BaseTimeSet = false;
-                            castLoop = 0.0f;
+                            castLoop = 0.0f;                            
                             Destroy(lightning3, 0.0f);
                         }
-                            //damage = 2;
-                            // Safety check 
-                            //lightning.GetComponent<ProjectileStats>().SetDamage(damage);
                         
                         //gameManager.lightningSpawned = false;
                     } else { // Change colour to red
@@ -238,6 +251,7 @@ public class BossAttacks : MonoBehaviour
                             //lightning0.GetComponent<Renderer>().material.color = Color.blue;
                             lightning0.GetComponent<Renderer>().enabled = false;
                             lightning0.gameObject.layer = LayerMask.NameToLayer("Lightning");
+                            lightning0.GetComponent<ProjectileStats>().SetDamage(lightningDmg);
                         }
 
                         if (lightning1!= null)
@@ -254,6 +268,7 @@ public class BossAttacks : MonoBehaviour
                             //lightning1.GetComponent<Renderer>().material.color = Color.blue;
                             lightning1.gameObject.layer = LayerMask.NameToLayer("Lightning");
                             lightning1.GetComponent<Renderer>().enabled = false;
+                            lightning1.GetComponent<ProjectileStats>().SetDamage(lightningDmg);
                         }
 
                         if (lightning2!= null)
@@ -270,6 +285,7 @@ public class BossAttacks : MonoBehaviour
                             //lightning2.GetComponent<Renderer>().material.color = Color.blue;
                             lightning2.gameObject.layer = LayerMask.NameToLayer("Lightning");
                             lightning2.GetComponent<Renderer>().enabled = false;
+                            lightning2.GetComponent<ProjectileStats>().SetDamage(lightningDmg);
                         }
 
                         if (lightning3!= null)
@@ -286,6 +302,7 @@ public class BossAttacks : MonoBehaviour
                             //lightning3.GetComponent<Renderer>().material.color = Color.blue;
                             lightning3.gameObject.layer = LayerMask.NameToLayer("Lightning");
                             lightning3.GetComponent<Renderer>().enabled = false;
+                            lightning3.GetComponent<ProjectileStats>().SetDamage(lightningDmg);
                         }
                         //damage = 2;
                         //lightning.GetComponent<ProjectileStats>().SetDamage(damage);
@@ -300,19 +317,26 @@ public class BossAttacks : MonoBehaviour
         Vector3 plrPos = new Vector3(plr.transform.position.x, plr.transform.position.y, plr.transform.position.z);
         Vector3 bossPos = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
         Vector3 halfDif = new Vector3(((bossPos.x + plrPos.x) / 2), ((bossPos.y + plrPos.y) / 2), ((bossPos.z + plrPos.z) / 2));
-        
+
         // Create mushroom 1 at std pos
-        GameObject mushroom1 = Instantiate(mushroomPrefab, halfDif, mushroomPrefab.transform.rotation);
+        //GameObject mushroom1 = Instantiate(mushroomPrefab, halfDif, mushroomPrefab.transform.rotation);
+        Vector3 mush1Pos = new Vector3(-20f, -86f, 0);
+        GameObject mushroom1 = Instantiate(mushroomPrefab, mush1Pos, mushroomPrefab.transform.rotation);
 
         // Create mushroom 2 at rnd offset
         float rnd = UnityEngine.Random.Range(.1f, 1.4f); 
         Vector3 offset = new Vector3(rnd, rnd, 0);
-        GameObject mushroom2 = Instantiate(mushroomPrefab, (halfDif + offset), mushroomPrefab.transform.rotation);
+        Vector3 mush2Pos = new Vector3(11f, -86f, 0);
+        GameObject mushroom2 = Instantiate(mushroomPrefab, mush2Pos, mushroomPrefab.transform.rotation);
 
         // Create mushroom 3 at -rnd offset
         rnd = UnityEngine.Random.Range(.1f, 1.4f);
         offset = new Vector3(rnd, rnd, 0);
-        GameObject mushroom3 = Instantiate(mushroomPrefab, (halfDif - offset), mushroomPrefab.transform.rotation);
+        Vector3 mush3Pos = new Vector3(11f, -111f, 0);
+        GameObject mushroom3 = Instantiate(mushroomPrefab, mush3Pos, mushroomPrefab.transform.rotation);
+
+        Vector3 mush4Pos = new Vector3(-20f, -111f, 0);
+        GameObject mushroom4 = Instantiate(mushroomPrefab, mush4Pos, mushroomPrefab.transform.rotation);
     }
 
     void randomLightning()
@@ -339,11 +363,6 @@ public class BossAttacks : MonoBehaviour
         lightningSprite1[1].enabled = false;
         lightningSprite2[1].enabled = false;
         lightningSprite3[1].enabled = false;
-
-        spawn0 = lightning0.transform.position;
-        spawn1 = lightning1.transform.position;
-        spawn2 = lightning2.transform.position;
-        spawn3 = lightning3.transform.position;
 
         counter = 0;
 
@@ -390,5 +409,52 @@ public class BossAttacks : MonoBehaviour
         wall.transform.localScale = new Vector3(wall.transform.localScale.x*2.5f, wall.transform.localScale.y*1.5f, wall.transform.localScale.z);
 
         wall.GetComponent<DestroyMe>().SetLife(lifeSpan);
+    }
+
+    private IEnumerator Shoot()
+    {
+        if (GameManager.i.gameActive == true) //Player is in range
+        {            
+            // Instantiates bullet at location of aimer
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 plrPos = new Vector3(plr.transform.position.x, plr.transform.position.y, plr.transform.position.z);
+                Vector3 bossPos = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
+                GameObject bullet = Instantiate(attackPrefab, transform.position, attackPrefab.transform.rotation);
+                bullet.GetComponent<SpriteRenderer>().material.color = Color.red;
+                bullet.transform.localScale = new Vector3(bullet.transform.localScale.x * 2.5f, bullet.transform.localScale.y * 2.5f, bullet.transform.localScale.z);
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                bullet.GetComponent<ProjectileStats>().SetDamage(bulletDamage);
+                rb.AddForce((plrPos - bossPos).normalized * bulletForce, ForceMode2D.Impulse);
+                yield return new WaitForSeconds(.2f);
+            }
+            // Access the bullet's rigidbody and store it as rb
+            
+
+            //give the projectile the stats from the sepll
+            
+            //bullet.gameObject.layer = LayerMask.NameToLayer("EnemySpells");
+            //bullet.GetComponent<SpriteRenderer>().material.color = new Color(0.2f, 0.3f, 0.4f);
+
+            // Add force to the newly instantiated rb
+            
+        }
+    }
+
+    private void callShoot()
+    {
+        Debug.Log("here");
+        if (GameManager.i.gameActive == true)
+            StartCoroutine(Shoot());
+    }
+    private void callLightning()
+    {
+        if (GameManager.i.gameActive == true)
+            randomLightning();
+    }
+    private void callSpawnEnemies()
+    {
+        if (GameManager.i.gameActive == true)
+            spawnEnemies();
     }
 }

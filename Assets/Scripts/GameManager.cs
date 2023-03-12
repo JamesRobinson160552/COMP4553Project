@@ -27,6 +27,13 @@ public class GameManager : MonoBehaviour
     public Slider volumeSlider;
     public float volume = 1.0f;
     public float oldVolume;
+    public GameObject LightningSpell;
+    public GameObject BlastSpell;
+    public GameObject button;
+    public GameObject winScreen;
+    public bool reachedBoss = false;
+    
+
     
 
     //these tell the crow npc what to say.
@@ -37,9 +44,12 @@ public class GameManager : MonoBehaviour
     public bool playReflectDialog = false;
     public bool playWallDialog = false;
     public bool playKeyDialog = false;
+    public bool playBlastDialog = false;
     public bool playIntroductionDialog = false;
     public bool playCaveIntroDialog = false;
     public bool firstTimeSeeingCave = true;
+
+    public bool playerWon;
 
     public bool insideBossRoom = false;
 
@@ -75,6 +85,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if(playerWon == true)
+        //{
+        //    gameActive = false;
+        //    winScreen.SetActive(true);
+        //}
+
         if((GameObject.Find("Player").transform.position.y > -34) && !leftStartingZone)
         {
             StartCoroutine(GameObject.Find("Crow").GetComponent<Crow>().TalkToCrow());
@@ -90,6 +106,7 @@ public class GameManager : MonoBehaviour
         if(enemiesKilled == 2)
         {
             playIntroductionDialog = true; 
+            button.SetActive(true);
         }
 
         if(playIntroductionDialog == true || playCaveIntroDialog == true)
@@ -126,6 +143,9 @@ public class GameManager : MonoBehaviour
 
     public void ResetEnemies()
     {
+        insideBossRoom = false;
+        BlastSpell.SetActive(true);
+        LightningSpell.SetActive(true);
         DestroyAllEnemies();
         foreach (GameObject enemyGroup in enemyPrefabs)
         {

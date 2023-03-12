@@ -7,6 +7,7 @@ public class PickUpSpell : MonoBehaviour
     public bool lightning;
     public bool reflect;
     public bool wall;
+    public bool blast;
     public AudioSource pickupAudio;
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -26,6 +27,8 @@ public class PickUpSpell : MonoBehaviour
                 GameManager.i.playReflectDialog = true;
             if(wall)
                 GameManager.i.playWallDialog = true;
+            if(blast)
+                GameManager.i.playBlastDialog = true;
         }
     }
 

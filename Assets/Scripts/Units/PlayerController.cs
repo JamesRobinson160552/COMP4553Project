@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     int inputCounter;
 
     public GameManager gameManager;
-    public bool reachedBoss = false;
     public Vector3 spawnPosition;
     public FadePanel fadeScreen;
     public GameObject crow;
@@ -200,10 +199,10 @@ public class PlayerController : MonoBehaviour
     {
         deathSound.Play();
         gameManager.gameActive = false;
-        fadeScreen.FadeIn(2f);
+        fadeScreen.FadeIn(1f);
         yield return new WaitForSeconds(3f);
         spawnPosition = new Vector3(1.4f, -49.3f, 0);
-        if (reachedBoss)
+        if (GameManager.i.reachedBoss)
         {
             gameManager.EndBossMusic();
             spawnPosition = new Vector3(-60.0f, 12.0f, 0);
@@ -214,7 +213,7 @@ public class PlayerController : MonoBehaviour
         crow.transform.position = spawnPosition;
         transform.position = spawnPosition;
         yield return new WaitForSeconds(2f);
-        fadeScreen.FadeOut(2f);
+        fadeScreen.FadeOut(1f);
         gameManager.gameActive = true;
     }
 }
