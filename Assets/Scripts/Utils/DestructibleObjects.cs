@@ -29,15 +29,6 @@ public class DestructibleObjects : MonoBehaviour
             Destroy(collider.gameObject); //destroy projectile  
         }
 
-        collider = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.EnemySpellsLayer));
-        if(collider != null)
-        {
-            damage_ = collider.GetComponent<ProjectileStats>().getDamage();
-            currentHP_ -= damage_;
-            CameraShake.i.StopShake();
-            Destroy(collider.gameObject); //destroy projectile  
-        }
-
         collider = (Physics2D.OverlapCircle(transform.position, radius, GameLayers.i.LightningLayer));
         if(collider != null)
         {

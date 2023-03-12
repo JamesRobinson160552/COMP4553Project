@@ -11,6 +11,7 @@ public class FireBlastScript : MonoBehaviour, SpellBase
     public bool playerAccess;
     public int damage = 15;
     public string spellName = "Blast";
+    public string desc;
     public AudioSource blastSound;
 
     public float bulletForce = 5f;
@@ -26,7 +27,7 @@ public class FireBlastScript : MonoBehaviour, SpellBase
     { return spellName; }
 
     public string getDesc()
-    { return ""; }
+    { return desc; }
 
     public bool playerHasAccess()
     { return playerAccess; }

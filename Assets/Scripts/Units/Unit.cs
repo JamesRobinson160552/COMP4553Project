@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Unit : MonoBehaviour
 {
     [SerializeField] UnitBase unitBase_;
-    [SerializeField] string drop;
+    public string drop;
 
     public int currentHP { get; set;}
 
@@ -35,8 +35,12 @@ public class Unit : MonoBehaviour
 
         if(drop != "")
         {
-            dropObject = GameObject.Find(drop);
-            dropObject.SetActive(false);
+            //try{
+                dropObject = GameObject.Find(drop);
+                if(dropObject.GetComponent<SpellBase>().playerHasAccess() == false)
+                    dropObject.SetActive(false);
+            //}
+            //catch{}
         }
 
         if(healthBar != null)
@@ -155,10 +159,16 @@ public class Unit : MonoBehaviour
     {
         if(currentHP <= 0 && unitBase_.Name != "Plague") //Player respawns rather than being destroyed 
         {
-            if(drop != "")
+            if(dropObject != null)
             {
-                dropObject.SetActive(true);
-                dropObject.transform.position = transform.position;
+                //try{
+                    if(dropObject.GetComponent<SpellBase>().playerHasAccess() == false)
+                    {
+                        dropObject.SetActive(true);
+                        dropObject.transform.position = transform.position;
+                    }
+                //}
+                //catch {}
             }
             dying = true;
         }

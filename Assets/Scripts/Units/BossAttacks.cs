@@ -27,7 +27,6 @@ public class BossAttacks : MonoBehaviour
     private float lifeSpan = 5.0f;
     public float lifeRemaining;
     private float bossWallBuffer = 6.0f;
-    private bool oneWall = false;
 
     // Lighting Vars
     public GameObject lightningPrefab;
@@ -74,6 +73,7 @@ public class BossAttacks : MonoBehaviour
 
     private void Start()
     {
+        plr = GameObject.Find("Player");
         animator_ = GetComponent<BossAnimator>();
         lifeRemaining = lifeSpan;
         boss.GetComponent<Unit>().currentHP = 100;
@@ -84,14 +84,23 @@ public class BossAttacks : MonoBehaviour
     {
         if (GameManager.i.gameActive == true) {
             // For testing so there is one wall
-            if ((Input.GetKey(KeyCode.L)) && (onlyOnce == false)) {
-                GameManager.i.insideBossRoom = true;
-                plr.transform.position += new Vector3(0, -42, 0); 
+            //if ((Input.GetKey(KeyCode.L)) && (onlyOnce == false)) {
+            if((GameManager.i.insideBossRoom == true) && (onlyOnce == false)){
+                //GameManager.i.insideBossRoom = true;
+                fightTest = true;
                 onlyOnce= true;
             }
 
+            if(GameManager.i.insideBossRoom == false)
+            {
+                fightTest = false;
+            }   
+        
+
             burn(); // Burn attack, always active
             currentHP = boss.GetComponent<Unit>().currentHP;
+            if(currentHP <= 0)
+                GameManager.i.playerWon = true;
             //Debug.Log(maxHP.ToString());
             //Debug.Log(currentHP.ToString());
             //Debug.Log(reset.ToString());
@@ -99,6 +108,7 @@ public class BossAttacks : MonoBehaviour
             {
                 if (currentHP < (maxHP / 2))
                 {
+                    fightTest = true;
                     enterOnce = true;  // When drops below 50% will again enter action loop
                     //Debug.Log("EnterOnce True"); // Testing only
                     reset--;
@@ -106,7 +116,7 @@ public class BossAttacks : MonoBehaviour
             }
             //Debug.Log(currentHP.ToString());  
 
-            if (Input.GetKeyDown(KeyCode.K)) fightTest = true; // K is for testing
+            //if (Input.GetKeyDown(KeyCode.K)) fightTest = true; // K is for testing
 
             if ((fightTest==true) && (enterOnce==true))  
             {           
@@ -119,7 +129,7 @@ public class BossAttacks : MonoBehaviour
 
                 if (currentHP < (maxHP / 2))
                 {
-                    InvokeRepeating("callSpawnEnemies", 0.0f, 10f);
+                    InvokeRepeating("callSpawnEnemies", 0.0f, 15f);
                     InvokeRepeating("callLightning", 1.5f, 6.5f);
                     // Increase speed to make boss faster
                     enterOnce = false;
@@ -433,6 +443,7 @@ public class BossAttacks : MonoBehaviour
 
     private void callShoot()
     {
+        Debug.Log("here");
         if (GameManager.i.gameActive == true)
             StartCoroutine(Shoot());
     }
