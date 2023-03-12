@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d4f9b5507fbcd4caf893e5e73352ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  unitBase_: {fileID: 11400000, guid: 9ae5ef5c2920c50409266c2e2856b2e1, type: 2}
   drop: 
   healthBar: {fileID: 0}
   radius: 0.8

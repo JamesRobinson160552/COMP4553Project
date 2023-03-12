@@ -15,7 +15,7 @@ MonoBehaviour:
   name_: Frog
   level_: 0
   exp_: 0
-  maxHP_: 20
+  maxHP_: 25
   range_: 0
   hitBoxMultiplier_: 1.5
   baseDamage_: 5
