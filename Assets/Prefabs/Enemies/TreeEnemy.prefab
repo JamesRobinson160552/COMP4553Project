@@ -175,7 +175,7 @@ MonoBehaviour:
   shootDelay: 1
   castLoop: 0
   castTime: 1.25
-  damage: 5
+  damage: 10
   bulletForce: 10
   attackPrefab:
   - {fileID: 3956289644360299948, guid: a023a4ded82add44b8b1b50cf790a2cf, type: 3}
