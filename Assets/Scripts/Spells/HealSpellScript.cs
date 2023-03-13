@@ -38,7 +38,7 @@ public class HealSpellScript : MonoBehaviour, SpellBase
     { return spellActivate; }
 
     public int getDamage()
-    { return 5; }
+    { return 4; }
 
     public void castSpell()
     {

@@ -35,7 +35,7 @@ public class BossAttacks : MonoBehaviour
     private float BaseTime;
     private float castTime = 1.25f;
     private float castLoop = 0.0f;
-    private int lightningDmg = 20;
+    private int lightningDmg = 30;
 
     private GameObject lightning0;
     private GameObject lightning1;
@@ -49,7 +49,7 @@ public class BossAttacks : MonoBehaviour
 
     // Bullet
     public GameObject attackPrefab;
-    private int bulletDamage = 10;
+    private int bulletDamage = 20;
     private float bulletForce = 15.0f;
 
     public GameObject mushroomPrefab;
@@ -76,7 +76,7 @@ public class BossAttacks : MonoBehaviour
         plr = GameObject.Find("Player");
         animator_ = GetComponent<BossAnimator>();
         lifeRemaining = lifeSpan;
-        boss.GetComponent<Unit>().currentHP = 100;
+        boss.GetComponent<Unit>().currentHP = 200;
         maxHP = boss.GetComponent<Unit>().currentHP;
     }
 
@@ -122,14 +122,14 @@ public class BossAttacks : MonoBehaviour
             {           
                 if (currentHP >= (maxHP / 2)) // Change to > 50% Max Health
                 {
-                    InvokeRepeating("callShoot", 1.5f, 4f);
+                    InvokeRepeating("callShoot", 1.5f, 3.5f);
                     //InvokeRepeating("shieldUp", 1f, 9f);
                     enterOnce = false;
                 }
 
                 if (currentHP < (maxHP / 2))
                 {
-                    InvokeRepeating("callSpawnEnemies", 0.0f, 15f);
+                    InvokeRepeating("callSpawnEnemies", 0.0f, 12.5f);
                     InvokeRepeating("callLightning", 1.5f, 6.5f);
                     // Increase speed to make boss faster
                     enterOnce = false;
@@ -358,6 +358,11 @@ public class BossAttacks : MonoBehaviour
         lightningSprite1 = lightning1.GetComponentsInChildren<SpriteRenderer>();
         lightningSprite2 = lightning2.GetComponentsInChildren<SpriteRenderer>();
         lightningSprite3 = lightning3.GetComponentsInChildren<SpriteRenderer>();
+
+        lightning0.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning1.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning2.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning3.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
 
         lightningSprite0[1].enabled = false;
         lightningSprite1[1].enabled = false;

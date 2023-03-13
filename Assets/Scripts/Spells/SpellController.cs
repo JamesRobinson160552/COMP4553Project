@@ -23,6 +23,7 @@ public class SpellController : MonoBehaviour
     int currentPosition = 0;
     float timer =0;
     bool usedSpecial_;
+    public string spellName;
 
     public void Awake()
     {
@@ -38,6 +39,7 @@ public class SpellController : MonoBehaviour
     {
         //gets all children of ALL SPELLS game object, and puts them in a list
         allSpells.GetComponentsInChildren(spells);
+        spellName = "";
         //Debug.Log(spells.Count);
     }
 
@@ -60,10 +62,10 @@ public class SpellController : MonoBehaviour
             if(ComparingList(spells[i].getSpellActivate()) && spells[i].playerHasAccess()) 
             {
                 usedSpecial_ = true;
+                spellName = spells[i].getName();
                 Debug.Log(spells[i].getName());
                 icon.sprite = spells[i].getIcon();
             }
-
             //else
             //{
             //    icon.sprite = attack.getIcon();
@@ -132,5 +134,6 @@ public class SpellController : MonoBehaviour
             playerInputs_[i] = 'Z';
         }
         currentPosition = 0;
+        spellName = "";
     }
 }

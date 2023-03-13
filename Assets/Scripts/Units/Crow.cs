@@ -14,6 +14,7 @@ public class Crow : MonoBehaviour
     [SerializeField] List<string> afterLightningDialog;
     [SerializeField] List<string> afterReflectDialog;
     [SerializeField] List<string> afterWallDialog;
+    [SerializeField] List<string> afterBlastDialog;
     [SerializeField] List<string> introDialog;
     [SerializeField] List<string> firstTimeSeeingCave;
     [SerializeField] List<string> afterKeyPickup;
@@ -47,14 +48,14 @@ public class Crow : MonoBehaviour
         moveSpeed = GameObject.Find("Player").GetComponent<PlayerController>().currentMoveSpeed - 0.2f;
         direction_ = (target_ - transform.position).normalized;
 
-        if(GameManager.i.playLightningDialog || GameManager.i.playReflectDialog || GameManager.i.playWallDialog || GameManager.i.playKeyDialog)
+        if(GameManager.i.playLightningDialog || GameManager.i.playReflectDialog || GameManager.i.playWallDialog || GameManager.i.playKeyDialog || GameManager.i.playBlastDialog)
         {
             newDialog = true;
         }
 
         timer -= Time.deltaTime;
 
-        if(newDialog)
+        if(newDialog && talkable)
         {
             spaceRenderer.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 
@@ -129,6 +130,12 @@ public class Crow : MonoBehaviour
                 GameManager.i.playIntroductionDialog = false;
                 dialog.lines = introDialog;
                 GameManager.i.enemiesKilled++;
+            }
+
+            else if(GameManager.i.playBlastDialog)
+            {
+                GameManager.i.playBlastDialog = false;
+                dialog.lines = afterBlastDialog;
             }
 
             else if(GameManager.i.playKeyDialog)

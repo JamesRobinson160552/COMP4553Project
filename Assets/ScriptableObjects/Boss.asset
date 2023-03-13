@@ -15,7 +15,7 @@ MonoBehaviour:
   name_: Molten Man
   level_: 0
   exp_: 0
-  maxHP_: 10
+  maxHP_: 200
   range_: 0
   hitBoxMultiplier_: 1
   baseDamage_: 5

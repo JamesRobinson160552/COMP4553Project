@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             confirmInteractAudio.Play();
         }
 
-        if(Input.GetMouseButton(1) && timeBetweenClicks <= 0)//(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetMouseButton(1) && timeBetweenClicks <= 0 && GameManager.i.leftStartingZone)//(Input.GetKeyDown(KeyCode.R))
         {
             timeBetweenClicks = 0.25f;
             isLoadingSpell_ = !(isLoadingSpell_);
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
                 }
         }
 
-        if(Input.GetMouseButton(0) && !isLoadingSpell_ && timeRemaining_ <= 0.25 && gameManager.gameActive) //cannot shoot if loading spell
+        if(Input.GetMouseButton(0) && !isLoadingSpell_ && timeRemaining_ <= 0.15 && gameManager.gameActive) //cannot shoot if loading spell
         {
             character.Animator.AttackPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             spellController_.CheckForSpells();
