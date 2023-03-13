@@ -87,6 +87,11 @@ public class ProjectileStats : MonoBehaviour
                 gameObject.layer = LayerMask.NameToLayer("PlayerSpells");
             }
 
+            if(GameManager.i.insideBossRoom)
+            {
+                damage = damage/2;
+            }
+
             GetComponent<Rigidbody2D>().velocity =  GetComponent<Rigidbody2D>().velocity * -1;
             GetComponent<SpriteRenderer>().flipY = true;
 

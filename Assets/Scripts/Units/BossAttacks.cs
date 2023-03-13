@@ -129,7 +129,7 @@ public class BossAttacks : MonoBehaviour
 
                 if (currentHP < (maxHP / 2))
                 {
-                    InvokeRepeating("callSpawnEnemies", 0.0f, 12.5f);
+                    InvokeRepeating("callSpawnEnemies", 0.0f, 14f);
                     InvokeRepeating("callLightning", 1.5f, 6.5f);
                     // Increase speed to make boss faster
                     enterOnce = false;
