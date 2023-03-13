@@ -70,6 +70,13 @@ public class BossAttacks : MonoBehaviour
     bool fightTest = false; // Press K to activate the test
     int reset = 1; // amount of times you can reset and go back into the loop
 
+    //Audio
+    AudioSource bossAudio;
+    [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip lightningStartSound;
+    [SerializeField] AudioClip lightningStrikeSound;
+    [SerializeField] AudioClip spawnMushroomSound;
+
 
     private void Start()
     {
@@ -78,6 +85,7 @@ public class BossAttacks : MonoBehaviour
         lifeRemaining = lifeSpan;
         boss.GetComponent<Unit>().currentHP = 200;
         maxHP = boss.GetComponent<Unit>().currentHP;
+        bossAudio = GetComponent<AudioSource>();
     }
 
     public void Update()
@@ -194,6 +202,7 @@ public class BossAttacks : MonoBehaviour
                     if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f))
                     {
                         animator_.ChangeIsAttacking(false);
+                        bossAudio.PlayOneShot(lightningStrikeSound, 1.0f);
 
                         if (lightning0 != null)
                         {
@@ -423,6 +432,7 @@ public class BossAttacks : MonoBehaviour
             // Instantiates bullet at location of aimer
             for (int i = 0; i < 3; i++)
             {
+                bossAudio.PlayOneShot(attackSound, 0.8f);
                 Vector3 plrPos = new Vector3(plr.transform.position.x, plr.transform.position.y, plr.transform.position.z);
                 Vector3 bossPos = new Vector3(boss.transform.position.x, boss.transform.position.y, boss.transform.position.z);
                 GameObject bullet = Instantiate(attackPrefab, transform.position, attackPrefab.transform.rotation);
@@ -446,20 +456,29 @@ public class BossAttacks : MonoBehaviour
         }
     }
 
+    //Buffer functions for attacks
     private void callShoot()
     {
-        Debug.Log("here");
         if (GameManager.i.gameActive == true)
+        {
             StartCoroutine(Shoot());
+        }
     }
+
     private void callLightning()
     {
         if (GameManager.i.gameActive == true)
+        {
             randomLightning();
+            bossAudio.PlayOneShot(lightningStartSound, 0.6f);
+        }
     }
     private void callSpawnEnemies()
     {
         if (GameManager.i.gameActive == true)
+        {
             spawnEnemies();
+            bossAudio.PlayOneShot(spawnMushroomSound, 1.0f);
+        }
     }
 }
