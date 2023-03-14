@@ -24,6 +24,7 @@ public class Unit : MonoBehaviour
     int frames = 0;
     GameObject dropObject;
     [SerializeField] AudioSource playerHitAudio;
+    [SerializeField] GameManager gameManager;
 
     List<SpriteRenderer> SpriteRenderers_ = new List<SpriteRenderer>();
 
@@ -32,6 +33,7 @@ public class Unit : MonoBehaviour
         currentHP = unitBase_.MaxHP;
         hitbox = unitBase_.HitBoxMultiplier;
         GetComponentsInChildren(SpriteRenderers_);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if(drop != "")
         {
@@ -159,6 +161,11 @@ public class Unit : MonoBehaviour
     {
         if(currentHP <= 0 && unitBase_.Name != "Plague") //Player respawns rather than being destroyed 
         {
+            if (unitBase_.Name == "Molten Man")
+            {
+                gameManager.EndGame();
+            }
+
             if(dropObject != null)
             {
                 //try{

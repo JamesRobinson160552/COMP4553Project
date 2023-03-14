@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
         menuAudio.PlayOneShot(confirmSound);
     }
 
-    public void endGame()
+    public void EndGame()
     {
         endScreen.SetActive(true);
         gameActive = false;
