@@ -15,6 +15,9 @@ public class EnemyLightning : MonoBehaviour
     float distanceAboveMouse = 12f;
     int counter =0;
     Vector3 spawn;
+    [SerializeField] AudioSource lightningAudio;
+    [SerializeField] AudioClip startSound;
+    [SerializeField] AudioClip strikeSound;
 
     public void SetData(bool cast, int setDamage, float loop, float time, GameObject lightningPrefab)
     {
@@ -37,6 +40,7 @@ public class EnemyLightning : MonoBehaviour
             //GameManager.i.lightningSpawned = true;
             if (BaseTimeSet == false)
             {
+                lightningAudio.PlayOneShot(startSound, 0.7f);
                 BaseTime = Time.realtimeSinceStartup; // Create spell cast start time
                 BaseTimeSet = true;
             }
@@ -57,6 +61,7 @@ public class EnemyLightning : MonoBehaviour
                 if (Time.realtimeSinceStartup > (BaseTime + castTime + .1f)) {
                     //damage = 2;
                     lightning.GetComponent<ProjectileStats>().SetDamage(damage);
+                    lightningAudio.PlayOneShot(strikeSound, 0.5f);
                     lightningCast = false;
                     BaseTimeSet = false;
                     castLoop = 0.0f;
