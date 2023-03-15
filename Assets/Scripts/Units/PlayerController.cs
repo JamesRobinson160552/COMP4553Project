@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public StaminaBar staminaBar;
     public float currentMoveSpeed;
     public float stamina;
+    float reganStaminaCooldown;
     public Unit playerStats;
     bool isResting = false;
     bool isSprinting;
@@ -141,20 +142,31 @@ public class PlayerController : MonoBehaviour
                     movement = new Vector2(0.70f, -0.70f);
 
                 //Check Sprint //////////////////
+                Debug.Log(reganStaminaCooldown);
                 if (Input.GetKey(KeyCode.LeftShift) && stamina > 0.0f && (!isResting))
                 {
                     Debug.Log("Sprinting???");
                     Sprint();
+                    reganStaminaCooldown = 1.0f;
                 }
-                else if (stamina <= 0)
+                else if (stamina <= 0 && !isResting) //dont want to reenter this while already resting
                 {
+                    reganStaminaCooldown -= Time.deltaTime;
                     Debug.Log("rest");
+                    //reganStaminaCooldown = 2.0f;
                     StartCoroutine(Rest());
+                }
+                else if(isResting)
+                {
+                    currentMoveSpeed = moveSpeed * 0.4f;
                 }
                 else if (!isResting)
                 {
+                    reganStaminaCooldown -= Time.deltaTime;
                     Debug.Log("walk");
                     Walk();
+                    if(reganStaminaCooldown <= 0)
+                        StaminaRegen();
                 }
                 ////////////////////////////////////
 
@@ -254,6 +266,10 @@ public class PlayerController : MonoBehaviour
     {
         isSprinting = false;
         currentMoveSpeed = moveSpeed;
+    }
+
+    void StaminaRegen()
+    {
         if (stamina >= 10)
         {
             stamina = 10;
@@ -267,11 +283,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator Rest()
     {
         isResting = true;
-        currentMoveSpeed = moveSpeed * 0.4f;
-        yield return new WaitForSeconds(2);
+        //currentMoveSpeed = moveSpeed * 0.4f;
+        yield return new WaitForSeconds(4f);
         isResting = false;
         stamina = 0.1f;
-        Walk();
-        yield return new WaitForSeconds(1);
+        reganStaminaCooldown = 0f;
+        //StaminaRegen();
+        //yield return new WaitForSeconds(1f);
     }
 }
