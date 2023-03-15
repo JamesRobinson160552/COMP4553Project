@@ -10,16 +10,17 @@ public class EnemyLightning : MonoBehaviour
     float BaseTime;
     float castLoop = 0.0f;
     float castTime = 1.25f;
+    int growth;
     GameObject lightning;
     SpriteRenderer[] lightningSprite;
     float distanceAboveMouse = 12f;
-    int counter =0;
+    int counter = 0;
     Vector3 spawn;
     [SerializeField] AudioSource lightningAudio;
     [SerializeField] AudioClip startSound;
     [SerializeField] AudioClip strikeSound;
 
-    public void SetData(bool cast, int setDamage, float loop, float time, GameObject lightningPrefab)
+    public void SetData(bool cast, int setDamage, float loop, float time, GameObject lightningPrefab, int growthMultiplier=3)
     {
         spawn = transform.position;
         lightningCast = cast;
@@ -30,6 +31,7 @@ public class EnemyLightning : MonoBehaviour
         lightningSprite = lightning.GetComponentsInChildren<SpriteRenderer>();
         lightning.transform.localScale = new Vector3(1.25f, 1.25f, 1f);
         lightningSprite[1].enabled = false;
+        growth = growthMultiplier;
         lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.03f);
     }
 
@@ -53,7 +55,7 @@ public class EnemyLightning : MonoBehaviour
                 {
                     // Make loop bigger and increase size of spell
                     castLoop += .1f;
-                    lightning.transform.localScale = new Vector3(castLoop*3, castLoop*3, 1);
+                    lightning.transform.localScale = new Vector3(castLoop*growth, castLoop*growth, 1);
                 }
             }
             if (Time.realtimeSinceStartup > (BaseTime + castTime))

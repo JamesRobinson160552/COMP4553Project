@@ -28,6 +28,11 @@ public class BossAttacks : MonoBehaviour
     public float lifeRemaining;
     private float bossWallBuffer = 6.0f;
 
+    // check for walls
+    private float checkForWallCooldown = 0.0f;
+    private float timerToWallResponse = 1.0f;
+    private bool castTargetedLightning = false;
+
     // Lighting Vars
     public GameObject lightningPrefab;
     private bool lightningCast = false;
@@ -141,7 +146,30 @@ public class BossAttacks : MonoBehaviour
                     InvokeRepeating("callLightning", 1.5f, 6.5f);
                     // Increase speed to make boss faster
                     enterOnce = false;
-                }        
+                }     
+            }
+
+            if(GameObject.Find("WallSpell(Clone)") && checkForWallCooldown <= 0 && GameManager.i.insideBossRoom) //checking is wall is placed
+            {
+                timerToWallResponse = UnityEngine.Random.Range(1f, 2f); //random response time
+                checkForWallCooldown = 6.0f;
+                castTargetedLightning = true;
+            }   
+
+            if(checkForWallCooldown > 0)
+            {
+                checkForWallCooldown -= Time.deltaTime;
+            }
+
+            if(timerToWallResponse > 0 && GameManager.i.insideBossRoom)
+            {
+                timerToWallResponse -= Time.deltaTime;
+            }
+
+            if(timerToWallResponse <= 0 && castTargetedLightning)
+            {
+                TargetedLightning();
+                castTargetedLightning = false;
             }
 
             // Lightning spell specific
@@ -382,6 +410,14 @@ public class BossAttacks : MonoBehaviour
 
         // Go through proper lighting spell cast
         lightningCast = true;
+    }
+
+    void TargetedLightning()
+    {
+        GameObject lightning = Instantiate(lightningPrefab, plr.transform.position, lightningPrefab.transform.rotation);
+        lightning.GetComponent<ProjectileStats>().SetDestructTimer(castTime + 0.2f);
+        lightning.GetComponent<ProjectileStats>().CauseCameraShake(true, true, 0.01f);
+        GetComponent<EnemyLightning>().SetData(true, lightningDmg, castLoop, castTime, lightning, 5);
     }
 
     void burn()

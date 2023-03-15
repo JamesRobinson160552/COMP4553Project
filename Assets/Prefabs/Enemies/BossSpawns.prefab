@@ -149,13 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d4f9b5507fbcd4caf893e5e73352ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitBase_: {fileID: 11400000, guid: d044794b6160e3849ade1461ff954d99, type: 2}
+  unitBase_: {fileID: 11400000, guid: 6c5318a8f3b45ff4ba42414aa7c5654a, type: 2}
   drop: 
   healthBar: {fileID: 0}
   radius: 0.8
   hitcoolDown: 0.2
   blinkSpeed: 0
   playerHitAudio: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!114 &9071353740467532304
 MonoBehaviour:
   m_ObjectHideFlags: 0

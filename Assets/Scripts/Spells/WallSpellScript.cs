@@ -65,6 +65,5 @@ public class WallSpellScript : MonoBehaviour, SpellBase
         GameObject wall = Instantiate(spellPrefabs[0], mousePos, Quaternion.Euler(angleVector));
         wall.GetComponent<WallAnimator>().breakingPoint = 2f;
         wall.GetComponent<DestroyMe>().SetLife(lifeSpan);
-
     }
 }

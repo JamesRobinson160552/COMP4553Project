@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
     public bool showingDialog = false;
     public bool lightningSpawned = false;
+    //public bool wallSpawned = false;
     public SettingMenuText menuText;
     public AudioSource mainAudio;
     public AudioSource bossAudio;

@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 6920760140733220663}
   - component: {fileID: 6920760140733220552}
   - component: {fileID: 3041760814628715839}
+  - component: {fileID: 4650466924464338907}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Noisy
@@ -441,6 +442,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4650466924464338907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920760140733220668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb2a0f8242de8947bcaeceeb98df995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightningAudio: {fileID: 3041760814628715839}
+  startSound: {fileID: 8300000, guid: d1afd3f4d23c24f418ffc315afb04965, type: 3}
+  strikeSound: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
 --- !u!1 &6920760141014542292
 GameObject:
   m_ObjectHideFlags: 0
