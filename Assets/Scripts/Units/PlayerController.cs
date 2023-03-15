@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
@@ -12,7 +13,10 @@ public class PlayerController : MonoBehaviour
     Character character;
     public HealthBar healthBar;
     public float currentMoveSpeed;
+    public float stamina;
     public Unit playerStats;
+    bool isResting = false;
+    bool isSprinting;
     
     float timeBetweenClicks;
     float timeRemaining_;
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour
         spellController_ = GetComponent<SpellController>();
         playerStats = GetComponent<Unit>();
         isLoadingSpell_ = false;
+        stamina = 10;
     }
 
     private void Update()
@@ -65,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 }
         }
 
-        if(Input.GetMouseButton(0) && !isLoadingSpell_ && timeRemaining_ <= 0.15 && gameManager.gameActive) //cannot shoot if loading spell
+        if(Input.GetMouseButton(0) && !isLoadingSpell_ && timeRemaining_ <= 0.15 && gameManager.gameActive && (!isSprinting)) //cannot shoot if loading spell or sprinting (or resting)
         {
             character.Animator.AttackPos(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             spellController_.CheckForSpells();
@@ -131,6 +136,24 @@ public class PlayerController : MonoBehaviour
 
                 if(movement.x == 1 && movement.y == -1) 
                     movement = new Vector2(0.70f, -0.70f);
+
+                //Check Sprint //////////////////
+                if (Input.GetKey(KeyCode.LeftShift) && stamina > 0.0f && (!isResting))
+                {
+                    Debug.Log("Sprinting???");
+                    Sprint();
+                }
+                else if (stamina <= 0)
+                {
+                    Debug.Log("rest");
+                    StartCoroutine(Rest());
+                }
+                else if (!isResting)
+                {
+                    Debug.Log("walk");
+                    Walk();
+                }
+                ////////////////////////////////////
 
                 rb.MovePosition(rb.position + movement * currentMoveSpeed * Time.fixedDeltaTime);
                 //tells character script if unit is moving or not
@@ -215,5 +238,37 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         fadeScreen.FadeOut(1f);
         gameManager.gameActive = true;
+    }
+
+    void Sprint()
+    {
+        isSprinting = true;
+        currentMoveSpeed = moveSpeed * 1.5f;
+        stamina -= 1.5f * Time.deltaTime;
+    }
+
+    void Walk()
+    {
+        isSprinting = false;
+        currentMoveSpeed = moveSpeed;
+        if (stamina >= 10)
+        {
+            stamina = 10;
+        }
+        else
+        {
+            stamina += 2.0f * Time.deltaTime;
+        }
+    }
+
+    IEnumerator Rest()
+    {
+        isResting = true;
+        currentMoveSpeed = moveSpeed * 0.4f;
+        yield return new WaitForSeconds(2);
+        isResting = false;
+        stamina = 0.1f;
+        Walk();
+        yield return new WaitForSeconds(1);
     }
 }
