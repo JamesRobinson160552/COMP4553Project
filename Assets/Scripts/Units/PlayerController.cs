@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     SpellController spellController_;
     Character character;
     public HealthBar healthBar;
+    public StaminaBar staminaBar;
     public float currentMoveSpeed;
     public float stamina;
     public Unit playerStats;
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour
         // Input
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        staminaBar.setStamina(stamina);
 
         if (playerStats.currentHP <= 0)
         {
