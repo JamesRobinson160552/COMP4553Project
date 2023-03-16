@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossBehaviour : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class BossBehaviour : MonoBehaviour
     int counter=0;
     bool walking;
     HealthBar healthBar;
+    StaminaBar staminaBar;
+    float ultimateAttack = 30f;
+    float timer2 = 30f;
 
     private void Awake()
     {
@@ -28,10 +32,11 @@ public class BossBehaviour : MonoBehaviour
     private void Start()
     {
         healthBar = GameObject.Find("Canvas").GetComponentInChildren<HealthBar>();//transform.Find("UI").gameObject.transform.Find("BossHud").GetComponent<HealthBar>();
-        Debug.Log(healthBar.gameObject.name);
+        staminaBar = GameObject.Find("Canvas").GetComponentInChildren<StaminaBar>();
+        staminaBar.gameObject.GetComponent<Slider>().maxValue = ultimateAttack;
+        //Debug.Log(healthBar.gameObject.name);
         healthBar.gameObject.SetActive(false);
-        if(healthBar == null)
-            Debug.Log("not found");
+        staminaBar.gameObject.SetActive(false);
         rb = gameObject.GetComponent<Rigidbody2D>();
         target_ = GameObject.Find("Player").transform;
         moveSpeed = unit_.GetUnitBase.MoveSpeed;
@@ -46,11 +51,45 @@ public class BossBehaviour : MonoBehaviour
         }
 
         healthBar.setHealth(GetComponent<Unit>().currentHP);
+        //if(timer2 != prevFrameTimer)
+        //{
+        //    staminaBar.setStamina(currentValue);
+        //    currentValue += 1;
+        //    if(currentValue == ultimateAttack)
+        //    {
+        //        currentValue = 0f;
+        //        timer2 = 0f;
+        //    }
+        //    Debug.Log(currentValue);
+        //}
+        if(GetComponent<Unit>().currentHP <= GetComponent<BossAttacks>().maxHP/2)
+        {
+            timer2 -= Time.deltaTime;
+            Debug.Log(updateTimer(timer2));
+            staminaBar.setStamina(30 - updateTimer(timer2));
+            if(updateTimer(timer2) == 0)
+            {
+                timer2 = ultimateAttack;
+            }
+        }
+
 
         if(GameManager.i.insideBossRoom)
         {
             healthBar.gameObject.SetActive(true);
+            staminaBar.gameObject.SetActive(true);
         }
+    }
+
+    private int updateTimer(float currentTime)  //THIS IS HOW YOU MAKE REAL TIME COUNTERS!!!!!!    
+    {
+        //if(currentTime)
+        currentTime += 1;
+        Debug.Log(currentTime);
+
+        int returnValue = Mathf.FloorToInt(currentTime % 60); 
+
+        return returnValue;
     }
 
     private void FixedUpdate()

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public bool reachedBoss = false;
     public HealthBar healthBar;
+    public StaminaBar staminaBar;
     
 
     
@@ -155,6 +156,7 @@ public class GameManager : MonoBehaviour
         }
         //turn on boss health  bar so when boss respawns it will see it
         healthBar.gameObject.SetActive(true);
+        staminaBar.gameObject.SetActive(true);
     }
     
     public void SetVolume()

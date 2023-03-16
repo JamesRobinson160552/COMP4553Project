@@ -257,6 +257,7 @@ MonoBehaviour:
   lightningPrefab: {fileID: 1482005814850497052, guid: 2ac7886345da91f48bf2e51ed35a0b88, type: 3}
   attackPrefab: {fileID: 3956289644360299948, guid: a023a4ded82add44b8b1b50cf790a2cf, type: 3}
   mushroomPrefab: {fileID: 3535699517085402702, guid: 8120e53117da8334c84a5e652f2070ae, type: 3}
+  maxHP: 0
   attackSound: {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
   lightningStartSound: {fileID: 8300000, guid: d1afd3f4d23c24f418ffc315afb04965, type: 3}
   lightningStrikeSound: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
@@ -2701,7 +2702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2442582929678570037, guid: 006a4d4314673cc448e2793829237d20, type: 3}
       propertyPath: drop
-      value: Lightning
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7017624373907852478, guid: 006a4d4314673cc448e2793829237d20, type: 3}
       propertyPath: m_RootOrder

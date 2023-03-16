@@ -67,7 +67,7 @@ public class BossAttacks : MonoBehaviour
     bool onlyOnce = false;
 
     // Boss Attributes
-    int maxHP;
+    public int maxHP;
     int currentHP;
 
     // Boss Logic
