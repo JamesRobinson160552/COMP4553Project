@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public Unit playerStats;
     bool isResting = false;
     bool isSprinting;
+    bool respawning = false;
     
     float timeBetweenClicks;
     float timeRemaining_;
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
         staminaBar.setStamina(stamina);
 
-        if (playerStats.currentHP <= 0)
+        if (playerStats.currentHP <= 0 && !respawning) //adding this bool check is all ive done
         {
             StartCoroutine(Respawn());
         }
@@ -142,17 +143,17 @@ public class PlayerController : MonoBehaviour
                     movement = new Vector2(0.70f, -0.70f);
 
                 //Check Sprint //////////////////
-                Debug.Log(reganStaminaCooldown);
+                //Debug.Log(reganStaminaCooldown);
                 if (Input.GetKey(KeyCode.LeftShift) && stamina > 0.0f && (!isResting))
                 {
-                    Debug.Log("Sprinting???");
+                    //Debug.Log("Sprinting???");
                     Sprint();
                     reganStaminaCooldown = 1.0f;
                 }
                 else if (stamina <= 0 && !isResting) //dont want to reenter this while already resting
                 {
                     reganStaminaCooldown -= Time.deltaTime;
-                    Debug.Log("rest");
+                    //Debug.Log("rest");
                     //reganStaminaCooldown = 2.0f;
                     StartCoroutine(Rest());
                 }
@@ -163,7 +164,7 @@ public class PlayerController : MonoBehaviour
                 else if (!isResting)
                 {
                     reganStaminaCooldown -= Time.deltaTime;
-                    Debug.Log("walk");
+                    //Debug.Log("walk");
                     Walk();
                     if(reganStaminaCooldown <= 0)
                         StaminaRegen();
@@ -235,11 +236,14 @@ public class PlayerController : MonoBehaviour
     //Resets enemies and sends player to spawn location with full health
     IEnumerator Respawn()
     {
+        Debug.Log("im valled");
+        respawning = true;
         deathSound.Play();
         gameManager.gameActive = false;
         fadeScreen.FadeIn(1f);
         yield return new WaitForSeconds(3f);
         spawnPosition = new Vector3(1.4f, -49.3f, 0);
+        Debug.Log(spawnPosition);
         if (GameManager.i.reachedBoss)
         {
             gameManager.EndBossMusic();
@@ -253,6 +257,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         fadeScreen.FadeOut(1f);
         gameManager.gameActive = true;
+        respawning = false;
     }
 
     void Sprint()
@@ -265,7 +270,11 @@ public class PlayerController : MonoBehaviour
     void Walk()
     {
         isSprinting = false;
-        currentMoveSpeed = moveSpeed;
+
+        if(timeRemaining_ > 0)
+            currentMoveSpeed = moveSpeed/2;
+        else
+            currentMoveSpeed = moveSpeed;
     }
 
     void StaminaRegen()

@@ -2701,7 +2701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2442582929678570037, guid: 006a4d4314673cc448e2793829237d20, type: 3}
       propertyPath: drop
-      value: 
+      value: Lightning
       objectReference: {fileID: 0}
     - target: {fileID: 7017624373907852478, guid: 006a4d4314673cc448e2793829237d20, type: 3}
       propertyPath: m_RootOrder

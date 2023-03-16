@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public GameObject button;
     public GameObject winScreen;
     public bool reachedBoss = false;
+    public HealthBar healthBar;
     
 
     
@@ -152,6 +153,8 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(enemyGroup, enemyGroup.transform.position, enemyGroup.transform.rotation);
         }
+        //turn on boss health  bar so when boss respawns it will see it
+        healthBar.gameObject.SetActive(true);
     }
     
     public void SetVolume()

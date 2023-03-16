@@ -16,6 +16,7 @@ public class BossBehaviour : MonoBehaviour
     float timer; 
     int counter=0;
     bool walking;
+    HealthBar healthBar;
 
     private void Awake()
     {
@@ -26,6 +27,11 @@ public class BossBehaviour : MonoBehaviour
 
     private void Start()
     {
+        healthBar = GameObject.Find("Canvas").GetComponentInChildren<HealthBar>();//transform.Find("UI").gameObject.transform.Find("BossHud").GetComponent<HealthBar>();
+        Debug.Log(healthBar.gameObject.name);
+        healthBar.gameObject.SetActive(false);
+        if(healthBar == null)
+            Debug.Log("not found");
         rb = gameObject.GetComponent<Rigidbody2D>();
         target_ = GameObject.Find("Player").transform;
         moveSpeed = unit_.GetUnitBase.MoveSpeed;
@@ -37,6 +43,13 @@ public class BossBehaviour : MonoBehaviour
         {
             direction_ = (target_.position - transform.position).normalized;
             moveDirection_ = direction_;
+        }
+
+        healthBar.setHealth(GetComponent<Unit>().currentHP);
+
+        if(GameManager.i.insideBossRoom)
+        {
+            healthBar.gameObject.SetActive(true);
         }
     }
 
