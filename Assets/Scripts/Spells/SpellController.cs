@@ -25,6 +25,10 @@ public class SpellController : MonoBehaviour
     bool usedSpecial_;
     public string spellName;
 
+    [SerializeField] AudioSource spellConfirmAudio;
+    [SerializeField] AudioClip succesSound;
+    [SerializeField] AudioClip failureSound;
+
     public void Awake()
     {
         //intilize list
@@ -61,6 +65,7 @@ public class SpellController : MonoBehaviour
         {
             if(ComparingList(spells[i].getSpellActivate()) && spells[i].playerHasAccess()) 
             {
+                spellConfirmAudio.PlayOneShot(succesSound);
                 usedSpecial_ = true;
                 spellName = spells[i].getName();
                 Debug.Log(spells[i].getName());
@@ -90,6 +95,7 @@ public class SpellController : MonoBehaviour
         
         if(usedSpecial_ == false)
         {
+            spellConfirmAudio.PlayOneShot(failureSound);
             timer = 0.25f;
             attack.castSpell();
             Debug.Log("basic spell");
