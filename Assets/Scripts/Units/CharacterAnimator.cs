@@ -53,7 +53,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         GetComponentsInChildren(SpriteRenderers_);
 
-        if(SpriteRenderers_.Count > 1) //used when arms are seperate from body
+        if(SpriteRenderers_.Count > 1) //used when arms are seperate from body, arms handled by second renderer
         {
             walkLeftArmAnim_ = new SpriteAnimator(walkLeftArmSprites, SpriteRenderers_[1]);
             walkRightArmAnim_ = new SpriteAnimator(walkRightArmSprites, SpriteRenderers_[1]);
@@ -63,28 +63,21 @@ public class CharacterAnimator : MonoBehaviour
         
             attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[1]);
             attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[1]);
-        }
-
-        else if(hasAttackAnim_) //when there is 1 sprite in both body and arm are included
+        } else //else arms anims are set to the body anims
         {
             walkLeftArmAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
             walkRightArmAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
 
             castLeftAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
             castRightAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
+        }
 
+        if(hasAttackAnim_ && SpriteRenderers_.Count == 1) //when there is 1 sprite in both body and arm are included + has attack anim
+        {
             attackLeft_ = new SpriteAnimator(attackLeftSprites, SpriteRenderers_[0]);
             attackRight_ = new SpriteAnimator(attackRightSprites, SpriteRenderers_[0]);
-        }
-
-        else
+        } else //no attack anims
         {
-            walkLeftArmAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
-            walkRightArmAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
-
-            castLeftAnim_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
-            castRightAnim_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
-        
             attackLeft_ = new SpriteAnimator(walkLeftSprites, SpriteRenderers_[0]);
             attackRight_ = new SpriteAnimator(walkRightSprites, SpriteRenderers_[0]);
         }

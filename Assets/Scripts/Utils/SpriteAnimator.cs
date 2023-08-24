@@ -11,6 +11,7 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
     float frameRate;
     public int currentFrame;
     public float timer;
+    public bool animationLoopComplete;
 
     public SpriteAnimator(List<Sprite> frames, SpriteRenderer spriteRenderer, float frameRate=0.16f)
     {
@@ -32,7 +33,7 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
         timer += Time.deltaTime;
         if (timer > frameRate)
         {
-            currentFrame = (currentFrame + 1) % frames.Count; //resets animation loop when complete\
+            currentFrame = (currentFrame + 1) % frames.Count; //resets animation loop when complete
 
 
             //frame 0 is idle, so we want to skip that
@@ -43,6 +44,15 @@ public class SpriteAnimator //class to render ANYTHING ANYYYYYY
 
             spriteRenderer.sprite = frames[currentFrame]; //displays current frame
             timer -= frameRate;
+
+            //scripts can check if the current anim is done and do something else
+            if(0 == (currentFrame + 1) % frames.Count)
+            {
+                Debug.Log("complete");
+                animationLoopComplete = true;
+            }
+            else 
+                animationLoopComplete = false;
         }
     }
 
